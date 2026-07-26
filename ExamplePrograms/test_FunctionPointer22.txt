@@ -1,0 +1,86 @@
+struct ArithmeticPointer
+{
+    funcPointer : int[int, int];
+}
+
+struct ArithmeticFuncPointerArray
+{
+    add : ArithmeticPointer;
+    subtract : ArithmeticPointer;
+    divide : ArithmeticPointer;
+    multiply : ArithmeticPointer;
+}
+
+function main : int ()
+{
+    result1 : int;
+    result2 : int;
+    result3 : int;
+    result4 : int;
+    result5 : int;
+
+    result1 = callFunctionPointer(0, 25, 5);
+    result2 = callFunctionPointer(1, 25, 5);
+    result3 = callFunctionPointer(2, 25, 5);
+    result4 = callFunctionPointer(3, 25, 5);
+    result5 = callFunctionPointer(4, 25, 5);
+
+    yesOrNo : int;
+    if (result1 == 30 && result2 == 20 && result3 == 5 && result4 == 125 && result5 == 30)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function add : int (n : int, m : int) 
+{
+    return n + m;
+}
+
+function subtract : int (n : int, m : int) 
+{
+    return n - m;
+}
+
+function divide : int (n : int, m : int)
+{
+    return n / m;
+}
+
+function multiply : int (n : int, m : int)
+{
+    return n * m;
+}
+
+function callFunctionPointer : int (funcPointerChoice : int, n : int, m : int)
+{
+    pointerToFuncPointer : @ArithmeticPointer;
+    functionArray : ArithmeticFuncPointerArray;
+    
+    functionArray = createFuncPointerArray();
+    pointerToFuncPointer = &functionArray;
+    
+    if (funcPointerChoice >= 0 && funcPointerChoice <= 3)
+    {
+        return pointerToFuncPointer[funcPointerChoice].funcPointer(n, m);
+    }
+    else
+    {
+        return pointerToFuncPointer[0].funcPointer(n, m);
+    }
+}
+
+function createFuncPointerArray : ArithmeticFuncPointerArray ()
+{
+    array : ArithmeticFuncPointerArray;
+    array.add.funcPointer = &add;
+    array.subtract.funcPointer = &subtract;
+    array.divide.funcPointer = &divide;
+    array.multiply.funcPointer = &multiply;
+    return array;
+}

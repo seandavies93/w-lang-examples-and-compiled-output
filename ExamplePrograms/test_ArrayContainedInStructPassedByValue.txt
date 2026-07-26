@@ -1,0 +1,44 @@
+struct example
+{
+    integers : int{3};
+    final : int;
+}
+
+function main : int ()
+{
+    var1 : example;
+
+    var1.integers[0] = 1;
+    var1.integers[1] = 2;
+    var1.integers[2] = 3;
+    var1.final = 4;
+
+    internalSum : int;
+    internalSum = mutateInternal(var1);
+
+    yesOrNo : int;
+
+    if (
+        var1.integers[0] == 1 && 
+        var1.integers[1] == 2 && 
+        var1.integers[2] == 3 && 
+        var1.final == 4 && 
+        internalSum == 40)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function mutateInternal : int (structureWithArray : example)
+{
+    structureWithArray.integers[0] = 10;
+    structureWithArray.integers[1] = 10;
+    structureWithArray.integers[2] = 10;
+    structureWithArray.final = 10;
+    return structureWithArray.integers[0] + structureWithArray.integers[1] + structureWithArray.integers[2] + structureWithArray.final;
+}

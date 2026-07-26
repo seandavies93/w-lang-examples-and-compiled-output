@@ -1,0 +1,28 @@
+function main : int ()
+{
+    value1 : int;
+    value2 : int;
+
+    value1 = 8;
+    value2 = 6;
+
+    pointer1 : @int;
+    pointer2 : @int;
+
+    pointer1 = &value1;
+    pointer2 = &value2;
+
+    result : int;
+    result = @pointer1 + @pointer2;
+    
+    yesOrNo : int;
+    if (result == 14)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

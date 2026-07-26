@@ -1,0 +1,40 @@
+struct example
+{
+    val1 : int;
+    val2 : int;
+    val3 : int;
+}
+
+function main : int ()
+{
+    doublePointer : @@example;
+    doublePointer = halloc(2);
+
+    pointer : @example;
+    result : example;
+
+    pointer = halloc(3);
+
+    pointer->val1 = 1;
+    pointer->val2 = 2;
+    pointer->val3 = 3;
+
+    doublePointer[1] = pointer;
+
+    result = @doublePointer[1];
+
+    yesOrNo : int;
+    if (result.val1 == 1 && 
+        result.val2 == 2 && 
+        result.val3 == 3)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    free(pointer);
+    free(doublePointer);
+    return yesOrNo;
+}

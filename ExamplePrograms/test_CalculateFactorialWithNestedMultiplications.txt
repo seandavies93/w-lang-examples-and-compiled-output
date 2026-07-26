@@ -1,0 +1,21 @@
+function main : int ()
+{
+    result : int;
+    result = multiply(5, multiply(4, multiply(3, multiply(2, 1))));
+
+    yesOrNo : int;
+    if (result == 120)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function multiply : int (x : int, y : int)
+{
+    return x * y;
+}

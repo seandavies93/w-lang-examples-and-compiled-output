@@ -1,0 +1,40 @@
+struct example0
+{
+    item1 : int;
+    item2 : int;
+    item3 : int;
+}
+
+struct example1
+{
+    cont : example0;
+    cont1 : example0;
+}
+
+function main : int ()
+{
+    struct1 : example1;
+    pointer : @int;
+    pointer = &struct1;
+
+    struct1.cont.item1 = 1;
+    struct1.cont.item2 = 2;
+    struct1.cont.item3 = 3;
+
+    struct1.cont1.item1 = 4;
+    struct1.cont1.item2 = 5;
+    struct1.cont1.item3 = 6;
+
+
+    yesOrNo : int;
+
+    if (pointer[0] == 1 && pointer[1] == 2 && pointer[2] == 3 && pointer[3] == 4 && pointer[4] == 5 && pointer[5] == 6)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

@@ -1,0 +1,73 @@
+struct example
+{
+    first : int;
+    second : int;
+    third : int;
+}
+
+struct example2
+{
+    point : example;
+    point1 : example;
+}
+
+struct example3
+{
+    item : @example2;
+    item1 : @example2;
+    item2 : @example2;
+}
+
+struct example4
+{
+    item : example3;
+    item1 : example3;
+    item2 : example3;
+}
+
+struct example5
+{
+    item : example4;
+    item1 : example4;
+    item2 : example4;
+}
+
+
+function main : int ()
+{
+    var1 : example;
+    var2 : example2;
+    var3 : example3;
+    var4 : example4;
+    var5 : example5;
+    var5.item2.item.item1 = &var2;
+
+    populate(&var5);
+
+    result1 : int;
+    result2 : int;
+    result3 : int;
+    yesOrNo : int;
+
+    result1 = var5.item2.item.item1->point1.first;
+    result2 = var5.item2.item.item1->point1.second;
+    result3 = var5.item2.item.item1->point1.third;
+
+    if (result1 == 1 && result2 == 2 && result3 == 3)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+
+function populate : void(toPopulate : @example5)
+{
+    toPopulate->item2.item.item1->point1.first = 1;
+    toPopulate->item2.item.item1->point1.second = 2;
+    toPopulate->item2.item.item1->point1.third = 3;
+}

@@ -1,0 +1,42 @@
+struct example
+{
+    first : int;
+    second : int;
+    third : int;
+}
+
+struct example2
+{
+    point : @example;
+    point1 : @example;
+}
+
+function main : int ()
+{
+    var1 : example2;
+    var2 : example;
+    
+    var1.point1 = &var2;
+
+    pointer : @example2;
+    pointer = &var1;
+
+    pointer->point1->first = 1;
+    pointer->point1->second = 2;
+    pointer->point1->third = 3;
+    
+    result : int;
+    yesOrNo : int;
+
+    result = pointer->point1->third;
+
+    if (result == 3)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

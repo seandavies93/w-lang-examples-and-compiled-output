@@ -1,0 +1,73 @@
+struct example
+{
+    first : int;
+    second : int;
+    third : int;
+}
+
+function main : int ()
+{
+    var2 : example2;
+    result : int;
+    
+    yesOrNo : int;
+    pointer : @int;
+
+    index : int;
+    index = 0;
+
+    if (1)
+    {
+        buffer : int{200};
+        start : int;
+        start = 23;
+        
+        pointer = &buffer[start];
+
+        while (start < 200)
+        {
+            buffer[start] = 150;
+            start = start + 1;
+        }
+    }
+
+    while (index < 10000)
+    {
+        result = compute(create());
+        index = index + 1;
+    }
+
+    boolean : int;
+    boolean = 1;
+    i : int;
+    i = 0;
+    while (i < 100)
+    {
+        boolean = boolean && (pointer[i] == 150);
+        i = i + 1;
+    }
+
+    if (result == 6 && boolean)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function compute : int (item : example)
+{
+    return item.first + item.second + item.third;
+}
+
+function create : example () 
+{
+    next : example;
+    next.first = 1;
+    next.second = 2;
+    next.third = 3;
+    return next;
+}

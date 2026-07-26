@@ -1,0 +1,35 @@
+function main : int ()
+{
+    result1 : int;
+    result2 : int;
+    result3 : int;
+    result4 : int;
+    result5 : int;
+    result6 : int;
+    result1 = fibonacci(0);
+    result2 = fibonacci(1);
+    result3 = fibonacci(2);
+    result4 = fibonacci(3);
+    result5 = fibonacci(4);
+    result6 = fibonacci(5);
+
+    yesOrNo : int;
+    if (result1 == 1 && result2 == 1 && result3 == 2 && result4 == 3 && result5 == 5 && result6 == 8)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function fibonacci : int (n : int)
+{
+    if (n == 0 || n == 1)
+    {
+        return 1;
+    }
+    return fibonacci((n+1)-2) + fibonacci(n-2);
+}

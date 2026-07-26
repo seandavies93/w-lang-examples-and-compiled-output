@@ -1,0 +1,33 @@
+struct example
+{
+    integers : int{3};
+    final : int;
+}
+
+function main : int ()
+{
+    source : example;
+
+    source.integers[0] = 1;
+    source.integers[1] = 2;
+    source.integers[2] = 3;
+    source.final = 4;
+
+    destination : example;
+    destination = source;
+
+    yesOrNo : int;
+
+    if (destination.integers[0] == 1 && 
+        destination.integers[1] == 2 && 
+        destination.integers[2] == 3 && 
+        destination.final == 4)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

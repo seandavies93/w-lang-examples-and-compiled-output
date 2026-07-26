@@ -1,0 +1,50 @@
+function main : int ()
+{
+    array : int{5};
+
+    array[0] = 0;
+    array[1] = 0;
+    array[2] = 0;
+    array[3] = 0;
+    array[4] = 0;
+
+    nextFactorial(array);
+    nextFactorial(array);
+    nextFactorial(array);
+    nextFactorial(array);
+
+    yesOrNo : int;
+    if (array[0] == 1 &&
+        array[1] == 2 &&
+        array[2] == 6 &&
+        array[3] == 24 &&
+        array[4] == 0)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function nextFactorial : void (array : @int)
+{
+    index : int;
+    index = 0;
+
+    while (array[index] != 0)
+    {
+        index = index + 1;
+    }
+
+    if (index == 0)
+    {
+        array[0] = 1;
+    }
+    else
+    {
+        array[index] = (index + 1) * array[index - 1];
+    }
+}

@@ -1,0 +1,5 @@
+function main : int ()
+{
+    abort;
+    return 0;
+}

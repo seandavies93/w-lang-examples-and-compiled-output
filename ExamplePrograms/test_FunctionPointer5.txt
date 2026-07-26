@@ -1,0 +1,33 @@
+struct example
+{
+    first : int;
+    second : int;
+    third : int;
+}
+
+function main : int ()
+{
+    result : example;
+    funcPointer : void[@example];
+    funcPointer = &coolFunction;
+    yesOrNo : int;
+
+    funcPointer(&result);
+    
+    if (result.first == 1 && result.second == 2 && result.third == 3)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function coolFunction : void(item : @example)
+{
+    item->first = 1;
+    item->second = 2;
+    item->third = 3;
+}

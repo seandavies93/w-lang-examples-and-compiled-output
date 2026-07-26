@@ -1,0 +1,46 @@
+struct PointerToInt
+{
+    pointer : @int;
+}
+
+function main : int ()
+{
+    heapHead : @int;
+    heapHead = 16383;
+
+    arrayOfPointers : @PointerToInt;
+    arrayOfPointers = halloc(100);
+
+    i : int;
+    i = 0;
+    while (i < 100)
+    {
+        allocation : @int;
+        allocation = halloc(3);
+        arrayOfPointers[i].pointer = allocation;
+        i = i + 1;
+    }
+
+    i = 0;
+
+    while (i < 100)
+    {
+        free(arrayOfPointers[i].pointer);
+        i = i + 1;
+    }
+
+    free(arrayOfPointers);
+    
+    yesOrNo : int;
+    if (heapHead[0] == 1 &&
+        heapHead[1] == (16384-3) &&
+        heapHead[2] == 16384)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

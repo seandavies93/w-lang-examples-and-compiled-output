@@ -1,0 +1,109 @@
+struct example
+{
+    first : int;
+    second : int;
+    third : int;
+}
+
+struct example2
+{
+    point : example;
+    point1 : example;
+}
+
+struct example3
+{
+    item : @example2;
+    item1 : @example2;
+    item2 : @example2;
+}
+
+struct example4
+{
+    item : example3;
+    item1 : example3;
+    item2 : example3;
+}
+
+struct example5
+{
+    item : example4;
+    item1 : example4;
+    item2 : example4;
+}
+
+function main : int ()
+{
+    var2 : example2;
+    result1 : int;
+    result2 : int;
+    result3 : int;
+    
+    yesOrNo : int;
+    pointer : @int;
+
+    index : int;
+    index = 0;
+
+    if (1)
+    {
+        buffer : int{200};
+        start : int;
+        start = 99;
+        
+        pointer = &buffer[start];
+
+        while (start < 200)
+        {
+            buffer[start] = 150;
+            start = start + 1;
+        }
+    }
+
+    while (index < 10000)
+    {
+        result1 = alter(create(&var2).item.item1.item2->point1).first;
+        result2 = alter(create(&var2).item.item1.item2->point1).second;
+        result3 = alter(create(&var2).item.item1.item2->point1).third;
+        index = index + 1;
+    }
+
+    boolean : int;
+    boolean = 1;
+    i : int;
+    i = 0;
+    while (i < 100)
+    {
+        boolean = boolean && (pointer[i] == 150);
+        i = i + 1;
+    }
+
+    if (result1 == 2 && result2 == 4 && result3 == 6 && boolean)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+
+function create : example5 (pointerToExample2 : @example2)
+{
+    toPopulate : example5;
+    toPopulate.item.item1.item2 = pointerToExample2;
+    toPopulate.item.item1.item2->point1.first = 1;
+    toPopulate.item.item1.item2->point1.second = 2;
+    toPopulate.item.item1.item2->point1.third = 3;
+    return toPopulate;
+}
+
+function alter : example (toAlter : example)
+{
+    toAlter.first = toAlter.first * 2;
+    toAlter.second = toAlter.second * 2;
+    toAlter.third = toAlter.third * 2;
+    return toAlter;
+}

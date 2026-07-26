@@ -1,0 +1,55 @@
+struct example1
+{
+    item1 : int;
+    item2 : int;
+}
+
+struct example2
+{
+    pointer : @example1;
+    contained0 : example1;
+    contained1 : example1;
+}
+
+struct example3
+{
+    pointer : @example2;
+}
+
+function main : int ()
+{
+    result1 : int;
+    result2 : int;
+    result3 : int;
+    result4 : int;
+
+
+
+    struct1 : example2;
+    container : example3;
+
+    container.pointer = &struct1;
+    struct1.pointer = &struct1.contained0;
+
+    struct1.contained0.item1 = 1;
+    struct1.contained0.item2 = 2;
+    struct1.contained1.item1 = 3;
+    struct1.contained1.item2 = 4;
+
+    result1 = container.pointer[0].pointer[0].item1;
+    result2 = container.pointer[0].pointer[0].item2;
+    result3 = container.pointer[0].pointer[1].item1;
+    result4 = container.pointer[0].pointer[1].item2;
+
+    yesOrNo : int;
+
+    if (result1 == 1 && result2 == 2 && result3 == 3 && result4 == 4)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

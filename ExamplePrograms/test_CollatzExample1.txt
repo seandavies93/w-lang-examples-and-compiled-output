@@ -1,0 +1,28 @@
+function main : int ()
+{
+    n : int;
+    n = 43688;
+    
+    while (n != 1)
+    {
+        if (n % 2 == 0)
+        {
+            n = n / 2;
+        }
+        else
+        {
+            n = 3 * n + 1;
+        }
+    }
+
+    yesOrNo : int;
+    if (n == 1)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

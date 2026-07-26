@@ -1,0 +1,34 @@
+struct example
+{
+    value : int;
+    index : int;
+}
+
+function main : int ()
+{
+    struct1 : example;
+    factorial(5, &struct1);
+
+    yesOrNo : int;
+    if (struct1.value == 120)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function factorial : void (n : int, workArea : @example)
+{
+    workArea->value = 1;
+    workArea->index = 1;
+    
+    while (workArea->index <= n)
+    {
+        workArea->value = workArea->value * workArea->index;
+        workArea->index = workArea->index + 1;
+    }
+}

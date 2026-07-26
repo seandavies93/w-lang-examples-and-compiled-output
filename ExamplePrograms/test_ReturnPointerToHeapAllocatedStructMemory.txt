@@ -1,0 +1,35 @@
+struct example
+{
+    first : int;
+    second : int;
+    third : int;
+}
+
+function main : int ()
+{
+    item : @example;
+    item = initHeapStruct();
+
+    yesOrNo : int;
+    if (item->first == 1 &&
+        item->second == 2 &&
+        item->third == 3)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function initHeapStruct : @example ()
+{
+    firstAllocation : @example;
+    firstAllocation = halloc(3);
+    firstAllocation->first = 1;
+    firstAllocation->second = 2;
+    firstAllocation->third = 3;
+    return firstAllocation;
+}

@@ -1,0 +1,124 @@
+struct LinkedList
+{
+    item : int;
+    next : @LinkedList;
+}
+
+function main : int ()
+{
+    heapHead : @int;
+    heapHead = 16383;
+
+    head : @LinkedList;
+    head = createLongList();
+
+    isCorrect : int;
+    isCorrect = checkCorrect(head);
+
+    reversedList : @LinkedList;
+    reversedList = reverse(head);
+    deallocate(reversedList);
+    
+    yesOrNo : int;
+    if (isCorrect &&
+        heapHead[0] == 1 &&
+        heapHead[1] == (16384-3) &&
+        heapHead[2] == 16384)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function createLongList : @LinkedList ()
+{
+    head : @LinkedList;
+    head = halloc(2);
+
+    current : @LinkedList;
+    current = head;
+
+    i : int;
+    i = 0;
+    while (i < 100)
+    {
+        allocation : @LinkedList;
+        allocation = halloc(2);
+
+        allocation->item = i;
+        current->next = allocation;
+
+        current = current->next;
+        i = i + 1;
+    }
+    current->next = 16384;
+    return head;
+}
+
+function checkCorrect : int (head : @LinkedList)
+{
+    i : int;
+    i = 0;
+
+    current : @LinkedList;
+    current = head->next;
+
+    isCorrect : int;
+    isCorrect = 1;
+
+    while (i < 100)
+    {
+        isCorrect = isCorrect && current->item == i;
+        current = current->next;
+        i = i + 1;
+    }
+    return isCorrect;
+}
+
+function deallocate : void (head : @LinkedList)
+{
+    i : int;
+    i = 0;
+
+    current : @LinkedList;
+    current = head->next;
+
+    while (i < 100)
+    {
+        next : @LinkedList;
+        next = current->next;
+        
+        free(current);
+        current = next;
+        i = i + 1;
+    }
+
+    free(head);
+}
+
+function reverse : @LinkedList (head : @LinkedList)
+{
+    if (head->next == 16384)
+    {
+        return head;
+    }
+    
+    reversedSubList : @LinkedList;
+    reversedSubList = reverse(head->next);
+    head->next = 16384;
+
+    current : @LinkedList;
+    previous : @LinkedList;
+    current = reversedSubList;
+    while (current != 16384)
+    {
+        previous = current;
+        current = current->next;
+    }
+    previous->next = head;
+    return reversedSubList;
+}

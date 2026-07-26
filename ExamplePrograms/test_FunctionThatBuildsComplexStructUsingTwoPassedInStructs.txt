@@ -1,0 +1,52 @@
+struct component1
+{
+    one : int;
+    two : int;
+}
+
+struct component2
+{
+    three : int;
+    four : int;
+}
+
+struct builtObject
+{
+    first : component1;
+    second : component2;
+}
+
+function main : int ()
+{
+    first : component1;
+    second : component2;
+
+    first.one = 1;
+    first.two = 2;
+    second.three = 3;
+    second.four = 4;
+
+    built : builtObject;
+
+    built = construct(first, second);
+
+    yesOrNo : int;
+
+    if (built.first.one == 1 && built.first.two == 2 && built.second.three == 3 && built.second.four == 4)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function construct : builtObject (first : component1, second : component2)
+{
+    data : builtObject;
+    data.first = first;
+    data.second = second;
+    return data;
+}

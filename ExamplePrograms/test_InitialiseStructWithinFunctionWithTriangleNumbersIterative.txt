@@ -1,0 +1,52 @@
+struct example
+{
+    first : int;
+    second : int;
+    third : int;
+}
+
+function main : int ()
+{
+    retVal : example;
+    retVal = coolFunction();
+
+    result : int;
+    result = retVal.third;
+
+    yesOrNo : int;
+    if (result == 15)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function coolFunction : example ()
+{
+    next : example;
+    next.first = triangle(3);
+    next.second = triangle(4);
+    next.third = triangle(5);
+    return next;
+}
+
+function triangle : int (n : int)
+{
+    value : int;
+    value = 0;
+
+    index : int;
+    index = 1;
+    
+    while (index <= n)
+    {
+        value = value + index;
+        index = index + 1;
+    }
+
+    return value;
+}

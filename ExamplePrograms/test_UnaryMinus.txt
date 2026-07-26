@@ -1,0 +1,16 @@
+function main : int ()
+{
+    minusOne : int;
+    minusOne = -1;
+
+    yesOrNo : int;
+    if (10 + minusOne == 9)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

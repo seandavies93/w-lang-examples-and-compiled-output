@@ -1,0 +1,33 @@
+struct workSpace
+{
+    input : int;
+    output : int;
+}
+
+function main : int ()
+{
+    data : workSpace;
+
+    data.input = 60;
+
+    data = divideByNumber(data, 5);
+    data.input = data.output;
+    data = divideByNumber(data, 4);
+
+    yesOrNo : int;
+    if (data.output == 3)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function divideByNumber : workSpace (data : workSpace, num : int)
+{
+    data.output = data.input / num;
+    return data;
+}

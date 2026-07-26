@@ -1,0 +1,46 @@
+struct example
+{
+    a : int;
+    b : int;
+}
+
+struct example1
+{
+    first : example;
+    second : example;
+}
+
+function main : int ()
+{
+    value1 : example;
+    value1.a = 1;
+    value1.b = 2;
+
+    value2 : example;
+    value2.a = 3;
+    value2.b = 4;
+
+    package : example1;
+    package.first = value1;
+    package.second = value2;
+
+    result : int;
+
+    result = sum(package.first, package.second);
+
+    yesOrNo : int;
+    if (result == 10)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function sum : int (item1 : example, item2 : example)
+{
+    return item1.a + item1.b + item2.a + item2.b;
+}

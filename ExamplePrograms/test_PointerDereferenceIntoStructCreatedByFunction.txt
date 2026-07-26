@@ -1,0 +1,37 @@
+struct example
+{
+    n : int;
+    value : int;
+    index : int;
+}
+
+function main : int ()
+{
+    retVal : example;
+    retVal = coolFunction();
+    point : @int;
+    point = &retVal;
+    result : int;
+    point = point - 2;
+    result = @point;
+
+    yesOrNo : int;
+    if (result == 3)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function coolFunction : example ()
+{
+    next : example;
+    next.n = 1;
+    next.value = 2;
+    next.index = 3;
+    return next;
+}

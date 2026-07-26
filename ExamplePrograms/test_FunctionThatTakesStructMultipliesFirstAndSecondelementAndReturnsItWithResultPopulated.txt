@@ -1,0 +1,34 @@
+struct workSpace
+{
+    first : int;
+    second : int;
+    result : int;
+}
+
+function main : int ()
+{
+    data : workSpace;
+
+    data.first = 50;
+    data.second = 71;
+
+    data = multiply(data);
+
+    yesOrNo : int;
+
+    if (data.first == 50 && data.second == 71 && data.result == 3550)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function multiply : workSpace (data : workSpace)
+{
+    data.result = data.first * data.second;
+    return data;
+}

@@ -1,0 +1,13 @@
+function main : int ()
+{
+    yesOrNo : int;
+    if (13 % 5 == 18 % 5 && 18 % 5 == 23 % 5)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

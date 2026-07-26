@@ -1,0 +1,126 @@
+struct example1
+{
+    item1 : int;
+    item2 : int;
+}
+
+struct example2
+{
+    pointer : @example1;
+    contained : example1;
+}
+
+struct example3
+{
+    pointer : @example2;
+}
+
+struct chonk
+{
+    clobbered1 : int;
+    clobbered2 : int;
+    clobbered3 : int;
+    notClobbered1 : int;
+    notClobbered2 : int;
+    notClobbered3 : int;
+    notClobbered4 : int;
+    notClobbered5 : int;
+    notClobbered6 : int;
+    notClobbered7 : int;
+    notClobbered8 : int;
+    notClobbered9 : int;
+    notClobbered10 : int;
+}
+
+function main : int ()
+{
+    pointer1 : @int;
+    pointer2 : @int;
+    pointer3 : @int;
+    pointer4 : @int;
+    pointer5 : @int;
+    pointer6 : @int;
+    pointer7 : @int;
+    pointer8 : @int;
+    pointer9 : @int;
+    pointer10 : @int;
+    
+    result1 : int;
+    result2 : int;
+
+
+    struct1 : example2;
+    container : example3;
+
+    container.pointer = &struct1;
+    struct1.pointer = &struct1.contained;
+
+    struct1.contained.item1 = 1;
+    struct1.contained.item2 = 2;
+
+    index : int;
+    index = 0;
+
+    if (1)
+    {
+        buffer : chonk;
+        
+        buffer.notClobbered1 = 150;
+        pointer1 = &buffer.notClobbered1;
+
+        buffer.notClobbered2 = 150;
+        pointer2 = &buffer.notClobbered2;
+
+        buffer.notClobbered3 = 150;
+        pointer3 = &buffer.notClobbered3;
+
+        buffer.notClobbered4 = 150;
+        pointer4 = &buffer.notClobbered4;
+
+        buffer.notClobbered5 = 150;
+        pointer5 = &buffer.notClobbered5;
+        
+        buffer.notClobbered6 = 150;
+        pointer6 = &buffer.notClobbered6;
+        
+        buffer.notClobbered7 = 150;
+        pointer7 = &buffer.notClobbered7;
+        
+        buffer.notClobbered8 = 150;
+        pointer8 = &buffer.notClobbered8;
+        
+        buffer.notClobbered9 = 150;
+        pointer9 = &buffer.notClobbered9;
+        
+        buffer.notClobbered10 = 150;
+        pointer10 = &buffer.notClobbered10;
+    }
+
+    while (index < 10000)
+    {
+        result1 = container.pointer[0].pointer[0].item1;
+        result2 = container.pointer[0].pointer[0].item2;
+        index = index + 1;
+    }
+
+    yesOrNo : int;
+    if (
+        @pointer1 == 150 && 
+        @pointer2 == 150 && 
+        @pointer3 == 150 && 
+        @pointer4 == 150 && 
+        @pointer5 == 150 && 
+        @pointer6 == 150 && 
+        @pointer7 == 150 && 
+        @pointer8 == 150 && 
+        @pointer9 == 150 && 
+        @pointer10 == 150)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

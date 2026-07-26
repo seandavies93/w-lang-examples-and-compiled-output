@@ -1,0 +1,46 @@
+struct example
+{
+    first : int;
+    second : int;
+    third : int;
+}
+
+function main : int ()
+{
+    retVal : example;
+    yesOrNo : int;
+
+    retVal = delegatorFunction();
+    
+    if (retVal.first == 4 && retVal.second == 8 && retVal.third == 12)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function delegatorFunction : example ()
+{
+    return multiplyAllEntriesByFour(creatorFunction());
+}
+
+function creatorFunction : example ()
+{
+    next : example;
+    next.first = 1;
+    next.second = 2;
+    next.third = 3;
+    return next;
+}
+
+function multiplyAllEntriesByFour : example (data : example)
+{
+    data.first = data.first * 4;
+    data.second = data.second * 4;
+    data.third = data.third * 4;
+    return data;
+}

@@ -1,0 +1,76 @@
+struct example
+{
+    pointer : @int;
+}
+
+struct example2
+{
+    point : example;
+    point1 : example;
+}
+
+struct example3
+{
+    item : @example2;
+    item1 : @example2;
+    item2 : @example2;
+}
+
+struct example4
+{
+    item : example3;
+    item1 : example3;
+    item2 : example3;
+}
+
+struct example5
+{
+    item : example4;
+    item1 : example4;
+    item2 : example4;
+}
+
+
+function main : int ()
+{
+    var2 : example2;
+    item1 : int;
+    item2 : int;
+    item3 : int;
+    item4 : int;
+    item5 : int;
+    var5 : example5;
+    item1 = 1;
+    item2 = 2;
+    item3 = 3;
+    item4 = 4;
+    item5 = 5;
+    var5.item2.item.item1 = &var2;
+
+    
+    var5.item2.item.item1->point1.pointer = &item1;
+    var5.item2.item.item1->point.pointer = &item1;
+
+    result1 : int;
+    result2 : int;
+    result3 : int;
+    result4 : int;
+    result5 : int;
+    yesOrNo : int;
+
+    result1 = var5.item2.item.item1->point1.pointer[0];
+    result2 = var5.item2.item.item1->point1.pointer[1];
+    result3 = var5.item2.item.item1->point1.pointer[2];
+    result4 = var5.item2.item.item1->point1.pointer[3];
+    result5 = var5.item2.item.item1->point1.pointer[4];
+
+    if (result1 == 1 && result2 == 2 && result3 == 3 && result4 == 4 && result5 == 5)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

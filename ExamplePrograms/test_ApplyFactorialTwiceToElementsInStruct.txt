@@ -1,0 +1,63 @@
+struct example
+{
+    doubleFactorial1 : int;
+    doubleFactorial2 : int;
+    doubleFactorial3 : int;
+}
+
+function main : int ()
+{
+    input : example;
+    input.doubleFactorial1 = 1;
+    input.doubleFactorial2 = 2;
+    input.doubleFactorial3 = 3;
+
+    retVal : example;
+    retVal = coolFunction(input);
+    retVal = coolFunction(retVal);
+
+    result1 : int;
+    result1 = retVal.doubleFactorial1;
+
+    result2 : int;
+    result2 = retVal.doubleFactorial2;
+
+    result3 : int;
+    result3 = retVal.doubleFactorial3;
+
+    yesOrNo : int;
+    if (result1 == 1 && result2 == 2 && result3 == 720)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function coolFunction : example (toApply : example)
+{
+    toApply.doubleFactorial1 = factorial(toApply.doubleFactorial1);
+    toApply.doubleFactorial2 = factorial(toApply.doubleFactorial2);
+    toApply.doubleFactorial3 = factorial(toApply.doubleFactorial3);
+    return toApply;
+}
+
+function factorial : int (n : int)
+{
+    value : int;
+    value = 1;
+
+    index : int;
+    index = 1;
+    
+    while (index <= n)
+    {
+        value = value * index;
+        index = index + 1;
+    }
+
+    return value;
+}

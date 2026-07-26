@@ -1,0 +1,29 @@
+struct example
+{
+    integers : int{3};
+    final : int;
+}
+
+function main : int ()
+{
+    var1 : example;
+    pointer : @int;
+    pointer = &var1;
+
+    var1.integers[0] = 1;
+    var1.integers[1] = 2;
+    var1.integers[2] = 3;
+    var1.final = 4;
+
+    yesOrNo : int;
+
+    if (pointer[0] == 1 && pointer[1] == 2 && pointer[2] == 3 && pointer[3] == 4)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

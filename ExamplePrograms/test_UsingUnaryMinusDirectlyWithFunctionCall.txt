@@ -1,0 +1,21 @@
+function main : int ()
+{
+    result : int;
+    result = 10 + -calculate(5, 2);
+
+    yesOrNo : int;
+    if (result == 3)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function calculate : int (a : int, b : int)
+{
+    return a + b;
+}

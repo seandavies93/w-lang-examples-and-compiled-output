@@ -1,0 +1,47 @@
+function main : int ()
+{
+    array1 : int;
+    array2 : int;
+    array3 : int;
+    array4 : int;
+    array5 : int;
+
+    array1 = 31;
+    array2 = 86;
+    array3 = 76;
+    array4 = 54;
+    array5 = 27;
+
+    result : int;
+
+    result = sumArrayElementsGreaterThanFifty(&array1, 5);
+
+    yesOrNo : int;
+    if (result == 216)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function sumArrayElementsGreaterThanFifty : int (array : @int, size : int)
+{
+    index : int;
+    index = 0;
+    result : int;
+    result = 0;
+
+    while (index < size)
+    {
+        if (array[index] > 50)
+        {
+            result = result + array[index];
+        }
+        index = index + 1;
+    }
+    return result;
+}

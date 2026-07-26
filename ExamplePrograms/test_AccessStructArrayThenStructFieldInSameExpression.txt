@@ -1,0 +1,44 @@
+struct example
+{
+    first : int;
+    second : int;
+    third : int;
+    fourth : int;
+}
+
+function main : int ()
+{
+    item1 : example;
+    item2 : example;
+    item3 : example;
+    item4 : example;
+    item5 : example;
+    pointer : @example;
+    pointer = &item1;
+
+    item4.first = 1;
+    item4.second = 2;
+    item4.third = 3;
+    item4.fourth = 4;
+
+    result1 : int;
+    result2 : int;
+    result3 : int;
+    result4 : int;
+    yesOrNo : int;
+
+    result1 = pointer[3].first;
+    result2 = pointer[3].second;
+    result3 = pointer[3].third;
+    result4 = pointer[3].fourth;
+
+    if (result1 == 1 && result2 == 2 && result3 == 3 && result4 == 4)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

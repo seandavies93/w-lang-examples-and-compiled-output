@@ -1,0 +1,9 @@
+function main : int ()
+{
+    while(1)
+    {
+        address : @int;
+        address = halloc(1);
+    }
+    return 0;
+}

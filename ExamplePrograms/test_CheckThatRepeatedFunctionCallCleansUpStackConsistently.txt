@@ -1,0 +1,113 @@
+struct example
+{
+    first : int;
+    second : int;
+    third : example2;
+}
+
+struct example2
+{
+    a : int;
+    b : int;
+}
+
+struct chonk
+{
+    clobbered1 : int;
+    clobbered2 : int;
+    clobbered3 : int;
+    clobbered4 : int;
+    clobbered5 : int;
+    clobbered6 : int;
+    clobbered7 : int;
+    clobbered8 : int;
+    clobbered9 : int;
+    clobbered10 : int;
+    clobbered11 : int;
+    clobbered12 : int;
+    clobbered13 : int;
+    clobbered14 : int;
+    clobbered15 : int;
+    clobbered16 : int;
+    clobbered17 : int;
+    clobbered18 : int;
+    clobbered19 : int;
+    clobbered20 : int;
+    clobbered21 : int;
+    clobbered22 : int;
+    clobbered23 : int;
+    notClobbered24 : int;
+    notClobbered25 : int;
+    notClobbered26 : int;
+    notClobbered27 : int;
+    notClobbered28 : int;
+    notClobbered29 : int;
+}
+
+function main : int ()
+{
+    pointer1 : @int;
+    pointer2 : @int;
+    pointer3 : @int;
+    pointer4 : @int;
+    pointer5 : @int;
+    pointer6 : @int;
+    index : int;
+    index = 0;
+    result : example2;
+    if (1)
+    {
+        buffer : chonk;
+
+        buffer.notClobbered24 = 150;
+        pointer1 = &buffer.notClobbered24;
+
+        buffer.notClobbered25 = 150;
+        pointer2 = &buffer.notClobbered25;
+
+        buffer.notClobbered26 = 150;
+        pointer3 = &buffer.notClobbered26;
+
+        buffer.notClobbered27 = 150;
+        pointer4 = &buffer.notClobbered27;
+
+        buffer.notClobbered28 = 150;
+        pointer5 = &buffer.notClobbered28;
+        
+        buffer.notClobbered29 = 150;
+        pointer6 = &buffer.notClobbered29;
+    }
+
+    while (index < 1000)
+    {
+        result = coolFunction().third;
+        index = index + 1;
+    }
+
+    yesOrNo : int;
+    if (@pointer1 == 150 && 
+        @pointer2 == 150 && 
+        @pointer3 == 150 && 
+        @pointer4 == 150 && 
+        @pointer5 == 150 && 
+        @pointer6 == 150 && 
+        result.a == 3 && result.b == 4)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function coolFunction : example ()
+{
+    next : example;
+    next.first = 1;
+    next.second = 2;
+    next.third.a = 3;
+    next.third.b = 4;
+    return next;
+}

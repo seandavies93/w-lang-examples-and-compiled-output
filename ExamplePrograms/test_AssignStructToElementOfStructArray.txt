@@ -1,0 +1,35 @@
+struct exampleStruct
+{
+    first : int;
+    second : int;
+    third : int;
+}
+
+function main : int ()
+{
+    toAssign : exampleStruct;
+    
+    toAssign.first = 31;
+    toAssign.second = 86;
+    toAssign.third = 76;
+
+    array : exampleStruct{5};
+
+    array[3] = toAssign;
+
+    yesOrNo : int;
+    if (toAssign.first == 31 &&
+        toAssign.second == 86 &&
+        toAssign.third == 76 &&
+        array[3].first == 31 &&
+        array[3].second == 86 &&
+        array[3].third == 76)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

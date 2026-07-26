@@ -1,0 +1,27 @@
+function main : int ()
+{
+    n : int;
+    m : int;
+    m = 10;
+
+    if (m < 0)
+    {
+        n = 64;
+    }
+    else
+    {
+        n = 128;
+    }
+
+    yesOrNo : int;
+    if (n == 128)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+

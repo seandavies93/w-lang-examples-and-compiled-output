@@ -1,0 +1,26 @@
+function main : int ()
+{
+    result : int;
+    result = 1;
+
+    index : int;
+    index = 0;
+
+    while (index < 5)
+    {
+        index = index + 1;
+        continue;
+        result = result + 1;
+    }
+
+    yesOrNo : int;
+    if (result == 1)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

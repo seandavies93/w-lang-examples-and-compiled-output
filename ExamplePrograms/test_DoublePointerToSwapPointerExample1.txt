@@ -1,0 +1,50 @@
+struct PointerToInt
+{
+    pointer : @int;
+}
+
+struct Node
+{
+    left : @int;
+    right : @int;
+}
+
+function main : int ()
+{
+    value1 : int;
+    value2 : int;
+    node : Node;
+    beforeSwapCorrect : int;
+    
+    pointerToPointer1 : @PointerToInt;
+    pointerToPointer2 : @PointerToInt;
+
+    value1 = 5;
+    value2 = 10;
+
+    node.left = &value1;
+    node.right = &value2;
+
+    beforeSwapCorrect = @node.left == 5 && @node.right == 10;
+
+    pointerToPointer1 = &node.left;
+    pointerToPointer2 = &node.right;
+
+    
+
+    temp: @int;
+    temp = pointerToPointer2->pointer;
+    pointerToPointer2->pointer = pointerToPointer1->pointer;
+    pointerToPointer1->pointer = temp;
+
+    yesOrNo : int;
+    if (beforeSwapCorrect && value1 == 5 && value2 == 10 && @node.left == 10 && @node.right == 5)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

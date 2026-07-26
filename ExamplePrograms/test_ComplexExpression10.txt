@@ -1,0 +1,16 @@
+function main : int ()
+{
+    result : int;
+    result = 1024 / 2 / 2 / 2 / 2 / 2;
+    
+    yesOrNo : int;
+    if (result == 32)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

@@ -1,0 +1,47 @@
+struct otherExample
+{
+    first : int;
+    second : int;
+    third : int;
+}
+
+struct example
+{
+    structs : otherExample{2};
+    final : int;
+}
+
+function main : int ()
+{
+    var1 : example;
+    pointer : @int;
+    pointer = &var1;
+
+    var1.structs[0].first = 1;
+    var1.structs[0].second = 2;
+    var1.structs[0].third = 3;
+
+    var1.structs[1].first = 4;
+    var1.structs[1].second = 5;
+    var1.structs[1].third = 6;
+
+    var1.final = 7;
+
+    yesOrNo : int;
+
+    if (pointer[0] == 1 && 
+        pointer[1] == 2 && 
+        pointer[2] == 3 && 
+        pointer[3] == 4 && 
+        pointer[4] == 5 && 
+        pointer[5] == 6 && 
+        pointer[6] == 7)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

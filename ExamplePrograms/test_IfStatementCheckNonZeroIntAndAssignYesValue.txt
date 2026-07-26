@@ -1,0 +1,12 @@
+function main:int()
+{
+    bax : int;
+    bax = 20;
+    if (bax)
+    {
+        next : int;
+        next = 89;
+        bax = next;
+    }
+    return bax;
+}

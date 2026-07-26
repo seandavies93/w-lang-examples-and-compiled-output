@@ -1,0 +1,36 @@
+function main : int ()
+{
+    result1 : int;
+    result2 : int;
+    result3 : int;
+    result4 : int;
+    result5 : int;
+    result6 : int;
+
+    result1 = exponential(2, 0);
+    result2 = exponential(2, 1);
+    result3 = exponential(2, 2);
+    result4 = exponential(2, 3);
+    result5 = exponential(2, 4);
+    result6 = exponential(2, 5);
+
+    yesOrNo : int;
+    if (result1 == 1 && result2 == 2 && result3 == 4 && result4 == 8 && result5 == 16 && result6 == 32)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function exponential : int (base : int, n : int)
+{
+    if (n == 0)
+    {
+        return 1;
+    }
+    return base * exponential(base, n - 1);
+}

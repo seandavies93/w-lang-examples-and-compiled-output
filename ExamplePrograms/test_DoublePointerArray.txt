@@ -1,0 +1,38 @@
+function main : int ()
+{
+    doublePointer : @@int;
+    doublePointer = halloc(3);
+
+    pointer1 : @int;
+    pointer2 : @int;
+    pointer3 : @int;
+
+    pointer1 = halloc(1);
+    pointer2 = halloc(1);
+    pointer3 = halloc(1);
+
+    @pointer1 = 1;
+    @pointer2 = 2;
+    @pointer3 = 3;
+
+    doublePointer[0] = pointer1;
+    doublePointer[1] = pointer2;
+    doublePointer[2] = pointer3;
+
+    yesOrNo : int;
+    if (@doublePointer[0] == 1 &&
+        @doublePointer[1] == 2 &&
+        @doublePointer[2] == 3)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    free(pointer1);
+    free(pointer2);
+    free(pointer3);
+    free(doublePointer);
+    return yesOrNo;
+}

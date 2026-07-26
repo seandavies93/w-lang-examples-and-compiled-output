@@ -1,0 +1,19 @@
+function main : int ()
+{
+    number : int;
+    number = 81;
+
+    number = number / 3;
+    number = number / 3;
+
+    yesOrNo : int;
+    if (number == 9)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

@@ -1,0 +1,52 @@
+struct example0
+{
+    item1 : int;
+    item2 : int;
+    item3 : int;
+}
+
+struct example1
+{
+    item1 : int;
+    item2 : int;
+    contained : example0;
+    contained1 : example0;
+    item3 : int;
+}
+
+function main : int ()
+{
+    struct1 : example1;
+
+    struct1.contained.item1 = 1;
+    struct1.contained.item2 = 2;
+    struct1.contained.item3 = 3;
+
+    struct1.contained1.item1 = 4;
+    struct1.contained1.item2 = 5;
+    struct1.contained1.item3 = 6;
+    
+    struct1.item1 = 7;
+    struct1.item2 = 8;
+    struct1.item3 = 9;
+
+    yesOrNo : int;
+
+    if (struct1.contained.item1 == 1 &&
+        struct1.contained.item2 == 2 &&
+        struct1.contained.item3 == 3 &&
+        struct1.contained1.item1 == 4 &&
+        struct1.contained1.item2 == 5 &&
+        struct1.contained1.item3 == 6 &&
+        struct1.item1 == 7 &&
+        struct1.item2 == 8 &&
+        struct1.item3 == 9)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

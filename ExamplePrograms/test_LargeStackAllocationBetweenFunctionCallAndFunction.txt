@@ -1,0 +1,102 @@
+function main : int ()
+{
+    array : int{5};
+
+    array[0] = 31;
+    array[1] = 86;
+    array[2] = 76;
+    array[3] = 54;
+    array[4] = 27;
+
+    result : @int;
+
+    result = mergeSort(array, 5);
+
+    chonk : int{3000};
+
+    yesOrNo : int;
+    if (
+        result[0] == 27 && 
+        result[1] == 31 && 
+        result[2] == 54 && 
+        result[3] == 76 && 
+        result[4] == 86)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    free(result);
+    return yesOrNo;
+}
+
+function mergeSort : @int (array : @int, size : int)
+{
+    if (size == 1)
+    {
+        single : @int;
+        single = halloc(1);
+        @single = array[0];
+        return single;
+    }
+
+    midpoint : int;
+    midpoint = size / 2;
+
+    firstSubArraySize : int;
+    secondSubArraySize : int;
+
+    firstSubArraySize = midpoint;
+    secondSubArraySize = size - midpoint;
+
+    first : @int;
+    second : @int;
+
+    first = mergeSort(array, firstSubArraySize);
+    second = mergeSort(&array[midpoint], secondSubArraySize);
+
+    target : @int;
+    target = halloc(size);
+
+    i : int;
+    j : int;
+    t : int;
+    i = 0;
+    j = 0;
+    t = 0;
+
+    while (i < firstSubArraySize && j < secondSubArraySize)
+    {
+        if (first[i] < second[j])
+        {
+            target[t] = first[i];
+            i = i + 1;
+        }
+        else
+        {
+            target[t] = second[j];
+            j = j + 1;
+        }
+        t = t + 1;
+    }
+
+    while (i < firstSubArraySize)
+    {
+        target[t] = first[i];
+        i = i + 1;
+        t = t + 1;
+    }
+
+    while (j < secondSubArraySize)
+    {
+        target[t] = second[j];
+        j = j + 1;
+        t = t + 1;
+    }
+
+    free(first);
+    free(second);
+    return target;
+}

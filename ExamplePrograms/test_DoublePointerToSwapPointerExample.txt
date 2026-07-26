@@ -1,0 +1,41 @@
+struct PointerToInt
+{
+    pointer : @int;
+}
+
+function main : int ()
+{
+    value1 : int;
+    value2 : int;
+
+    value1 = 5;
+    value2 = 10;
+
+    space1 : PointerToInt;
+    space2 : PointerToInt;
+
+    pointerToPointer1 : @PointerToInt;
+    pointerToPointer2 : @PointerToInt;
+
+    pointerToPointer1 = &space1;
+    pointerToPointer2 = &space2;
+
+    space1.pointer = &value1;
+    space2.pointer = &value2;
+
+    temp : @int;
+    temp = pointerToPointer2->pointer;
+    pointerToPointer2->pointer = pointerToPointer1->pointer;
+    pointerToPointer1->pointer = temp;
+
+    yesOrNo : int;
+    if (value1 == 5 && value2 == 10 && @pointerToPointer1->pointer == 10 && @pointerToPointer2->pointer == 5)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

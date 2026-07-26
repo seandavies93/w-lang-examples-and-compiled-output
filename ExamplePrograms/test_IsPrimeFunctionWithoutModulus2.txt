@@ -1,0 +1,34 @@
+function main : int ()
+{
+    yesOrNo : int;
+    if (isPrime(7) && !isPrime(9))
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function isPrime : int (number : int) 
+{
+    if (number <= 1)
+    {
+        return 0;
+    }
+
+    divisor : int;
+    divisor = 2;
+
+    while (divisor < number)
+    {
+        if (((number / divisor) * divisor) == number)
+        {
+            return 0;
+        }
+        divisor = divisor + 1;
+    }
+    return 1;
+}

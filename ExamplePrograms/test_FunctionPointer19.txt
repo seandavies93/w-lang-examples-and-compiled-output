@@ -1,0 +1,53 @@
+struct workSpace
+{
+    acc : int;
+}
+
+function main : int ()
+{
+    data : workSpace;
+
+    data.acc = 7;
+
+    data = applyOperationToNumber(&add, data, 4);
+    data = applyOperationToNumber(&subtract, data, 5);
+    data = applyOperationToNumber(&divide, data, 3);
+    data = applyOperationToNumber(&multiply, data, 50);
+
+    yesOrNo : int;
+    if (data.acc == 100)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function add : int (n : int, m : int) 
+{
+    return n + m;
+}
+
+function subtract : int (n : int, m : int) 
+{
+    return n - m;
+}
+
+function divide : int (n : int, m : int)
+{
+    return n / m;
+}
+
+function multiply : int (n : int, m : int)
+{
+    return n * m;
+}
+
+function applyOperationToNumber : workSpace (funcPointer : int[int, int], data : workSpace, num : int)
+{
+    data.acc = funcPointer(data.acc, num);
+    return data;
+}

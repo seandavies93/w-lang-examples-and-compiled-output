@@ -1,0 +1,27 @@
+function main : int ()
+{
+    n : int;
+    n = 6;
+    m : int;
+    m = 1;
+    acc : int;
+    acc = 0;
+
+    while (m <= n)
+    {
+        acc = acc + m;
+        m = m + 1;
+    }
+
+    yesOrNo : int;
+    if (acc == 21)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+

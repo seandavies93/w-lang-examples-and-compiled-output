@@ -1,0 +1,22 @@
+function main : int ()
+{
+    result : int;
+    yesOrNo : int;
+
+    result = multiplyByTwo(multiplyByTwo(multiplyByTwo(multiplyByTwo(2))));
+    
+    if (result == 32)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function multiplyByTwo : int (number : int)
+{
+    return number * 2;
+}

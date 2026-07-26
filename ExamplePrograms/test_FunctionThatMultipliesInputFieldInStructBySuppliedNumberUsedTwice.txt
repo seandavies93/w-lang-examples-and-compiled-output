@@ -1,0 +1,33 @@
+struct workSpace
+{
+    input : int;
+    output : int;
+}
+
+function main : int ()
+{
+    data : workSpace;
+
+    data.input = 3;
+
+    data = multiplyByNumber(data, 4);
+    data.input = data.output;
+    data = multiplyByNumber(data, 5);
+
+    yesOrNo : int;
+    if (data.output == 60)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function multiplyByNumber : workSpace (data : workSpace, num : int)
+{
+    data.output = data.input * num;
+    return data;
+}

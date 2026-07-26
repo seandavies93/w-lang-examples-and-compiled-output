@@ -1,0 +1,83 @@
+struct example
+{
+    factorial1 : int;
+    factorial2 : int;
+    factorial3 : int;
+    factorial4 : int;
+    factorial5 : int;
+    factorial6 : int;
+}
+
+function main : int ()
+{
+    retVal : example;
+    retVal = coolFunction();
+
+    result1 : int;
+    result1 = retVal.factorial1;
+
+    result2 : int;
+    result2 = retVal.factorial2;
+
+    result3 : int;
+    result3 = retVal.factorial3;
+
+    result4 : int;
+    result4 = retVal.factorial4;
+
+    result5 : int;
+    result5 = retVal.factorial5;
+
+    result6 : int;
+    result6 = retVal.factorial6;
+
+    yesOrNo : int;
+    if (result1 == 1 && result2 == 2 && result3 == 6 && result4 == 24 && result5 == 120 && result6 == 720)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function coolFunction : example ()
+{
+    funcPointer : int[int];
+    funcPointer = &factorial;
+    next : example;
+    next.factorial1 = funcPointer(1);
+    next.factorial2 = funcPointer(2);
+    next.factorial3 = funcPointer(3);
+    next.factorial4 = funcPointer(4);
+    next.factorial5 = funcPointer(5);
+    next.factorial6 = funcPointer(6);
+    return next;
+}
+
+function factorial : int (n : int)
+{
+    funcPointer : int[int];
+    if (n > 0)
+    {
+        funcPointer = &generalCase;
+    }
+    else
+    {
+        funcPointer = &baseCase;
+    }
+
+    return funcPointer(n);
+}
+
+function generalCase : int (n : int)
+{
+    return n * factorial(n-1);
+}
+
+function baseCase : int (n : int)
+{
+    return 1;
+}

@@ -1,0 +1,55 @@
+function main : int ()
+{
+    result1 : int;
+    result2 : int;
+    result3 : int;
+    result4 : int;
+    result5 : int;
+
+    result1 = computeSelective(1);
+    result2 = computeSelective(2);
+    result3 = computeSelective(3);
+    result4 = computeSelective(4);
+    result5 = computeSelective(5);
+
+    yesOrNo : int;
+    if (result1 == 14 && result2 == 18 && result3 == 21 && result4 == 43 && result5 == 67)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function computeSelective : int (choice : int)
+{
+    result : int;   
+    if (choice == 1)
+    {
+        result = 14;
+    }
+    else if (choice == 2)
+    {
+        result = 18;
+    }
+    else if (choice == 3)
+    {
+        result = 21;
+    }
+    else if (choice >= 4)
+    {
+        if (choice == 4)
+        {
+            result = 43;
+        }
+        else
+        {
+            result = 67;
+        }
+    }
+    
+    return result;
+}

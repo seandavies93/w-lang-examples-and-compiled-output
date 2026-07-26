@@ -1,0 +1,23 @@
+function main : int ()
+{
+    result : int;
+    funcPointer : int[int, int];
+    funcPointer = &addNumbers;
+    result = funcPointer(6, 9);
+
+    yesOrNo : int;
+    if (result == 15)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function addNumbers : int (n : int, m : int)
+{
+    return n + m;
+}

@@ -1,0 +1,61 @@
+struct exponentialData
+{
+    base : int;
+    exponent : int;
+    value : int;
+}
+
+function main : int ()
+{
+    data1 : exponentialData;
+    data2 : exponentialData;
+    data3 : exponentialData;
+    
+    pointer : @exponentialData;
+    pointer = &data1;
+
+    data1.base = 2;
+    data1.exponent = 6;
+
+    data2.base = 3;
+    data2.exponent = 6;
+
+    data3.base = 4;
+    data3.exponent = 6;
+
+    pointer[0] = exponentiate(pointer[0]);
+    pointer[1] = exponentiate(pointer[1]);
+    pointer[2] = exponentiate(pointer[2]);
+
+    yesOrNo : int;
+    if (data1.value == 64 && data2.value == 729 && data3.value == 4096)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function exponentiate : exponentialData (data : exponentialData)
+{
+    index : int;
+    index = 1;
+
+    data.value = 1;
+    
+    while (index <= data.exponent)
+    {
+        data = multiplyByBase(data);
+        index = index + 1;
+    }
+    return data;
+}
+
+function multiplyByBase : exponentialData (data : exponentialData)
+{
+    data.value = data.value * data.base;
+    return data;
+}

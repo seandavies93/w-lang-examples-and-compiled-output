@@ -1,0 +1,38 @@
+function main : int ()
+{
+    var1 : int;
+    var2 : int;
+    var3 : int;
+    var4 : int;
+    var5 : int;
+    var1 = 1;
+    var2 = 2;
+    var3 = 3;
+    var4 = 4;
+    var5 = 5;
+    
+    pointer : @int;
+    pointer = &var1;
+
+    result1 : int;
+    result2 : int;
+    result3 : int;
+    result4 : int;
+    result5 : int;
+    yesOrNo : int;
+    result1 = pointer[0];
+    result2 = pointer[1];
+    result3 = pointer[2];
+    result4 = pointer[3];
+    result5 = pointer[4];
+
+    if (result1 == 1 && result2 == 2 && result3 == 3 && result4 == 4 && result5 == 5)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

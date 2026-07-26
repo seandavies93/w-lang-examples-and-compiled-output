@@ -1,0 +1,31 @@
+function main : int ()
+{
+    value : int;
+    result : int;
+
+    result = 1 + 2 + modifyTo3Return3(&value) + 4 + modifyTo5Return5(&value);
+
+    yesOrNo : int;
+
+    if (result == 15 && value == 5)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function modifyTo3Return3 : int (pointer : @int)
+{
+    @pointer = 3;
+    return 3;
+}
+
+function modifyTo5Return5 : int (pointer : @int)
+{
+    @pointer = 5;
+    return 5;
+}

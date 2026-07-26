@@ -1,0 +1,37 @@
+struct example
+{
+    first : int;
+    second : int;
+}
+
+function main : int ()
+{
+    array : example{3};
+
+    array[0].first = 1;
+    array[0].second = 2;
+    array[1].first = 3;
+    array[1].second = 4;
+    array[2].first = 5;
+    array[2].second = 6;
+
+    pointer : @int;
+    pointer = array;
+
+    yesOrNo : int;
+    if (
+        pointer[0] == 1 && 
+        pointer[1] == 2 && 
+        pointer[2] == 3 && 
+        pointer[3] == 4 && 
+        pointer[4] == 5 && 
+        pointer[5] == 6)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

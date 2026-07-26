@@ -1,0 +1,38 @@
+struct example
+{
+    first : int;
+    second : int;
+    third : int;
+}
+
+function main : int ()
+{
+    retVal : example;
+    yesOrNo : int;
+
+    retVal = delegatorFunction();
+    
+    if (retVal.first == 1 && retVal.second == 2 && retVal.third == 3)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function delegatorFunction : example ()
+{
+    return creatorFunction();
+}
+
+function creatorFunction : example ()
+{
+    next : example;
+    next.first = 1;
+    next.second = 2;
+    next.third = 3;
+    return next;
+}

@@ -1,0 +1,48 @@
+struct example
+{
+    first : int;
+    second : int;
+    third : int;
+    fourth : int;
+    fifth : int;
+    sixth : example2;
+}
+
+struct example2
+{
+    a : int;
+    b : int;
+}
+
+function main : int ()
+{
+    result : example2;
+    result = coolFunction().sixth;
+
+    yesOrNo : int;
+    if (result.a == 6 && result.b == 7)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function coolFunction : example ()
+{
+    dep : example2;
+    dep.a = 6;
+    dep.b = 7;
+
+    next : example;
+    next.first = 1;
+    next.second = 2;
+    next.third = 3;
+    next.fourth = 4;
+    next.fifth = 5;
+    next.sixth = dep;
+    return next;
+}

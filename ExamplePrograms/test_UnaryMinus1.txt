@@ -1,0 +1,14 @@
+function main : int ()
+{
+
+    yesOrNo : int;
+    if (10 + -1 == 9)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

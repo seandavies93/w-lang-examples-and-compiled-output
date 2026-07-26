@@ -1,0 +1,21 @@
+function main : int ()
+{
+    firstAllocation : @int;
+    firstAllocation = halloc(3);
+    firstAllocation[0] = 1;
+    firstAllocation[1] = 2;
+    firstAllocation[2] = 3;
+
+    yesOrNo : int;
+    if (firstAllocation[0] == 1 &&
+        firstAllocation[1] == 2 &&
+        firstAllocation[2] == 3)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

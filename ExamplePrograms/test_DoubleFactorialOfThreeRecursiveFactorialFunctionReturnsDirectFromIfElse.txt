@@ -1,0 +1,28 @@
+function main : int ()
+{
+    result : int;
+    result = factorial(factorial(3));
+
+    yesOrNo : int;
+    if (result == 720)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function factorial : int (n : int)
+{
+    if (n > 0)
+    {
+        return n * factorial(n-1);
+    }
+    else
+    {
+        return 1;
+    }
+}

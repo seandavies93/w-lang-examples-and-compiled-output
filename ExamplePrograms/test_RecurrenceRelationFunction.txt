@@ -1,0 +1,39 @@
+function main : int ()
+{
+    result1 : int;
+    result2 : int;
+    result3 : int;
+    result4 : int;
+    result5 : int;
+    result6 : int;
+    result1 = recurrence(0);
+    result2 = recurrence(1);
+    result3 = recurrence(2);
+    result4 = recurrence(3);
+    result5 = recurrence(4);
+    result6 = recurrence(5);
+
+    yesOrNo : int;
+    if (result1 == 3 && result2 == 5 && result3 == 11 && result4 == 21 && result5 == 43 && result6 == 85)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function recurrence : int (n : int)
+{
+    if (n == 0)
+    {
+        return 3;
+    } 
+    else if (n == 1)
+    {
+        return 5;
+    }
+    return recurrence(n-1) + 2 * recurrence(n-2);
+}

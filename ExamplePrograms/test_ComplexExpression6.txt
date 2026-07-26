@@ -1,0 +1,16 @@
+function main : int ()
+{
+    result : int;
+    result = 1 * 2 * 3 * 4 * 5 * 6 * 7 * 8;
+    
+    yesOrNo : int;
+    if (result == 40320)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

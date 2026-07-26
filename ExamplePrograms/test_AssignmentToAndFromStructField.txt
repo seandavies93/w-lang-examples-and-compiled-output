@@ -1,0 +1,16 @@
+struct example
+{
+    n :int;
+    value : int;
+    index : int;
+}
+
+function main : int ()
+{
+    var : example;
+    var.value = 89;
+    next : example;
+
+    next.value = var.value;
+    return next.value;
+}

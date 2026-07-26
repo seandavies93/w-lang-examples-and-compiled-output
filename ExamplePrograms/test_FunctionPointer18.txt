@@ -1,0 +1,34 @@
+struct workSpace
+{
+    acc : int;
+}
+
+function main : int ()
+{
+    data : workSpace;
+
+    data.acc = 7;
+
+    funcPointer : workSpace[workSpace, int];
+    funcPointer = &multiplyByNumber;
+
+    data = funcPointer(data, 4);
+    data = funcPointer(data, 5);
+
+    yesOrNo : int;
+    if (data.acc == 140)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function multiplyByNumber : workSpace (data : workSpace, num : int)
+{
+    data.acc = data.acc * num;
+    return data;
+}

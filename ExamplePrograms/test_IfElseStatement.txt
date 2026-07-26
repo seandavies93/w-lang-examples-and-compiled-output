@@ -1,0 +1,50 @@
+function main:int()
+{
+
+    yesOrNo : int;
+    if (
+        conditionalOutput(4) == 1 && 
+        conditionalOutput(5) == 1 && 
+        conditionalOutput(7) == 2 && 
+        conditionalOutput(10) == 2 && 
+        conditionalOutput(11) == 3 && 
+        conditionalOutput(15) == 3 && 
+        conditionalOutput(16) == 4 && 
+        conditionalOutput(20) == 4 && 
+        conditionalOutput(21) == 0)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function conditionalOutput : int (choice : int)
+{
+    if (choice <= 10)
+    {
+        if (choice <= 5)
+        {
+            return 1;
+        }
+        else 
+        {
+            return 2;
+        }
+    }
+    else if (choice <= 20)
+    {
+        if (choice <= 15)
+        {
+            return 3;
+        }
+        else
+        {
+            return 4;
+        }
+    }
+    return 0;
+}

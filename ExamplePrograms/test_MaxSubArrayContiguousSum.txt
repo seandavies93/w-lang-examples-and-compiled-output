@@ -1,0 +1,71 @@
+function main : int ()
+{
+    array1 : int;
+    array2 : int;
+    array3 : int;
+    array4 : int;
+    array5 : int;
+    array6 : int;
+    array7 : int;
+    array8 : int;
+    array9 : int;
+
+    array1 = 0-2;
+    array2 = 1;
+    array3 = 0-3;
+    array4 = 4;
+    array5 = 0-1;
+    array6 = 2;
+    array7 = 1;
+    array8 = 0-5;
+    array9 = 4;
+
+    result : int;
+
+    result = maxSubarrayContiguousSum(&array1, 9);
+
+    yesOrNo : int;
+    if (result == 6)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function maxSubarrayContiguousSum : int (array : @int, size : int)
+{
+    index : int;
+    index = 0;
+    bestSum : int;
+    bestSum = 0-32768;
+    currentSum : int;
+    currentSum = 0;
+
+    while (index < size)
+    {
+        if (array[index] > currentSum + array[index])
+        {
+            currentSum = array[index];
+        }
+        else
+        {
+            currentSum = currentSum + array[index];
+        }
+
+        if (bestSum > currentSum)
+        {
+            bestSum = bestSum;
+        }
+        else
+        {
+            bestSum = currentSum;
+        }
+        
+        index = index + 1;
+    }
+    return bestSum;
+}

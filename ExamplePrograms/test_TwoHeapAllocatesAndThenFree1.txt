@@ -1,0 +1,39 @@
+function main : int ()
+{
+    heapHead : @int;
+    heapHead = 16383;
+
+    firstAllocation : @int;
+    firstAllocation = halloc(3);
+    firstAllocation[0] = 1;
+    firstAllocation[1] = 2;
+    firstAllocation[2] = 3;
+
+    secondAllocation : @int;
+    secondAllocation = halloc(3);
+    secondAllocation[0] = 4;
+    secondAllocation[1] = 5;
+    secondAllocation[2] = 6;
+
+    free(firstAllocation);
+    free(secondAllocation);
+
+    yesOrNo : int;
+    if (firstAllocation[0] == 1 &&
+        firstAllocation[1] == 2 &&
+        firstAllocation[2] == 3 && 
+        secondAllocation[0] == 4 &&
+        secondAllocation[1] == 5 &&
+        secondAllocation[2] == 6 &&
+        heapHead[0] == 1 &&
+        heapHead[1] == (16384-3) &&
+        heapHead[2] == 16384)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

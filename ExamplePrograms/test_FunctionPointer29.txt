@@ -1,0 +1,36 @@
+struct numbers
+{
+    first : int;
+    second : int;
+}
+
+function main : int ()
+{
+    data : numbers;
+
+    data = createFunctionPointer()(5, 6);
+
+    yesOrNo : int;
+    if (data.first == 5 && data.second == 6)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function construct : numbers (first : int, second : int) 
+{
+    data : numbers;
+    data.first = first;
+    data.second = second;
+    return data;
+}
+
+function createFunctionPointer : numbers[int, int] ()
+{
+    return &construct;
+}

@@ -1,0 +1,37 @@
+struct numbers
+{
+    first : int;
+    second : int;
+}
+
+function main : int ()
+{
+    data : numbers;
+
+    data.first = 5;
+    data.second = 6;
+
+    result : int;
+    result = applyOperationToNumbers(&addNumbers, data);
+
+    yesOrNo : int;
+    if (result == 11)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function addNumbers : int (data : numbers) 
+{
+    return data.first + data.second;
+}
+
+function applyOperationToNumbers : int (funcPointer : int[numbers], data : numbers)
+{
+    return funcPointer(data);
+}

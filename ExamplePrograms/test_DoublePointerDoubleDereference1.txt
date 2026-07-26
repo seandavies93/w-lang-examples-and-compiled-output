@@ -1,0 +1,37 @@
+struct example 
+{
+    val1 : int;
+    val2 : int;
+    val3 : int;
+}
+
+
+function main : int ()
+{
+    value : example;
+    result : example;
+    pointer : @example;
+    doublePointer : @@example;
+
+    value.val1 = 1;
+    value.val2 = 2;
+    value.val3 = 3;
+
+    pointer = &value;
+    doublePointer = &pointer;
+
+    result = @@doublePointer;
+
+    yesOrNo : int;
+    if (result.val1 == 1 && 
+        result.val2 == 2 && 
+        result.val3 == 3)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

@@ -1,0 +1,70 @@
+struct example
+{
+    first : int;
+    second : int;
+    third : example2;
+}
+
+struct example2
+{
+    a : int;
+    b : int;
+}
+
+function main : int ()
+{
+    result : example2;
+    shouldNotBeClobbered1 : int;
+    shouldNotBeClobbered1 = 100;
+
+    shouldNotBeClobbered2 : int;
+    shouldNotBeClobbered2 = 200;
+
+    shouldNotBeClobbered3 : int;
+    shouldNotBeClobbered3 = 300;
+
+    shouldNotBeClobbered4 : int;
+    shouldNotBeClobbered4 = 400;
+
+    result = coolFunction().third;
+    result = coolFunction().third;
+    result = coolFunction().third;
+    result = coolFunction().third;
+
+    shouldNotBeClobbered5 : int;
+
+    result = coolFunction().third;
+
+    shouldNotBeClobbered5 = 500;
+
+    result = coolFunction().third;
+
+    yesOrNo : int;
+    if (
+        shouldNotBeClobbered1 == 100 && 
+        shouldNotBeClobbered2 == 200 && 
+        shouldNotBeClobbered3 == 300 && 
+        shouldNotBeClobbered4 == 400 && 
+        shouldNotBeClobbered5 == 500 &&
+        result.a == 3 && result.b == 4)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function coolFunction : example ()
+{
+    dep : example2;
+    dep.a = 3;
+    dep.b = 4;
+    next : example;
+    next.first = 1;
+    next.second = 2;
+    next.third = dep;
+    return next;
+}

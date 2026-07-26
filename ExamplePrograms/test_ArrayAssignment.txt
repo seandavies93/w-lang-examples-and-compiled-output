@@ -1,0 +1,27 @@
+
+function main : int ()
+{
+    item1 : int;
+    item2 : int;
+    item3 : int;
+    item4 : int;
+    item5 : int;
+    pointer : @int;
+    pointer = &item1;
+
+    pointer[2] = 7;
+
+    result : int;
+    result = item3;
+    yesOrNo : int;
+
+    if (result == 7)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

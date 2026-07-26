@@ -1,0 +1,105 @@
+struct LinkedList
+{
+    item : int;
+    next : @LinkedList;
+}
+
+function main : int ()
+{
+    heapHead : @int;
+    heapHead = 16383;
+
+    head1 : @LinkedList;
+    head1 = createLongList();
+
+    isCorrect1 : int;
+    isCorrect1 = checkCorrect(head1);
+
+    head2 : @LinkedList;
+    head2 = createLongList();
+
+    isCorrect2 : int;
+    isCorrect2 = checkCorrect(head2);
+
+    deallocate(head1);
+    deallocate(head2);
+    
+    yesOrNo : int;
+    if (isCorrect1 && isCorrect2 &&
+        heapHead[0] == 1 &&
+        heapHead[1] == (16384-3) &&
+        heapHead[2] == 16384)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function createLongList : @LinkedList ()
+{
+    head : @LinkedList;
+    head = halloc(2);
+
+    current : @LinkedList;
+    current = head;
+
+    i : int;
+    i = 0;
+    while (i < 100)
+    {
+        allocation : @LinkedList;
+        allocation = halloc(2);
+
+        allocation->item = i;
+        current->next = allocation;
+
+        current = current->next;
+        i = i + 1;
+    }
+    return head;
+}
+
+function checkCorrect : int (head : @LinkedList)
+{
+    i : int;
+    i = 0;
+
+    current : @LinkedList;
+    current = head->next;
+
+    isCorrect : int;
+    isCorrect = 1;
+
+    while (i < 100)
+    {
+        isCorrect = isCorrect && current->item == i;
+        current = current->next;
+        i = i + 1;
+    }
+    return isCorrect;
+}
+
+function deallocate : void (head : @LinkedList)
+{
+    i : int;
+    i = 0;
+
+    current : @LinkedList;
+    current = head->next;
+
+    while (i < 100)
+    {
+        next : @LinkedList;
+        next = current->next;
+        
+        free(current);
+        current = next;
+        i = i + 1;
+    }
+
+    free(head);
+}

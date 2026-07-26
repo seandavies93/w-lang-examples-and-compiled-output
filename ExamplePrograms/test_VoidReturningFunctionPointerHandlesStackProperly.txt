@@ -1,0 +1,37 @@
+function main : int ()
+{
+    result : int;
+    count : int;
+    funcPointer : void[@int];
+
+    count = 0;
+    funcPointer = &setNumber;
+
+    while (count < 10000)
+    {
+        sentinel : int{5};
+        if (count == 0)
+        {
+            sentinel[1] = 137;
+        }
+        funcPointer(&result);
+        count = count + 1;
+    }
+    sentinelAfter : int{5};
+
+    yesOrNo : int;
+    if (result == 10 && sentinelAfter[1] == 137)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function setNumber : void (n : @int)
+{
+    @n = 10;
+}

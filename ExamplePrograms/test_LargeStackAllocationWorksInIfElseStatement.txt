@@ -1,0 +1,14 @@
+function main : int ()
+{
+    yesOrNo : int;
+    if (1)
+    {
+        largeArray : int{3000};
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

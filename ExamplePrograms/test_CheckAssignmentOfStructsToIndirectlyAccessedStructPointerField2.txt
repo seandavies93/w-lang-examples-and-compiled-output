@@ -1,0 +1,51 @@
+struct example
+{
+    first : int;
+    second : int;
+    third : int;
+}
+
+struct example2 
+{
+    contained : example;
+}
+
+struct example3
+{
+    point : @example2;
+    point1 : @example2;
+}
+
+function main : int ()
+{
+    var1 : example3;
+    var2 : example2;
+    
+    var1.point1 = &var2;
+
+    pointer : @example3;
+    pointer = &var1;
+
+    next : example;
+    next.first = 1;
+    next.second = 2;
+    next.third = 3;
+    pointer->point1->contained = next;
+    
+    resultStruct : example;
+    result : int;
+    yesOrNo : int;
+
+    resultStruct = pointer->point1->contained;
+    result = resultStruct.third;
+
+    if (result == 3)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

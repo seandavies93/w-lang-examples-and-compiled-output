@@ -1,0 +1,54 @@
+function main : int ()
+{
+    array : int{5};
+
+    array[0] = 31;
+    array[1] = 86;
+    array[2] = 76;
+    array[3] = 54;
+    array[4] = 27;
+
+    bubbleSort(array, 5);
+
+    yesOrNo : int;
+    if (
+        array[0] == 27 && 
+        array[1] == 31 && 
+        array[2] == 54 && 
+        array[3] == 76 && 
+        array[4] == 86)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function bubbleSort : void (array : @int, size : int)
+{
+    index : int;
+    wasThereASwap : int;
+    wasThereASwap = 1;
+
+    while (wasThereASwap)
+    {
+        wasThereASwap = 0;
+        index = 0;
+
+        while (index < size - 1)
+        {
+            if (array[index] > array[index + 1])
+            {
+                temp : int;
+                temp = array[index];
+                array[index] = array[index + 1];
+                array[index + 1] = temp;
+                wasThereASwap = 1;
+            }
+            index = index + 1;
+        }
+    }
+}

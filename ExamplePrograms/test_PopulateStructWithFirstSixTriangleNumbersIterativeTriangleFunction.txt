@@ -1,0 +1,73 @@
+struct example
+{
+    triangle1 : int;
+    triangle2 : int;
+    triangle3 : int;
+    triangle4 : int;
+    triangle5 : int;
+    triangle6 : int;
+}
+
+function main : int ()
+{
+    retVal : example;
+    retVal = coolFunction();
+
+    result1 : int;
+    result1 = retVal.triangle1;
+
+    result2 : int;
+    result2 = retVal.triangle2;
+
+    result3 : int;
+    result3 = retVal.triangle3;
+
+    result4 : int;
+    result4 = retVal.triangle4;
+
+    result5 : int;
+    result5 = retVal.triangle5;
+
+    result6 : int;
+    result6 = retVal.triangle6;
+
+    yesOrNo : int;
+    if (result1 == 1 && result2 == 3 && result3 == 6 && result4 == 10 && result5 == 15 && result6 == 21)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function coolFunction : example ()
+{
+    next : example;
+    next.triangle1 = triangle(1);
+    next.triangle2 = triangle(2);
+    next.triangle3 = triangle(3);
+    next.triangle4 = triangle(4);
+    next.triangle5 = triangle(5);
+    next.triangle6 = triangle(6);
+    return next;
+}
+
+function triangle : int (n : int)
+{
+    value : int;
+    value = 0;
+
+    index : int;
+    index = 1;
+    
+    while (index <= n)
+    {
+        value = value + index;
+        index = index + 1;
+    }
+
+    return value;
+}

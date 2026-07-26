@@ -1,0 +1,40 @@
+function main : int ()
+{
+    array : int{5};
+
+    array[0] = 3360;
+    array[1] = 7;
+    array[2] = 3;
+    array[3] = 8;
+    array[4] = 4;
+
+    result : int;
+
+    result = divideFirstElementByRemaining(array, 5);
+
+    yesOrNo : int;
+    if (result == 5)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function divideFirstElementByRemaining : int (array : @int, size : int)
+{
+    index : int;
+    index = 1;
+    result : int;
+    result = array[0];
+
+    while (index < size)
+    {
+        result = result / array[index];
+        index = index + 1;
+    }
+    return result;
+}

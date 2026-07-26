@@ -1,0 +1,30 @@
+function main : int ()
+{
+    boolean : int;
+    boolean = 1;
+
+    if (1) 
+    {
+        val : int;
+        val = 1;
+        boolean = boolean && val == 1;
+    }
+
+    if (1)
+    {
+        val : int;
+        val = 2;
+        boolean = boolean && val == 2;
+    }
+    
+    yesOrNo : int;
+    if (boolean)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

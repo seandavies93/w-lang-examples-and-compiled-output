@@ -1,0 +1,67 @@
+struct exponentialData
+{
+    base : int;
+    exponent : int;
+    value : int;
+}
+
+function main : int ()
+{
+    data1 : exponentialData;
+    data2 : exponentialData;
+    data3 : exponentialData;
+
+    funcPointer : exponentialData[exponentialData];
+    funcPointer = &exponentiate;
+    
+    pointer : @exponentialData;
+    pointer = &data1;
+
+    data1.base = 2;
+    data1.exponent = 6;
+
+    data2.base = 3;
+    data2.exponent = 6;
+
+    data3.base = 4;
+    data3.exponent = 6;
+
+    data1 = funcPointer(pointer[0]);
+    data2 = funcPointer(pointer[1]);
+    data3 = funcPointer(pointer[2]);
+
+    yesOrNo : int;
+    if (data1.value == 64 && data2.value == 729 && data3.value == 4096)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function exponentiate : exponentialData (data : exponentialData)
+{
+    index : int;
+    index = 1;
+
+    data.value = 1;
+
+    funcPointer : exponentialData[exponentialData];
+    funcPointer = &multiplyByBase;
+    
+    while (index <= data.exponent)
+    {
+        data = funcPointer(data);
+        index = index + 1;
+    }
+    return data;
+}
+
+function multiplyByBase : exponentialData (data : exponentialData)
+{
+    data.value = data.value * data.base;
+    return data;
+}

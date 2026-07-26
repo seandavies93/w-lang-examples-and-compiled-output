@@ -1,0 +1,23 @@
+function main : int ()
+{
+    array : int{4};
+    array[0] = 1;
+    array[1] = 2;
+    array[2] = 3;
+    array[3] = 4;
+    
+    yesOrNo : int;
+    pointer : @int;
+
+    pointer = &array[2];
+
+    if (pointer[0] == 3 && pointer[1] == 4)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

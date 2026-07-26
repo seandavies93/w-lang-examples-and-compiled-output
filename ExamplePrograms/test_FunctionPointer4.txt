@@ -1,0 +1,23 @@
+function main : int ()
+{
+    result : int;
+    funcPointer : void[@int];
+    funcPointer = &setNumber;
+    funcPointer(&result);
+
+    yesOrNo : int;
+    if (result == 10)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function setNumber : void (n : @int)
+{
+    @n = 10;
+}

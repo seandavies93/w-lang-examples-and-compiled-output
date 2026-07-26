@@ -1,0 +1,59 @@
+struct container
+{
+    funcPointer : int[int, int];
+}
+
+function main : int ()
+{
+    space : container;
+    funcPointerContainer : @container;
+    funcPointerContainer = &space;
+
+    result1 : int;
+    result2 : int;
+    result3 : int;
+    result4 : int;
+
+    funcPointerContainer->funcPointer = &add;
+    result1 = funcPointerContainer->funcPointer(18, 6);
+
+    funcPointerContainer->funcPointer = &subtract;
+    result2 = funcPointerContainer->funcPointer(18, 6);
+
+    funcPointerContainer->funcPointer = &divide;
+    result3 = funcPointerContainer->funcPointer(18, 6);
+
+    funcPointerContainer->funcPointer = &multiply;
+    result4 = funcPointerContainer->funcPointer(18, 6);
+
+    yesOrNo : int;
+    if (result1 == 24 && result2 == 12 && result3 == 3 && result4 == 108)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function add : int (n : int, m : int) 
+{
+    return n + m;
+}
+
+function subtract : int (n : int, m : int) 
+{
+    return n - m;
+}
+
+function divide : int (n : int, m : int)
+{
+    return n / m;
+}
+
+function multiply : int (n : int, m : int)
+{
+    return n * m;
+}

@@ -1,0 +1,70 @@
+struct example
+{
+    first : int;
+    second : int;
+    third : int;
+}
+
+struct example2
+{
+    point : example;
+    point1 : example;
+}
+
+struct example3
+{
+    item : @example2;
+    item1 : @example2;
+    item2 : @example2;
+}
+
+struct example4
+{
+    item : example3;
+    item1 : example3;
+    item2 : example3;
+}
+
+struct example5
+{
+    item : example4;
+    item1 : example4;
+    item2 : example4;
+}
+
+
+function main : int ()
+{
+    var2 : example2;
+    result : int;
+    
+    yesOrNo : int;
+
+    result = addOne(create(&var2).item2.item.item1->point1.third);
+
+    if (result == 4)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+
+function create : example5 (pointerToExample2 : @example2)
+{
+    toPopulate : example5;
+    toPopulate.item2.item.item1 = pointerToExample2;
+    toPopulate.item2.item.item1->point1.first = 1;
+    toPopulate.item2.item.item1->point1.second = 2;
+    toPopulate.item2.item.item1->point1.third = 3;
+    return toPopulate;
+}
+
+function addOne : int (arg : int)
+{
+    return arg + 1;
+}

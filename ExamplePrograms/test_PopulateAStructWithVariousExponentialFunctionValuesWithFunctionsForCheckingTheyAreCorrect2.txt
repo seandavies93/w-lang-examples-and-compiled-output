@@ -1,0 +1,84 @@
+struct exponentialData
+{
+    forTwo : baseTwo;
+    forThree : baseThree;
+}
+
+struct baseTwo
+{
+    toTheFour : int;
+    toTheFive : int;
+    toTheSix : int;
+    toTheSeven : int;
+}
+
+struct baseThree
+{
+    toTheFour : int;
+    toTheFive : int;
+    toTheSix : int;
+    toTheSeven : int;
+}
+
+function main : int ()
+{
+    data : exponentialData;
+    data = populateExponentialData();
+
+    yesOrNo : int;
+    if (checkDataCorrect(data.forTwo, data.forThree))
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function populateExponentialData : exponentialData ()
+{
+    data : exponentialData;
+
+    data.forTwo.toTheFour = exponentiate(2, 4);
+    data.forTwo.toTheFive = exponentiate(2, 5);
+    data.forTwo.toTheSix = exponentiate(2, 6);
+    data.forTwo.toTheSeven = exponentiate(2, 7);
+    
+    data.forThree.toTheFour = exponentiate(3, 4);
+    data.forThree.toTheFive = exponentiate(3, 5);
+    data.forThree.toTheSix = exponentiate(3, 6);
+    data.forThree.toTheSeven = exponentiate(3, 7);
+    return data;
+}
+
+function checkDataCorrect : int (two : baseTwo, three : baseThree)
+{
+    return checkForTwo(two) && checkForThree(three);
+}
+
+function checkForTwo : int (two : baseTwo)
+{
+    return two.toTheFour == 16 && two.toTheFive == 32 && two.toTheSix == 64 && two.toTheSeven == 128;
+}
+
+function checkForThree : int (three : baseThree)
+{
+    return three.toTheFour == 81 && three.toTheFive == 243 && three.toTheSix == 729 && three.toTheSeven == 2187;
+}
+
+function exponentiate : int (base : int, exponent : int)
+{
+    cumulant : int;
+    cumulant = 1;
+    index : int;
+    index = 1;
+    
+    while (index <= exponent)
+    {
+        cumulant = cumulant * base;
+        index = index + 1;
+    }
+    return cumulant;
+}

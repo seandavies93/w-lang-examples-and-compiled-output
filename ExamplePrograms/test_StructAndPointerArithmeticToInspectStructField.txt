@@ -1,0 +1,38 @@
+struct example
+{
+    n :int;
+    value : int;
+    index : int;
+}
+
+function main : int ()
+{
+    var : example;
+    point : @int;
+    deRef : int;
+
+    next : example;
+
+    point = &next;
+
+    var.n = 1;
+    var.value = 2;
+    var.index = 3;
+
+    next = var;
+
+    point = point - 2;
+    deRef = @point;
+
+    yesOrNo : int;
+    if (deRef == 3)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+

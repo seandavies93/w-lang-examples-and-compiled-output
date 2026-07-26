@@ -1,0 +1,47 @@
+struct example
+{
+    first : int;
+    second : int;
+    third : int;
+}
+
+function main : int ()
+{
+    retVal : @example;
+    item : example;
+    result : int;
+    funcPointer : @example[];
+    funcPointer = createFunctionPointer();
+    retVal = funcPointer();
+
+    item = @retVal;
+
+    result = item.third;
+
+    yesOrNo : int;
+    if (result == 3)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function coolFunction : @example ()
+{
+    next : example;
+    next.first = 1;
+    next.second = 2;
+    next.third = 3;
+    return &next;
+}
+
+function createFunctionPointer : @example[] ()
+{
+    funcPointer : @example[];
+    funcPointer = &coolFunction;
+    return funcPointer;
+}

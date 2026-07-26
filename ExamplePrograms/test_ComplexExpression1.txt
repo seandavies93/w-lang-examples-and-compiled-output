@@ -1,0 +1,19 @@
+function main : int ()
+{
+    number : int;
+    number = 29;
+    result : int;
+
+    result = ((number / 5) * 5) + number % 5;
+
+    yesOrNo : int;
+    if (result == 29)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

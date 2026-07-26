@@ -1,0 +1,57 @@
+struct factorialData
+{
+    input : int;
+    output : int;
+}
+
+function main : int ()
+{
+    data1 : factorialData;
+    data2 : factorialData;
+    data3 : factorialData;
+    
+    pointer : @factorialData;
+    pointer = &data1;
+
+    data1.input = 4;
+
+    data2.input = 5;
+
+    data3.input = 6;
+
+    pointer[0] = factorial(pointer[0]);
+    pointer[1] = factorial(pointer[1]);
+    pointer[2] = factorial(pointer[2]);
+
+    yesOrNo : int;
+    if (data1.output == 24 && data2.output == 120 && data3.output == 720)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function factorial : factorialData (data : factorialData)
+{
+    index : int;
+    index = 1;
+
+    data.output = 1;
+    
+    while (index <= data.input)
+    {
+        data = multiplyByNumber(data, index);
+        index = index + 1;
+    }
+    return data;
+}
+
+function multiplyByNumber : factorialData (data : factorialData, num : int)
+{
+    data.output = data.output * num;
+    return data;
+}

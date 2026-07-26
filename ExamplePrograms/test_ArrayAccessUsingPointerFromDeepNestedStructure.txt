@@ -1,0 +1,70 @@
+struct example
+{
+    pointer : @int;
+}
+
+struct example2
+{
+    point : example;
+    point1 : example;
+}
+
+struct example3
+{
+    item : @example2;
+    item1 : @example2;
+    item2 : @example2;
+}
+
+struct example4
+{
+    item : example3;
+    item1 : example3;
+    item2 : example3;
+}
+
+struct example5
+{
+    item : example4;
+    item1 : example4;
+    item2 : example4;
+}
+
+
+function main : int ()
+{
+    item1 : int;
+    item2 : int;
+    item3 : int;
+    item4 : int;
+    item5 : int;
+    item1 = 1;
+    item2 = 2;
+    item3 = 3;
+    item4 = 4;
+    item5 = 5;
+    var1 : example;
+    var2 : example2;
+    var3 : example3;
+    var4 : example4;
+    var5 : example5;
+    var5.item2.item.item1 = &var2;
+
+    
+    var5.item2.item.item1->point1.pointer = &item1;
+
+    result : int;
+    yesOrNo : int;
+
+    result = var5.item2.item.item1->point1.pointer[3];
+
+    if (result == 4)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

@@ -1,0 +1,41 @@
+function main : int ()
+{
+    n : int;
+    n = 100;
+
+    m : int;
+    m = 24;
+
+    point : @int;
+    point = &m;
+    
+    n = @point;
+
+    yesOrNo : int;
+    if (n == 24)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function copyNWords : int (n : int, m : int, numberOfWords : int)
+{
+    source : int;
+    source = n;
+    destination : int;
+    destination = m;
+    index : int;
+    index = 0;
+    while (index < numberOfWords)
+    {
+        @destination = @source;
+        source = source + 1;
+        source = source + 1;
+    }
+    return destination;
+}

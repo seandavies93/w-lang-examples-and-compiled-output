@@ -1,0 +1,41 @@
+struct example
+{
+    first : example2;
+    second : int;
+    third : int;
+}
+
+struct example2
+{
+    a : int;
+    b : int;
+}
+
+function main : int ()
+{
+    value : example;
+    value.first.a = 21;
+    value.first.b = 6;
+    value.second = 4;
+    value.third = 4;
+
+    result : int;
+
+    result = multiply(value);
+
+    yesOrNo : int;
+    if (result == 126)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function multiply : int (item : example)
+{
+    return item.first.a * item.first.b;
+}

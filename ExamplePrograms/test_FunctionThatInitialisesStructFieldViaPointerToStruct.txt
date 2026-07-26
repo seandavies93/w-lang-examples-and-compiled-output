@@ -1,0 +1,38 @@
+struct example
+{
+    first : int;
+    second : int;
+    third : int;
+}
+
+function main : int ()
+{
+    other : example;
+    pointer : @example;
+    pointer = &other;
+    result : int;
+    yesOrNo : int;
+
+    coolFunction(pointer);
+
+    result = other.first;
+
+    
+    if (result == 10)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function coolFunction : void(item : @example)
+{
+    next : example;
+    next = @item;
+    next.first = 10;
+    @item = next;
+}

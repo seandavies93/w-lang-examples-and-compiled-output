@@ -1,0 +1,21 @@
+function main : int ()
+{
+    result : int;
+    result = calculations(4, 10, 2, 6);
+
+    yesOrNo : int;
+    if (result == 81)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function calculations : int (a : int, b : int, c : int, d : int)
+{
+    return ((a + 1 + (b + c * d))*3);
+}

@@ -1,0 +1,37 @@
+function main : int ()
+{
+    array : int{5};
+
+    array[0] = 31;
+    array[1] = 86;
+    array[2] = 76;
+    array[3] = 54;
+    array[4] = 27;
+
+    result : int;
+
+    result = sumArray(array, 5);
+
+    yesOrNo : int;
+    if (result == 274)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function sumArray : int (array : @int, size : int)
+{
+    if (size == 0)
+    {
+        return 0;
+    }
+    else
+    {
+        return array[size - 1] + sumArray(array, size - 1);
+    }
+}

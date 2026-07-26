@@ -1,0 +1,72 @@
+function main : int ()
+{
+    result1 : int;
+    result2 : int;
+    result3 : int;
+    result4 : int;
+    result5 : int;
+
+    result1 = callFunctionPointer(1, 25, 5);
+    result2 = callFunctionPointer(2, 25, 5);
+    result3 = callFunctionPointer(3, 25, 5);
+    result4 = callFunctionPointer(4, 25, 5);
+    result5 = callFunctionPointer(5, 25, 5);
+
+    yesOrNo : int;
+    if (result1 == 30 && result2 == 20 && result3 == 5 && result4 == 125 && result5 == 30)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function add : int (n : int, m : int) 
+{
+    return n + m;
+}
+
+function subtract : int (n : int, m : int) 
+{
+    return n - m;
+}
+
+function divide : int (n : int, m : int)
+{
+    return n / m;
+}
+
+function multiply : int (n : int, m : int)
+{
+    return n * m;
+}
+
+function callFunctionPointer : int (funcPointerChoice : int, n : int, m : int)
+{
+    funcPointer : int[int, int];
+    
+    if (funcPointerChoice == 1)
+    {
+        funcPointer = &add;
+    }
+    else if (funcPointerChoice == 2)
+    {
+        funcPointer = &subtract;
+    }
+    else if (funcPointerChoice == 3)
+    {
+        funcPointer = &divide;
+    }
+    else if (funcPointerChoice == 4)
+    {
+        funcPointer = &multiply;
+    }
+    else
+    {
+        funcPointer = &add;
+    }
+    return funcPointer(n, m);
+}

@@ -1,0 +1,130 @@
+struct chonk
+{
+    clobbered1 : int;
+    clobbered2 : int;
+    clobbered3 : int;
+    clobbered4 : int;
+    clobbered5 : int;
+    clobbered6 : int;
+    clobbered7 : int;
+    clobbered8 : int;
+    clobbered9 : int;
+    notClobbered10 : int;
+    notClobbered11 : int;
+    notClobbered12 : int;
+    notClobbered13 : int;
+    notClobbered14 : int;
+    notClobbered15 : int;
+}
+
+function main : int ()
+{
+    pointer1 : @int;
+    pointer2 : @int;
+    pointer3 : @int;
+    pointer4 : @int;
+    pointer5 : @int;
+    pointer6 : @int;
+
+    result0 : int;
+    result1 : int;
+    result2 : int;
+    result3 : int;
+    result4 : int;
+    result5 : int;
+
+    index : int;
+    index = 0;
+
+    if (1)
+    {
+        buffer : chonk;
+        
+        buffer.notClobbered10 = 150;
+        pointer1 = &buffer.notClobbered10;
+
+        buffer.notClobbered11 = 150;
+        pointer2 = &buffer.notClobbered11;
+
+        buffer.notClobbered12 = 150;
+        pointer3 = &buffer.notClobbered12;
+
+        buffer.notClobbered13 = 150;
+        pointer4 = &buffer.notClobbered13;
+
+        buffer.notClobbered14 = 150;
+        pointer5 = &buffer.notClobbered14;
+        
+        buffer.notClobbered15 = 150;
+        pointer6 = &buffer.notClobbered15;
+    }
+
+    while (index < 10000)
+    {
+        result0 = computeSelective(0);
+        result1 = computeSelective(1);
+        result2 = computeSelective(2);
+        result3 = computeSelective(3);
+        result4 = computeSelective(4);
+        result5 = computeSelective(5);
+        index = index + 1;
+    }
+
+    yesOrNo : int;
+    if (
+        @pointer1 == 150 && 
+        @pointer2 == 150 && 
+        @pointer3 == 150 && 
+        @pointer4 == 150 && 
+        @pointer5 == 150 && 
+        @pointer6 == 150 && 
+        result0 == 83 && result1 == 14 && result2 == 18 && result3 == 21 && result4 == 43 && result5 == 67)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function computeSelective : int (choice : int)
+{
+    if (choice == 1)
+    {
+        return 14;
+    }
+    else if (choice == 2)
+    {
+        return 18;
+    }
+    else if (choice == 3)
+    {
+        return 21;
+    }
+    else if (choice >= 4)
+    {
+        if (choice == 4)
+        {
+            return 43;
+        }
+        else
+        {
+            return 67;
+        }
+    }
+    else
+    {
+        if (choice == 0)
+        {
+            return 83;
+        }
+        else
+        {
+            return 137;
+        }
+    }
+    
+    return 1;
+}

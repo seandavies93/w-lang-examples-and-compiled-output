@@ -1,0 +1,77 @@
+struct example1
+{
+    item1 : int;
+    item2 : int;
+}
+
+struct example2
+{
+    pointer : @example1;
+    contained0 : example1;
+    contained1 : example1;
+}
+
+struct example3
+{
+    pointer : @example2;
+}
+
+function main : int ()
+{
+    result1 : int;
+    result2 : int;
+    result3 : int;
+    result4 : int;
+    result5 : int;
+    result6 : int;
+    result7 : int;
+    result8 : int;
+
+
+    struct1 : example2;
+    struct2 : example2;
+    container : example3;
+
+    container.pointer = &struct1;
+    struct1.pointer = &struct1.contained0;
+    struct2.pointer = &struct2.contained0;
+
+    struct1.contained0.item1 = 1;
+    struct1.contained0.item2 = 2;
+    struct1.contained1.item1 = 3;
+    struct1.contained1.item2 = 4;
+    
+    struct2.contained0.item1 = 5;
+    struct2.contained0.item2 = 6;
+    struct2.contained1.item1 = 7;
+    struct2.contained1.item2 = 8;
+
+    result1 = container.pointer[0].pointer[0].item1;
+    result2 = container.pointer[0].pointer[0].item2;
+    result3 = container.pointer[0].pointer[1].item1;
+    result4 = container.pointer[0].pointer[1].item2;
+
+    result5 = container.pointer[1].pointer[0].item1;
+    result6 = container.pointer[1].pointer[0].item2;
+    result7 = container.pointer[1].pointer[1].item1;
+    result8 = container.pointer[1].pointer[1].item2;
+
+    yesOrNo : int;
+
+    if (result1 == 1 && 
+        result2 == 2 && 
+        result3 == 3 && 
+        result4 == 4 && 
+        result5 == 5 && 
+        result6 == 6 && 
+        result7 == 7 && 
+        result8 == 8)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

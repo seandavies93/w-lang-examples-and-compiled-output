@@ -1,0 +1,27 @@
+function main : int ()
+{
+    heapHead : @int;
+    heapHead = 16383;
+
+    firstAllocation : @int;
+    firstAllocation = halloc(16371);
+
+    secondAllocation : @int;
+    secondAllocation = halloc(5);
+
+    free(secondAllocation);
+    free(firstAllocation);
+
+    yesOrNo : int;
+    if (heapHead[0] == 1 &&
+        heapHead[1] == (16384-3) &&
+        heapHead[2] == 16384)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

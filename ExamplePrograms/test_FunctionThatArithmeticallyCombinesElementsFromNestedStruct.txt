@@ -1,0 +1,40 @@
+struct example
+{
+    a : int;
+    b : int;
+}
+
+struct example1
+{
+    first : example;
+    second : example;
+}
+
+function main : int ()
+{
+    package : example1;
+    package.first.a = 1;
+    package.first.b = 2;
+    package.second.a = 3;
+    package.second.b = 4;
+
+    result : int;
+
+    result = compute(&package);
+
+    yesOrNo : int;
+    if (result == 11)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function compute : int (package : @example1)
+{
+    return package->first.a + package->first.b * package->second.a + package->second.b;
+}

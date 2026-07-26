@@ -1,0 +1,39 @@
+function main : int ()
+{
+    array : int{5};
+
+    array[0] = 31;
+    array[1] = 86;
+    array[2] = 76;
+    array[3] = 54;
+    array[4] = 27;
+
+    multiplyElementsByTwo(array, 5);
+
+    yesOrNo : int;
+    if (
+        array[0] == 62 &&
+        array[1] == 172 &&
+        array[2] == 152 &&
+        array[3] == 108 &&
+        array[4] == 54)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function multiplyElementsByTwo : void (array : @int, size : int)
+{
+    index : int;
+    index = 0;
+    while (index < size)
+    {
+        array[index] = array[index] * 2;
+        index = index + 1;
+    }
+}

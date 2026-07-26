@@ -1,0 +1,42 @@
+struct example
+{
+    first : int;
+    second : int;
+    third : int;
+}
+
+function main : int ()
+{
+    var1 : int;
+    var2 : int;
+    var3 : int;
+    var4 : int;
+    var5 : int;
+    var1 = 1;
+    var2 = 2;
+    var3 = 3;
+    var4 = 4;
+    var5 = 5;
+
+    next : example;
+    next.first = 1;
+    next.second = 2;
+    next.third = 3;
+    
+    pointer : @int;
+    pointer = &var1;
+
+    result : int;
+    yesOrNo : int;
+    result = pointer[next.first];
+
+    if (result == 2)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

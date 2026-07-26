@@ -1,0 +1,56 @@
+struct example
+{
+    first : int;
+    second : int;
+    third : example2;
+}
+
+struct example2
+{
+    a : int;
+    b : int;
+}
+
+function main : int ()
+{
+    retVal : example;
+    retVal = coolFunction();
+
+    pointer : @int;
+    pointer = &retVal;
+
+    result1 : int;
+    result1 = pointer[0];
+    
+    result2 : int;
+    result2 = pointer[1];
+
+    result3 : int;
+    result3 = pointer[2];
+
+    result4 : int;
+    result4 = pointer[3];
+
+    yesOrNo : int;
+    if (result1 == 1 && result2 == 2 && result3 == 3 && result4 == 4)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function coolFunction : example ()
+{
+    dep : example2;
+    dep.a = 3;
+    dep.b = 4;
+    next : example;
+    next.first = 1;
+    next.second = 2;
+    next.third = dep;
+    return next;
+}

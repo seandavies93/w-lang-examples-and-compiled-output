@@ -1,0 +1,16 @@
+function main : int ()
+{
+    result : int;
+    result = 11 % 4;
+
+    yesOrNo : int;
+    if (result == 3)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

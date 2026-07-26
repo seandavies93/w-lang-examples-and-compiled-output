@@ -1,0 +1,47 @@
+struct dataForComputation
+{
+    input : int;
+    output : int;
+}
+
+function main : int ()
+{
+    data1 : dataForComputation;
+    data2 : dataForComputation;
+    data3 : dataForComputation;
+
+    data1.input = 4;
+    data2.input = 5;
+    data3.input = 6;
+
+    data1 = multiplyByFour(data1);
+    data2 = multiplyByFour(data2);
+    data3 = multiplyByFour(data3);
+
+    yesOrNo : int;
+
+    if (data1.output == 16 && data2.output == 20 && data3.output == 24)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function multiplyByFour : dataForComputation (data : dataForComputation)
+{
+    index : int;
+    index = 1;
+
+    data.output = 0;
+    
+    while (index <= 4)
+    {
+        data.output = data.output + data.input;
+        index = index + 1;
+    }
+    return data;
+}

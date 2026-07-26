@@ -1,0 +1,27 @@
+function main : int ()
+{
+    value : int;
+
+    init(&value);
+
+    yesOrNo : int;
+    if (value == 3)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function init : void(intPointer : @int)
+{
+    if (1 > 0)
+    {
+        @intPointer = 3;
+        return;
+    }
+    @intPointer = 10;
+}

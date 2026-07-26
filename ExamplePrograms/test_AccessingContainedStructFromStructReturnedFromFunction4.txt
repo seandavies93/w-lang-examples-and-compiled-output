@@ -1,0 +1,47 @@
+struct example1
+{
+    item : example2;
+}
+
+struct example2
+{
+    nestedItem : example3;
+}
+
+struct example3
+{
+    a : int;
+    b : int;
+}
+
+function main : int ()
+{
+    result : example3;
+    result = coolFunction().item.nestedItem;
+
+    yesOrNo : int;
+    if (result.a == 10 && result.b == 20)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function coolFunction : example1 ()
+{
+    item3 : example3;
+    item3.a = 10;
+    item3.b = 20;
+
+    item2 : example2;
+    item2.nestedItem = item3;
+
+    item1 : example1;
+    item1.item = item2;
+
+    return item1;
+}

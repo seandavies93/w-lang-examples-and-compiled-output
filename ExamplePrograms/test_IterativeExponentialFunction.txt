@@ -1,0 +1,31 @@
+function main : int ()
+{
+    result : int;
+    result = exponentiate(2, 10);
+
+    yesOrNo : int;
+    if (result == 1024)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function exponentiate : int (base : int, exponent : int)
+{
+    cumulant : int;
+    cumulant = 1;
+    index : int;
+    index = 1;
+    
+    while (index <= exponent)
+    {
+        cumulant = cumulant * base;
+        index = index + 1;
+    }
+    return cumulant;
+}

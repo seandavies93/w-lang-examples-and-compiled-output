@@ -1,0 +1,56 @@
+struct exponentialData
+{
+    base : int;
+    exponent : int;
+    value : int;
+}
+
+function main : int ()
+{
+    dataArray : exponentialData{3};
+
+    dataArray[0].base = 2;
+    dataArray[0].exponent = 6;
+
+    dataArray[1].base = 3;
+    dataArray[1].exponent = 6;
+
+    dataArray[2].base = 4;
+    dataArray[2].exponent = 6;
+
+    dataArray[0] = exponentiate(dataArray[0]);
+    dataArray[1] = exponentiate(dataArray[1]);
+    dataArray[2] = exponentiate(dataArray[2]);
+
+    yesOrNo : int;
+    if (dataArray[0].value == 64 && dataArray[1].value == 729 && dataArray[2].value == 4096)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function exponentiate : exponentialData (data : exponentialData)
+{
+    index : int;
+    index = 1;
+
+    data.value = 1;
+    
+    while (index <= data.exponent)
+    {
+        data = multiplyByBase(data);
+        index = index + 1;
+    }
+    return data;
+}
+
+function multiplyByBase : exponentialData (data : exponentialData)
+{
+    data.value = data.value * data.base;
+    return data;
+}

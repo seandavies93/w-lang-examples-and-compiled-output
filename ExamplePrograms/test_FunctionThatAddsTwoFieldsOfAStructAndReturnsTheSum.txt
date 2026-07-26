@@ -1,0 +1,32 @@
+struct example
+{
+    first : int;
+    second : int;
+}
+
+function main : int ()
+{
+    retVal : int;
+    toAdd : example;
+    toAdd.first = 7;
+    toAdd.second = 9;
+    retVal = coolFunction(toAdd);
+
+    yesOrNo : int;
+    if (retVal == 16)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function coolFunction : int (toAdd : example)
+{
+    sum : int;
+    sum = toAdd.first + toAdd.second;
+    return sum;
+}

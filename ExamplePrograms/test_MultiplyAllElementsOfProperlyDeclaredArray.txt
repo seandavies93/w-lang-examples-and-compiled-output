@@ -1,0 +1,51 @@
+function main : int ()
+{
+    array : int{5};
+
+    array[0] = 2;
+    array[1] = 7;
+    array[2] = 5;
+    array[3] = 8;
+    array[4] = 4;
+
+    result1 : int;
+
+    result1 = multiplyAllElements(array, 5);
+
+    
+    array[0] = 9;
+    array[1] = 8;
+    array[2] = 4;
+    array[3] = 7;
+    array[4] = 5;
+
+    result2 : int;
+
+    result2 = multiplyAllElements(array, 5);
+
+    yesOrNo : int;
+    if (result1 == 2240 && result2 == 10080)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function multiplyAllElements : int (array : @int, size : int)
+{
+    index : int;
+    index = 0;
+    result : int;
+    result = 1;
+
+    while (index < size)
+    {
+        result = result * array[index];
+        index = index + 1;
+    }
+    return result;
+}

@@ -1,0 +1,21 @@
+function main : int ()
+{
+    result : int;
+    result = addNumbers((5+4)+3, (1+4)-1);
+
+    yesOrNo : int;
+    if (result == 16)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function addNumbers : int (n : int, m : int)
+{
+    return n + m;
+}

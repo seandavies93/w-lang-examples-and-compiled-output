@@ -1,0 +1,15 @@
+function main : int ()
+{
+    result : int;
+    result = 1 + 2 + 3 + 4 + -1 * 5;
+    yesOrNo : int;
+    if (result == 5)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

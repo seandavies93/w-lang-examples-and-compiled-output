@@ -1,0 +1,28 @@
+struct example
+{
+    funcPointer : int[int, int];
+}
+
+function main : int ()
+{
+    result : int;
+    funcPointerContainer : example;
+    funcPointerContainer.funcPointer = &addNumbers;
+    result = funcPointerContainer.funcPointer(6, 9);
+
+    yesOrNo : int;
+    if (result == 15)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function addNumbers : int (n : int, m : int)
+{
+    return n + m;
+}

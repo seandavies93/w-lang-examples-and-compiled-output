@@ -1,0 +1,36 @@
+
+function main : int ()
+{
+    result : int;
+    count : int;
+    count = 0;
+
+    while(count < 10000) 
+    {
+        sentinel : int{100};
+        if (count == 0)
+        {
+            sentinel[1] = 137;
+        }
+
+        result = justANumber();
+        count = count + 1;
+    }
+    sentinelAfter : int{100};
+
+    yesOrNo : int;
+    if (result == 42 && sentinelAfter[1] == 137)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function justANumber : int ()
+{
+    return 42;
+}

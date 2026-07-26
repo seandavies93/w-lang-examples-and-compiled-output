@@ -1,0 +1,32 @@
+struct example 
+{
+    val : int;
+    val2 : int;
+}
+
+function main : int()
+{
+    literal : example;
+    literal.val = 1;
+    literal.val2 = 2;
+
+    pointer : @example;
+    pointer = &literal;
+    
+    other : example;
+    other = @pointer;
+
+    result : int;
+    result = other.val2;
+    
+    yesOrNo : int;
+    if (result == 2)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

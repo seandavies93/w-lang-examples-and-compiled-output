@@ -1,0 +1,32 @@
+struct example0
+{
+    item1 : int;
+    item2 : int;
+    item3 : int;
+}
+
+function main : int ()
+{
+    item : example0;
+    toCopy : example0;
+    structPointer : @example0;
+    structPointer = &toCopy;
+
+    toCopy.item1 = 1;
+    toCopy.item2 = 2;
+    toCopy.item3 = 3;
+
+    item = @structPointer;
+
+    yesOrNo : int;
+
+    if (item.item1 == 1 && item.item2 == 2 && item.item3 == 3)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

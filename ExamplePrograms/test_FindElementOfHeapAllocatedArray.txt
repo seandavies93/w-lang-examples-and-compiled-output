@@ -1,0 +1,43 @@
+function main : int ()
+{
+    array : @int;
+    array = halloc(5);
+
+    array[0] = 31;
+    array[1] = 86;
+    array[2] = 76;
+    array[3] = 54;
+    array[4] = 27;
+
+    result : int;
+
+    result = findElementPosition(array, 54, 5);
+
+    yesOrNo : int;
+    if (result == 3)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    free(array);
+    return yesOrNo;
+}
+
+function findElementPosition : int (array : @int, toFind : int, size : int)
+{
+    index : int;
+    index = 0;
+
+    while (index < size)
+    {
+        if (array[index] == toFind)
+        {
+            return index;
+        }
+        index = index + 1;
+    }
+    return -1;
+}

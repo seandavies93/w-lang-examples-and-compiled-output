@@ -1,0 +1,52 @@
+function main : int ()
+{
+    funcPointer : int[int, int];
+
+    result1 : int;
+    result2 : int;
+    result3 : int;
+    result4 : int;
+
+    funcPointer = &add;
+    result1 = funcPointer(18, 6);
+
+    funcPointer = &subtract;
+    result2 = funcPointer(18, 6);
+
+    funcPointer = &divide;
+    result3 = funcPointer(18, 6);
+
+    funcPointer = &multiply;
+    result4 = funcPointer(18, 6);
+
+    yesOrNo : int;
+    if (result1 == 24 && result2 == 12 && result3 == 3 && result4 == 108)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function add : int (n : int, m : int) 
+{
+    return n + m;
+}
+
+function subtract : int (n : int, m : int) 
+{
+    return n - m;
+}
+
+function divide : int (n : int, m : int)
+{
+    return n / m;
+}
+
+function multiply : int (n : int, m : int)
+{
+    return n * m;
+}

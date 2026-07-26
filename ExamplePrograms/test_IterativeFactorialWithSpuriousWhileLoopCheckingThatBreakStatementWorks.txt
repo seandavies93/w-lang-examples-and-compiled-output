@@ -1,0 +1,77 @@
+struct example
+{
+    factorial1 : int;
+    factorial2 : int;
+    factorial3 : int;
+    factorial4 : int;
+    factorial5 : int;
+    factorial6 : int;
+}
+
+function main : int ()
+{
+    retVal : example;
+    retVal = coolFunction();
+
+    result1 : int;
+    result1 = retVal.factorial1;
+
+    result2 : int;
+    result2 = retVal.factorial2;
+
+    result3 : int;
+    result3 = retVal.factorial3;
+
+    result4 : int;
+    result4 = retVal.factorial4;
+
+    result5 : int;
+    result5 = retVal.factorial5;
+
+    result6 : int;
+    result6 = retVal.factorial6;
+
+    yesOrNo : int;
+    if (result1 == 1 && result2 == 2 && result3 == 6 && result4 == 24 && result5 == 120 && result6 == 720)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function coolFunction : example ()
+{
+    next : example;
+    next.factorial1 = factorial(1);
+    next.factorial2 = factorial(2);
+    next.factorial3 = factorial(3);
+    next.factorial4 = factorial(4);
+    next.factorial5 = factorial(5);
+    next.factorial6 = factorial(6);
+    return next;
+}
+
+function factorial : int (n : int)
+{
+    value : int;
+    value = 1;
+
+    index : int;
+    index = 1;
+    
+    while (index <= n)
+    {
+        while (1)
+        {
+            break;
+        }
+        value = value * index;
+        index = index + 1;
+    }
+
+    return value;
+}

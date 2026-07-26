@@ -1,0 +1,65 @@
+function main : int ()
+{
+    array1 : int;
+    array2 : int;
+    array3 : int;
+    array4 : int;
+    array5 : int;
+
+    array1 = 31;
+    array2 = 86;
+    array3 = 76;
+    array4 = 54;
+    array5 = 27;
+
+    array : @int;
+    array = &array1;
+
+    selectionSort(&array1, 5);
+
+    yesOrNo : int;
+    if (
+        array[0] == 27 && 
+        array[1] == 31 && 
+        array[2] == 54 && 
+        array[3] == 76 && 
+        array[4] == 86)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function selectionSort : void (array : @int, size : int)
+{
+    index : int;
+    index = 0;
+    selection : int;
+    minIndex : int;
+
+    while (index < size - 1)
+    {
+        minIndex = index;
+        selection = index + 1;
+
+        while (selection < size)
+        {
+            if (array[selection] < array[minIndex])
+            {
+                minIndex = selection;
+            }
+            selection = selection + 1;
+        }
+
+        temp : int;
+        temp = array[minIndex];
+        array[minIndex] = array[index];
+        array[index] = temp;
+
+        index = index + 1;
+    }
+}

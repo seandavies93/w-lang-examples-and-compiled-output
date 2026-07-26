@@ -1,0 +1,37 @@
+struct example
+{
+    first : int;
+    second : int;
+    third : int;
+}
+
+function main : int ()
+{
+    result : int;
+    result = compute(create());
+
+    yesOrNo : int;
+    if (result == 6)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function compute : int (item : example)
+{
+    return item.first + item.second + item.third;
+}
+
+function create : example () 
+{
+    next : example;
+    next.first = 1;
+    next.second = 2;
+    next.third = 3;
+    return next;
+}

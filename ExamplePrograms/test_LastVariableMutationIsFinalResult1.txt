@@ -1,0 +1,27 @@
+function main : int ()
+{
+    result : int;
+    count : int;
+    count = 0;
+    result = 1;
+    result = 2;
+
+    while (count < 100)
+    {
+        result = 3;
+        result = 4;
+        count = count + 1;
+    }
+
+
+    yesOrNo : int;
+    if (result == 4)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
