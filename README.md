@@ -8,6 +8,15 @@ The lexer sometimes will need to disambiguate when multiple token regexes find a
 
 We also remove the matched token substring from the beginning of the byte stream, so that the process is ready for the next token to be read.
 
+Currently, the lexer is maximising readability and extensibility. However, to make it more efficient there are some tactics that will likely help lower its runtime cost.
+
+- Stop using regexes for single-character tokens and just check for them directly in some switch-case statement
+- If none of those trigger, then check if the current character is alphabetic
+  - If the current character is alphabetic then we can fall back on approach that is analogous to the current one, but the only token types in the list will be alphabetic tokens e.g. name tokens and keyword tokens
+  - Or possibly just greedily consume characters that might be part of a name or keyword. Once we reach a character that can't be part of a name or keyword, then we look back at the accumulated characters and try to discern which token it was.
+- Then check for numeric characters. Currently no name token or keyword token is allowed to begin with a numeric character
+  - In this case we could greedily consume numeric characters into an accummulating token, stopping when the current character is not numeric
+
 ## Parser
 
 The parser is a hand-written recursive descent parser. The expression sector of the parser uses Pratt parsing for struct member access and function calls and a variant of precedence parsing/precedence climbing for the rest of expression parsing.
