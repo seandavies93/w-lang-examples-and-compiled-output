@@ -1,0 +1,26 @@
+function main : int ()
+{
+    result : int;
+
+    result = recursiveTriangle(5);
+
+    yesOrNo : int;
+    if (result == 15)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function recursiveTriangle : int (n : int)
+{
+    if (n == 0)
+    {
+        return 0;
+    }
+    return n + recursiveTriangle(n-1);
+}
