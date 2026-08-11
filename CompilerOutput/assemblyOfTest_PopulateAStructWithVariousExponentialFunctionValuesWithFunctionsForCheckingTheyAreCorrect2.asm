@@ -81,7 +81,6 @@ STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R7,R6,#0
 ADD R4,R7,#0
-JUMP-AND-LINK-TO-populateExponentialData
 JSR populateExponentialData
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -236,7 +235,6 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 ADD R4,R7,#0
-JUMP-AND-LINK-TO-checkDataCorrect
 JSR checkDataCorrect
 ADD R6,R6,#1
 ADD R6,R6,#1
@@ -335,7 +333,6 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JUMP-AND-LINK-TO-exponentiate
 JSR exponentiate
 ADD R6,R6,#1
 ADD R6,R6,#1
@@ -373,7 +370,6 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JUMP-AND-LINK-TO-exponentiate
 JSR exponentiate
 ADD R6,R6,#1
 ADD R6,R6,#1
@@ -411,7 +407,6 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JUMP-AND-LINK-TO-exponentiate
 JSR exponentiate
 ADD R6,R6,#1
 ADD R6,R6,#1
@@ -449,7 +444,6 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JUMP-AND-LINK-TO-exponentiate
 JSR exponentiate
 ADD R6,R6,#1
 ADD R6,R6,#1
@@ -487,7 +481,6 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JUMP-AND-LINK-TO-exponentiate
 JSR exponentiate
 ADD R6,R6,#1
 ADD R6,R6,#1
@@ -525,7 +518,6 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JUMP-AND-LINK-TO-exponentiate
 JSR exponentiate
 ADD R6,R6,#1
 ADD R6,R6,#1
@@ -563,7 +555,6 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JUMP-AND-LINK-TO-exponentiate
 JSR exponentiate
 ADD R6,R6,#1
 ADD R6,R6,#1
@@ -601,7 +592,6 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JUMP-AND-LINK-TO-exponentiate
 JSR exponentiate
 ADD R6,R6,#1
 ADD R6,R6,#1
@@ -790,7 +780,6 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 ADD R4,R7,#0
-JUMP-AND-LINK-TO-checkForTwo
 JSR checkForTwo
 ADD R6,R6,#1
 ADD R6,R6,#1
@@ -856,7 +845,6 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 ADD R4,R7,#0
-JUMP-AND-LINK-TO-checkForThree
 JSR checkForThree
 ADD R6,R6,#1
 ADD R6,R6,#1

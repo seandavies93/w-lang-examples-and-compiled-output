@@ -293,7 +293,6 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JUMP-AND-LINK-TO-computeSelective
 JSR computeSelective
 ADD R6,R6,#1
 ADD R6,R6,#1
@@ -323,7 +322,6 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JUMP-AND-LINK-TO-computeSelective
 JSR computeSelective
 ADD R6,R6,#1
 ADD R6,R6,#1
@@ -353,7 +351,6 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JUMP-AND-LINK-TO-computeSelective
 JSR computeSelective
 ADD R6,R6,#1
 ADD R6,R6,#1
@@ -383,7 +380,6 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JUMP-AND-LINK-TO-computeSelective
 JSR computeSelective
 ADD R6,R6,#1
 ADD R6,R6,#1
@@ -413,7 +409,6 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JUMP-AND-LINK-TO-computeSelective
 JSR computeSelective
 ADD R6,R6,#1
 ADD R6,R6,#1
@@ -443,7 +438,6 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JUMP-AND-LINK-TO-computeSelective
 JSR computeSelective
 ADD R6,R6,#1
 ADD R6,R6,#1

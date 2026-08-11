@@ -213,7 +213,6 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 ADD R4,R7,#0
-JUMP-AND-LINK-TO-exponentiate
 JSR exponentiate
 ADD R6,R6,#1
 ADD R6,R6,#1
@@ -367,7 +366,6 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 ADD R4,R7,#0
-JUMP-AND-LINK-TO-exponentiate
 JSR exponentiate
 ADD R6,R6,#1
 ADD R6,R6,#1
@@ -521,7 +519,6 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 ADD R4,R7,#0
-JUMP-AND-LINK-TO-exponentiate
 JSR exponentiate
 ADD R6,R6,#1
 ADD R6,R6,#1
@@ -849,7 +846,6 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 ADD R4,R7,#0
-JUMP-AND-LINK-TO-multiplyByBase
 JSR multiplyByBase
 ADD R6,R6,#1
 ADD R6,R6,#1
