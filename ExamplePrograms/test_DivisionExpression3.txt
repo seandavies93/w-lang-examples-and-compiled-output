@@ -1,0 +1,17 @@
+function main : int ()
+{
+    result : int;
+
+    result = 1000 / 120;
+
+    yesOrNo : int;
+    if (result == 8)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

@@ -277,6 +277,14 @@ assemblyOfTest_DivideFirstElementByRemainingElementsOfArray.asm:
 PASS
 assemblyOfTest_DivideFirstElementOfArrayByRemainingElementsProperArrayDeclaration.asm:
 PASS
+assemblyOfTest_DivisionExpression.asm:
+PASS
+assemblyOfTest_DivisionExpression1.asm:
+PASS
+assemblyOfTest_DivisionExpression2.asm:
+PASS
+assemblyOfTest_DivisionExpression3.asm:
+PASS
 assemblyOfTest_DivisionExpressionFifteenByFour.asm:
 PASS
 assemblyOfTest_DoubleFactorialOfThree.asm:

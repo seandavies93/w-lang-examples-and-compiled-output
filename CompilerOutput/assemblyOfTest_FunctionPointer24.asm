@@ -34,15 +34,15 @@ LITERAL-14      .FILL 16381
 LITERAL-LengthOf-ArithmeticFuncPointerArray      .FILL 4
 LITERAL-LengthOf-ArithmeticPointer      .FILL 1
 LITERAL-LengthOf-PointerToArithmeticPointerContainer      .FILL 1
-LITERAL-WHILE-COPY-WORDS      .FILL 18301
-LITERAL-callFunctionPointer      .FILL 16927
-LITERAL-createFuncPointerArray      .FILL 17210
+LITERAL-WHILE-COPY-WORDS      .FILL 18300
+LITERAL-callFunctionPointer      .FILL 16926
+LITERAL-createFuncPointerArray      .FILL 17209
 LITERAL-add      .FILL 16811
 LITERAL-subtract      .FILL 16836
 LITERAL-divide      .FILL 16863
-LITERAL-multiply      .FILL 16897
+LITERAL-multiply      .FILL 16896
 LITERAL-main      .FILL 16428
-LITERAL-initHeap      .FILL 18206
+LITERAL-initHeap      .FILL 18205
 main
 STR R1,R6,#0
 ADD R6,R6,#-1
@@ -520,17 +520,16 @@ ADD R2,R0,#0
 LDR R1,R6,#1
 ADD R6,R6,#1
 ADD R0,R1,#0
-AND R3,R3,#0
+AND R1,R1,#0
 NOT R2,R2
 ADD R2,R2,#1
 WHILE-DIVIDE_5
-ADD R1,R0,R2
-BRn END-DIVIDE_5
 ADD R0,R0,R2
-ADD R3,R3,#1
+BRn END-DIVIDE_5
+ADD R1,R1,#1
 BR WHILE-DIVIDE_5
 END-DIVIDE_5
-ADD R0,R3,#0
+ADD R0,R1,#0
 LDR R3, R6, #1
 ADD R6, R6, #1
 LDR R2, R6, #1
