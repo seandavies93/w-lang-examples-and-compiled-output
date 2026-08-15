@@ -411,6 +411,8 @@ assemblyOfTest_FunctionPointer8.asm:
 PASS
 assemblyOfTest_FunctionPointer9.asm:
 PASS
+assemblyOfTest_FunctionPointerCalledDirectlyFromFunctionResultStackSentinelCheck.asm:
+PASS
 assemblyOfTest_FunctionPointerFromStruct.asm:
 PASS
 assemblyOfTest_FunctionPointerFromStruct1.asm:
@@ -566,6 +568,8 @@ PASS
 assemblyOfTest_MaxSubArrayContiguousSumWithUnaryMinus.asm:
 PASS
 assemblyOfTest_MergeSortExample.asm:
+PASS
+assemblyOfTest_MergeSortExample1.asm:
 PASS
 assemblyOfTest_ModulusElevenByFour.asm:
 PASS

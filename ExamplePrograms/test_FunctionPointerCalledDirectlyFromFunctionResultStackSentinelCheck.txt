@@ -1,0 +1,51 @@
+struct numbers
+{
+    first : int;
+    second : int;
+}
+
+function main : int ()
+{
+    data : numbers;
+    count : int;
+    count = 0;
+
+    while (count < 20000)
+    {
+        sentinel : int{100};
+        if (count == 0)
+        {
+            sentinel[1] = 137;
+        }
+
+        data = createFunctionPointer()(5, 6);
+
+        count = count + 1;
+    }
+
+    sentinelAfter : int{100};
+
+    yesOrNo : int;
+    if (data.first == 5 && data.second == 6 && sentinelAfter[1] == 137)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function construct : numbers (first : int, second : int) 
+{
+    data : numbers;
+    data.first = first;
+    data.second = second;
+    return data;
+}
+
+function createFunctionPointer : numbers[int, int] ()
+{
+    return &construct;
+}
