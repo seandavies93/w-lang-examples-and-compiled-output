@@ -1,4 +1,6 @@
 
+assemblyOfTest_AbstractCollatz.asm:
+PASS
 assemblyOfTest_AccessStructArrayThenStructFieldInSameExpression.asm:
 PASS
 assemblyOfTest_AccessStructFieldDirectlyFromFunctionCallThatReturnsStruct.asm:

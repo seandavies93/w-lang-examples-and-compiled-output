@@ -1,0 +1,80 @@
+struct MathEngine
+{
+    evenStep : int[int];
+    oddStep : int[int];
+}
+
+struct State
+{
+    currentValue : int;
+    stepCount : int;
+}
+
+function main : int ()
+{
+    initialState : State;
+    initialState.currentValue = 27;
+    initialState.stepCount = 0;
+
+    finalState : State;
+    finalState = runCollatz(initialState);
+
+    yesOrNo : int;
+    if (finalState.currentValue == 1 && finalState.stepCount == 111)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function half : int (n : int)
+{
+    return n / 2;
+}
+
+function triplePlusOne : int (n : int)
+{
+    return (n * 3) + 1;
+}
+
+function buildEngine : MathEngine ()
+{
+    engine : MathEngine;
+    engine.evenStep = &half;
+    engine.oddStep = &triplePlusOne;
+    return engine;
+}
+
+function getEngineFactory : MathEngine[] ()
+{
+    return &buildEngine;
+}
+
+function runCollatz : State (state : State)
+{
+    if (state.currentValue == 1)
+    {
+        return state;
+    }
+
+    runner : MathEngine;
+    runner = getEngineFactory()();
+
+    nextState : State;
+    nextState.stepCount = state.stepCount + 1;
+
+    if ((state.currentValue % 2) == 0)
+    {
+        nextState.currentValue = runner.evenStep(state.currentValue);
+    }
+    else
+    {
+        nextState.currentValue = runner.oddStep(state.currentValue);
+    }
+
+    return runCollatz(nextState);
+}
