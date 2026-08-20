@@ -1,0 +1,52 @@
+struct AckInput
+{
+    m : int;
+    n : int;
+}
+
+function main : int ()
+{
+    input : AckInput;
+    input.m = 3;
+    input.n = 3;
+
+    result : int;
+    result = ackermann(input);
+
+    yesOrNo : int;
+    if (result == 61)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function ackermann : int (data : AckInput)
+{
+    if (data.m == 0)
+    {
+        return data.n + 1;
+    }
+
+    if (data.n == 0)
+    {
+        nextCall : AckInput;
+        nextCall.m = data.m - 1;
+        nextCall.n = 1;
+        return ackermann(nextCall);
+    }
+
+    innerCall : AckInput;
+    innerCall.m = data.m;
+    innerCall.n = data.n - 1;
+
+    outerCall : AckInput;
+    outerCall.m = data.m - 1;
+    outerCall.n = ackermann(innerCall);
+
+    return ackermann(outerCall);
+}

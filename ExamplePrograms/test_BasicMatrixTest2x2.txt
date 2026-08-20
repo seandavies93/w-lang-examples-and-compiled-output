@@ -1,0 +1,54 @@
+struct Matrix2x2
+{   
+    mat : int{4};
+}
+
+function main : int ()
+{
+
+    A : Matrix2x2;
+    A.mat[0] = 1; 
+    A.mat[1] = 2;
+    A.mat[2] = 3; 
+    A.mat[3] = 4;
+
+    B : Matrix2x2;
+    B.mat[0] = 5; 
+    B.mat[1] = 6;
+    B.mat[2] = 7; 
+    B.mat[3] = 8;
+
+    result : Matrix2x2;
+    result = multiplyMatrices(A, B);
+
+    yesOrNo : int;
+    if (
+        result.mat[0] == 19 && 
+        result.mat[1] == 22 && 
+        result.mat[2] == 43 && 
+        result.mat[3] == 50
+    )
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function multiplyMatrices : Matrix2x2 (A : Matrix2x2, B : Matrix2x2)
+{
+    C : Matrix2x2;
+
+    C.mat[0] = (A.mat[0] * B.mat[0]) + (A.mat[1] * B.mat[2]);
+
+    C.mat[1] = (A.mat[0] * B.mat[1]) + (A.mat[1] * B.mat[3]);
+
+    C.mat[2] = (A.mat[2] * B.mat[0]) + (A.mat[3] * B.mat[2]);
+
+    C.mat[3] = (A.mat[2] * B.mat[1]) + (A.mat[3] * B.mat[3]);
+
+    return C;
+}

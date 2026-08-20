@@ -29,6 +29,8 @@ assemblyOfTest_AccessingStructPointerDirectlyFromFunctionCallPassToFunction.asm:
 PASS
 assemblyOfTest_AccessingStructPointerDirectlyFromFunctionCallPassToFunction2.asm:
 PASS
+assemblyOfTest_AckermannStackSafety.asm:
+PASS
 assemblyOfTest_AddNumbersFunctionCalledWithComplexExpressionParameters.asm:
 PASS
 assemblyOfTest_AddNumbersFunctionWithComplexArithmeticExpressionsAsParametersInCall.asm:
@@ -88,6 +90,8 @@ PASS
 assemblyOfTest_AssignmentToAndFromStructField.asm:
 PASS
 assemblyOfTest_BasicHeapAllocation.asm:
+PASS
+assemblyOfTest_BasicMatrixTest2x2.asm:
 PASS
 assemblyOfTest_BubbleSortArrayExample.asm:
 PASS
