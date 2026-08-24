@@ -12,14 +12,14 @@ Currently, the lexer is maximising readability and extensibility. However, to ma
 
 - Stop using regexes for single-character tokens and just check for them directly in some switch-case statement
 - If none of those trigger, then check if the current character is alphabetic
-  - If the current character is alphabetic then we can fall back on approach that is analogous to the current one, but the only token types in the list will be alphabetic tokens e.g. name tokens and keyword tokens
-  - Or possibly just greedily consume characters that might be part of a name or keyword. Once we reach a character that can't be part of a name or keyword, then we look back at the accumulated characters and try to discern which token it was.
+  - If the current character is alphabetic then we can fall back on the token regex list approach, but the only token types in the list will be alphabetic tokens e.g. name tokens and keyword tokens
+  - Or just greedily consume characters that might be part of a name or keyword. Once we reach a character that can't be part of a name or keyword, then we look back at the accumulated characters and try to discern which token it was.
 - Then check for numeric characters. Currently no name token or keyword token is allowed to begin with a numeric character
   - In this case we could greedily consume numeric characters into an accummulating token, stopping when the current character is not numeric
 
 ## Parser
 
-The parser is a hand-written recursive descent parser. The expression sector of the parser uses Pratt parsing for struct member access and function calls and a variant of precedence parsing/precedence climbing for the rest of expression parsing.
+The parser is a hand-written recursive descent parser. The expression sector of the parser uses a variant of recursive descent with adjustments to handle infix operator precedence.
 
 ## Intermediate Representation
 
@@ -76,7 +76,7 @@ There is a late-backend optimisation system that chooses between range-extended 
 
 The backend has passes that determine the absolute addresses of function labels and other labels if they need to be registered in the globals table. These manually count out the number of instructions from the `.ORIG` directive, which I believe other assembly languages would handle for you. This pass requires essentially the final assembly layout to be completed in order to accurately count address locations. As such, missing information in the globals table is given a placeholder designed to take up one line, just like the final layout. Therefore, filling the placeholder should not change the line count.
 
-The following list describes the general way various registers are used. Currently, the compiler doesn't have a system to track live-ranges, which means that ssome guarantees are managed by using these registers in a careful way in each assembly template.
+The following list describes the general way various registers are used. Currently, the compiler doesn't have a system to track live-ranges, which means that some guarantees are managed by using these registers in a careful way in each assembly template.
 
 `R0`
 
@@ -96,7 +96,7 @@ This is a frame pointer, from which function-local parameter and variable access
 
 `R5`
 
-Used as a global symbol table pointer. Points to the beginning of the symbol table. Needs to be saved and restored if used in local internal subroutines, like the "copyNWords" routine. (global)
+Used as a global symbol table pointer. Points to the beginning of the symbol table. Needs to be saved and restored if used in local internal subroutines, like the "CopyNWords" routine. (global)
 
 `R6`
 
@@ -183,7 +183,7 @@ In order to accommodate this, the code generation phase has a pre-processing ste
 
 Every symbol address we `.FILL` in the table will be given a label prefixed with `LITERAL-` so we can identify and count them towards the number of memory locations from the beginning of the program to a given label.
 
-## Jump Conventions
+### Jump Conventions
 
 As per the last section, this is how jumps are handled:
 
@@ -363,9 +363,11 @@ We make use of a pre-built LC-3 assembler binary, `lc3as`, which was built from 
 
 So far there isn't a clean and easy way to debug, aside from using useful tools such as a simulator found at [WebLC3](https://lc3.cs.umanitoba.ca/). This simulator allows you to step through the program and set breakpoints, whilst displaying register and memory state.
 
-## VM Details
+## LC-3 Virtual Machine Details
 
 The VM implements trap routines using the C code, therefore, the segment of memory usually dedicated to pre-loaded LC-3 routines is free for use within the virtual machine. This trap routine segment would usually be somewhere in the region of memory from location 0 to location 16384. Making use of this fact obviously causes problems for proper compatibility but any future evolution of this project is likely to involve using a different assembly language or a modification to LC-3 to 32-bits. Therefore, bona-fide LC-3 compatibility is not too important here.
+
+The virtual machine was written by closely following this [tutorial](https://www.jmeiners.com/lc3-vm/) by [Justin Meiners](https://www.jmeiners.com/) and [Ryan Pendleton](https://www.ryanp.me/). 
 
 ## Heap Allocation Details
 
@@ -391,6 +393,7 @@ Currently, the address of the first word of the program segment, location `16384
   - No for loops
 - Semantic analysis phase
   - Some of this has been implemented, but there is potential to make it tighter and fine-grained
+  - Currently allow implicit pointer casting to an extent, as locking this down more requires syntax for explicit casting and ideally that might deviate from the C style to make it easier to parse.
 - Better syntactic error reporting (In progress)
   - Currently, there is basic syntax error reporting, which occurs when `consumeToken` encounters an unexpected token.
 - `&&` and `||` could be made to be short-circuiting as is standard
@@ -406,10 +409,10 @@ By allocating a similar array just after the while loop, we can capture the ghos
 
 ## Optimisation passes
 
-Currently there is not a lot of optimisation going on. The first optimisation I did was by making struct access largely work in-place with structs that are already in the stack frame, with the exception of structs returned from a function. By "in-place" I mean that the struct isn't copied anywhere to work with it. Compared to an approach that repeatedly copies intermediate structs in nested access, its better, but really I'm not sure anyone would do it that really expensive way.
+There are a small number of optimisations, having migrated to the IR will make it easier to add more. The first optimisation I had was making struct access largely work in-place with structs that are already in the stack frame, with the exception of R-value structs returned from a function. By "in-place" I mean that the struct isn't copied anywhere to work with it. Even with the R-value returned structs, the only additional copy is the one the return handling uses to copy it to the designated return slot on the stack.
 
-Another optimisation is more of a peephole optimisation and this removes neighbouring push and pop operations, specifically those due to expression evaluation. Sometimes there will be a push R0 followed by a pop R0 which is pointless, so I remove these from the assembly.
+Then, there is a peephole optimisation to remove redundant, neighbouring push and pop operations.
 
-Finally, the other optimisation I have at the moment, is a pre-IR phase that operates on the AST. This is constant folding, which reduces reducible expressions as much as possible. For example, if we write `result = 1 + 2;` then the AST is reduced to the AST that would have resulted from `result = 3;`. Obviously, this leaves irreducible expressions, usually those which have a variable as one of the operands. This essentially requires identifying minimal subexpressions that can be rewritten in a way that makes further constant reduction possible, without re-ordering operations that we would expect to have side-effects.
+There is a pre-IR optimisation phase that operates on the AST. This is constant folding, which reduces reducible expressions as much as possible. For example, if we write `result = 1 + 2;` then the AST is reduced to the AST that would have resulted from `result = 3;`. Obviously, this leaves irreducible expressions, usually those which have a variable or function call as one of the operands. This essentially requires identifying minimal subexpression patterns that can then be rewritten to either pre-compute operations on constants, or open up more opportunities to reduce constants.
 
-I also added a late-backend phase which converts long jumps to short jumps if the target label is in range. This is done with a fixed-point algorithm as each conversion opens up opportunities for previous jumps that were initially too far away. Since this optimisation removes instructions, phases that work by counting instruction locations have to run after this optimisation phase.
+There is a late-backend phase which converts the default range-extended jumps to short jumps if the target label is in range. This is done with a fixed-point algorithm as each conversion opens up opportunities for previous jumps that were initially too far away. Since this optimisation removes instructions, phases that work by counting instruction locations have to run after this optimisation phase.
