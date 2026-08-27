@@ -76,6 +76,12 @@ executionTests/Arrays/assemblyOfTest_ArrayAccessWhereIndexIsObtainedFromEvaluate
 PASS
 executionTests/Arrays/assemblyOfTest_AssignStructToElementOfStructArray.asm:
 PASS
+executionTests/Arrays/assemblyOfTest_MatrixAccess.asm:
+PASS
+executionTests/Arrays/assemblyOfTest_MatrixAccess1.asm:
+PASS
+executionTests/Arrays/assemblyOfTest_MatrixAccess2.asm:
+PASS
 executionTests/Arrays/assemblyOfTest_ProperArrayDeclarationInitialiseStructArrayValues.asm:
 PASS
 executionTests/Arrays/assemblyOfTest_SettingValueAtArrayPositionUsingPointerToArray.asm:

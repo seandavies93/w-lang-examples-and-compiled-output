@@ -1,0 +1,59 @@
+function main : int ()
+{
+    rows : int;
+    cols : int;
+    rows = 3;
+    cols = 3;
+
+    matrix : int{9};
+
+    matrix[0 + rows * 0] = 5;
+    matrix[0 + rows * 1] = 12;
+    matrix[0 + rows * 2] = 8;
+
+    matrix[1 + rows * 0] = 3;
+    matrix[1 + rows * 1] = 1;
+    matrix[1 + rows * 2] = 15;
+
+    matrix[2 + rows * 0] = 7;
+    matrix[2 + rows * 1] = 4;
+    matrix[2 + rows * 2] = 10;
+
+    totalSum : int;
+    totalSum = sumEntireMatrix(matrix, rows, cols);
+
+    yesOrNo : int;
+    if (totalSum == 65)
+    {
+        yesOrNo = 89; 
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+
+    return yesOrNo;
+}
+
+function sumEntireMatrix : int (matrix : @int, rows : int, cols : int)
+{
+    accumulator : int;
+    accumulator = 0;
+
+    r : int;
+    c : int;
+    r = 0;
+
+    while (r < rows)
+    {
+        c = 0;
+        while (c < cols)
+        {
+            accumulator = accumulator + matrix[r + rows * c];
+            c = c + 1;
+        }
+        r = r + 1;
+    }
+
+    return accumulator;
+}

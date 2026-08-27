@@ -1,0 +1,72 @@
+function main : int ()
+{
+    rows : int;
+    cols : int;
+    rows = 3;
+    cols = 3;
+
+    matrix : @@int;
+    matrix = halloc(rows);
+
+    i : int;
+    i = 0;
+    while (i < rows)
+    {
+        matrix[i] = halloc(cols);
+        i = i + 1;
+    }
+
+    matrix[0][0] = 5;
+    matrix[0][1] = 12;
+    matrix[0][2] = 8;
+
+    matrix[1][0] = 3;
+    matrix[1][1] = 1;
+    matrix[1][2] = 15;
+
+    matrix[2][0] = 7;
+    matrix[2][1] = 4;
+    matrix[2][2] = 10;
+
+    diagonalSum : int;
+    diagonalSum = computeDoublePointerDiagonal(matrix, rows);
+
+    targetValue : int;
+    targetValue = matrix[1][2];
+
+    i = 0;
+    while (i < rows)
+    {
+        free(matrix[i]);
+        i = i + 1;
+    }
+    free(matrix);
+
+    yesOrNo : int;
+    if (diagonalSum == 16 && targetValue == 15)
+    {
+        yesOrNo = 89; 
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+
+    return yesOrNo;
+}
+
+function computeDoublePointerDiagonal : int (matrix : @@int, size : int)
+{
+    sum : int;
+    sum = 0;
+
+    i : int;
+    i = 0;
+    while (i < size)
+    {
+        sum = sum + matrix[i][i];
+        i = i + 1;
+    }
+
+    return sum;
+}

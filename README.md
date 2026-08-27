@@ -15,7 +15,7 @@ Currently, the lexer is maximising readability and extensibility. However, to ma
   - If the current character is alphabetic then we can fall back on the token regex list approach, but the only token types in the list will be alphabetic tokens e.g. name tokens and keyword tokens
   - Or just greedily consume characters that might be part of a name or keyword. Once we reach a character that can't be part of a name or keyword, then we look back at the accumulated characters and try to discern which token it was.
 - Then check for numeric characters. Currently no name token or keyword token is allowed to begin with a numeric character
-  - In this case we could greedily consume numeric characters into an accummulating token, stopping when the current character is not numeric
+  - In this case we could greedily consume numeric characters into an accumulating token, stopping when the current character is not numeric
 
 ## Parser
 
@@ -23,17 +23,15 @@ The parser is a hand-written recursive descent parser. The expression sector of 
 
 ## Intermediate Representation
 
-I refactored from the initial architecture, which went straight from AST to assembly, to an architecture that first converts the AST to an intermediate representation (IR) and then from IR to LC-3, this means that LC-3-specific concerns only come into play in the LC-3 backend. 
+The intermediate representation is largely an abstracted/generic assembly language with extra utilities like function calls and struct handling operations.
 
-The intermediate representation isn't too fancy just now; its mainly an abstracted/generic assembly language with extra utilities like function calls and struct handling operations. This means I could eventually swap out the LC-3 backend for another assembly backend. 
+The IR allows you to declare stack variable allocations with `ALLOCATE_STACK_SPACE`. For current purposes these are guaranteed to be translated into stack variables, which seems to be a detail that LLVM exposes in some cases (`alloca`). There are also "virtual registers", which are declared implicitly and are used in operations that take Three-Address-Code form. These "registers" are numbers prefixed with `#` because the lexer and parser would not allow that character through as part of a variable name ensuring disambiguation with any possible user variable.
 
-The IR allows you to declare stack variable allocations with `ALLOCATE_STACK_SPACE`. For current purposes these are definitely translated into stack variables, which seems to be a detail that LLVM exposes in some cases (`alloca`). There are also "virtual registers", which are declared implicitly and are used in operations that take Three-Address-Code form. These "registers" are numbers prefixed with `#` because the lexer and parser would not allow that character through as part of a variable name ensuring disambiguation with any possible user variable.
-
-The local variables declared on the stack don't need to be explicitly deallocated. This is handled by the backend, though in some cases we need to mark out scopes using `BLOCK_BEGIN` and `BLOCK_END`. These are used with while loop blocks and if-else statement blocks. 
+The local variables declared on the stack don't need to be explicitly deallocated. This is handled by the backend, though in some cases we need to mark out scopes using `BLOCK_BEGIN` and `BLOCK_END`.
 
 A `BLOCK_BEGIN` pushes the previous scope's layout list onto a scope stack so that when we reach a `BLOCK_END` we can compare that previous stack layout with how it looks after the new scope finishes. That way we know which variables were introduced by that scope and which already existed and can deallocate the local variables appropriately. 
 
-At the moment, I don't wrap function blocks with `BLOCK_BEGIN`...`BLOCK_END` and instead use function labels as signifiers of the beginning of blocks and the next function label triggers a scope stack reset. Wherever a return statement is located, it needs to deallocate all local variables of the function, not just those declared in the scope where the return statement was found. For that reason, we keep track of all variables that been allocated since the beginning of the function. Specifically, a return statement comes bundled with a function epilogue which deallocates all local variables that have been allocated thus far and restores the callee-saved registers.
+Wherever a return statement is located, it needs to deallocate all local variables of the function, not just those declared in the scope where the return statement was found. For that reason, we keep track of all variables that been allocated since the beginning of the function. Specifically, a return statement comes bundled with a function epilogue which deallocates all local variables that have been allocated thus far and restores the callee-saved registers.
 
 Currently, the return epilogue doesn't restore previous scopes in the scope tracking system, we just let the block initiators and terminators deal with that responsibility, although that does mean we have somewhat unoptimised code: an unreachable block deallocation is still emitted even though a preceding return jump guarantees that the extra deallocations aren't run. Probably an optimisation opportunity in there when things feel a bit more stable.
 
@@ -62,9 +60,9 @@ ASSIGN_OP     #2, #1
 ```
 The destination is `result` and `#2` is a virtual register that is set to the address of `result`. Operand 1 on the other hand, holds the R-value to be copied into the address of `result`. `ASSIGN_OP` takes an address of a memory slot in the stack as operand 1 and the value to be stored as operand 2.
 
-Another key aspect of the current IR, is that it is close to SSA-form like LLVM, but is missing some aspects of what LLVM IR implements. This custom IR does not have phi nodes as LLVM IR does. As a result, it needs to avoid using registers with live ranges that extend from one basic block to another. In other words, any given virtual register should have a live range that is confined to this IR's equivalent of a basic block. The current IR generator does respect this and goes further: the live range of any virtual register is no larger than the range of the expression calculation it is part of.
+The current IR is close to SSA-form like LLVM, except for the fact that it disallows virtual registers to have live ranges that span multiple basic blocks. In other words, any given virtual register should have a live range that is confined to this IR's equivalent of a basic block. The current IR generator does respect this and goes further: the live range of any virtual register is no larger than the range of the expression calculation it is part of.
 
-This canonical form, is well-suited to the highly constrained LC-3 architecture. I believe this is somewhat like LLVM, in that the middle-end form of IR will transit through various forms that are in no way backend-specific. As far as I'm aware, there are pre-backend phases that will take the LLVM IR and "lower" it to a form that is tailored to a specific backend, just before the full conversion to assembly takes place. My pipeline is like that, but without the middle-end optimisations. The frontend emits in this backend-friendly style, and then the backend converts it.
+This canonical form, is well-suited to the highly constrained LC-3 architecture. Seemingly, LLVM backends will sometimes mutate the IR to a form that is suitable for the targeted backend. This is after having transited forms that are more backend-agnostic. In this case, the frontend directly generates the backend friendly form and does not yet have phases transiting through backend-agnostic forms yet.
 
 ## LC-3 Backend
 
@@ -74,39 +72,40 @@ For example, there is the `ALLOCATE_STACK_SPACE` instruction which does not requ
 
 There is a late-backend optimisation system that chooses between range-extended jumps and short jumps, using a fixed-point algorithm that keeps running branch-relaxation passes until a fixed-point is reached. More details of the format of range-extended and short jumps can be found later on.
 
-The backend has passes that determine the absolute addresses of function labels and other labels if they need to be registered in the globals table. These manually count out the number of instructions from the `.ORIG` directive, which I believe other assembly languages would handle for you. This pass requires essentially the final assembly layout to be completed in order to accurately count address locations. As such, missing information in the globals table is given a placeholder designed to take up one line, just like the final layout. Therefore, filling the placeholder should not change the line count.
+The backend has passes that determine the absolute addresses of function labels and other labels if they need to be registered in the globals table. These manually count out the number of instructions from the `.ORIG` directive, which is a responsibility of modern assemblers. This pass requires essentially the final assembly layout to be completed in order to accurately count address locations. As such, missing information in the globals table is given a placeholder designed to take up one line, just like the final layout. Therefore, filling the placeholder should not change the line count.
 
-The following list describes the general way various registers are used. Currently, the compiler doesn't have a system to track live-ranges, which means that some guarantees are managed by using these registers in a careful way in each assembly template.
+The following list describes the register usage conventions. Currently, the compiler doesn't have a system to track live-ranges, which means that some guarantees are made by careful use of the registers in LC-3 templates.
 
-`R0`
+- `R0`
+  - `R0` is used as an accumulator for calculations and intermediate results. 
+  - It is also used to return single-word results directly. 
+  - Another use is to accumulate pointer offsets and occasionally in pointer de-referencing.
+- `R1 and R2`
+  - Used to store operands for binary or unary calculations. 
+  - `R1` is also used for storing pointer addresses temporarily during de-referencing assignments. 
+  - callee-saved
+- `R3`
+  - Used for temporary additional storage to avoid clobbering, like during parameter and variable popping. 
+  - Sometimes used as a variable in some implicit routines. 
+  - For example, the implicit routine used for copying non-overlapping structs. 
+  - callee-saved
+- `R4`
+  - This is a frame pointer, from which function-local parameter and variable access is indexed from. 
+  - caller-saved
+- `R5`
+  - Used as a global symbol table pointer. 
+  - Points to the beginning of the symbol table. 
+  - Needs to be saved and restored if used in local internal subroutines, like the "CopyNWords" routine. 
+  - global
+- `R6`
+  - Stack pointer. 
+  - global
+- `R7`
+  - LC-3 default return address register. 
+  - Also used as a temp store for the frame pointer, when it is available without risk of clobbering. 
+  - caller-saved
 
-`R0` is used as an accumulator for calculations and intermediate results. It is also used to return single-word results directly. Another use is to accumulate pointer offsets and occasionally in pointer de-referencing.
-
-`R1 and R2`
-
-Used to store operands for binary or unary calculations. `R1` is also used for storing pointer addresses temporarily during de-referencing assignments. (callee-saved)
-
-`R3`
-
-Used for temporary additional storage to avoid clobbering, like during parameter and variable popping. Sometimes used as a variable in some implicit routines. For example, the implicit routine used for copying non-overlapping structs. (callee-saved)
-
-`R4`
-
-This is a frame pointer, from which function-local parameter and variable access is indexed from. (caller-saved)
-
-`R5`
-
-Used as a global symbol table pointer. Points to the beginning of the symbol table. Needs to be saved and restored if used in local internal subroutines, like the "CopyNWords" routine. (global)
-
-`R6`
-
-Stack pointer. (global)
-
-`R7`
-
-LC-3 default return address register. Also used as a temp store for the frame pointer, when it is available without risk of clobbering. Currently, between the function call prologue and function jump, `R7` is free for use. Otherwise, I think it can't be modified. (caller-saved)
-
-We need to emit assembly labels for control structures, but need to make them unique to each structure. At the moment we give each control structure an index (starting from 0) based on its order of appearance in the code fragment and append it to the base label.
+Assembly labels need to be emitted for control structures, but need to make them unique to each structure. At the moment we give each control structure an index (starting from 0) based on its order of appearance in the code fragment and append it to the base label.
 
 ### Expression Evaluation
 
@@ -225,6 +224,7 @@ Specifically, an offset is broken up into chunks of 16 when offsetting in the ne
     - `structArray : structType{6};`
     - Note that array types behave similarly to C stack-arrays, in particular, they cannot be passed by value to a function nor returned by value from a function
     - Interestingly, the reason this isn't supported is that it requires context-dependent evaluation semantics. If an array is passed as a function parameter to a function expecting an array type, then the array would need to be copied like a struct. However, if the function is expecting a pointer then a passed array should obey the array decay semantics found in C (evaluate to a pointer to the first element). In many other cases the array is evaluated as a pointer to its first element. Perhaps this is why C doesn't support it either?
+    - Does not yet support multi-dimensional array syntax
 - Assignment statements e.g. 
   - `number = 10;`
   - `structItem = otherStruct;`
@@ -398,6 +398,9 @@ Currently, the address of the first word of the program segment, location `16384
   - Currently, there is basic syntax error reporting, which occurs when `consumeToken` encounters an unexpected token.
 - `&&` and `||` could be made to be short-circuiting as is standard
   - Within the current canonical IR form, this could be implemented by using a hidden stack allocated variable to facilitate mutations across branching code (since short-circuiting requires control flow)
+- Arrays currently don't support multi-dimensional declarations as far as I'm aware i.e. `array : int{5}{5};`
+  - Can achieve something similar by heap allocating to a double pointer.
+  - Another workaround would be calculating the total entry count and arranging the array in row-major form.
 
 ## Execution Semantics Tests That Try to Detect Memory Corruption
 
@@ -413,6 +416,6 @@ There are a small number of optimisations, having migrated to the IR will make i
 
 Then, there is a peephole optimisation to remove redundant, neighbouring push and pop operations.
 
-There is a pre-IR optimisation phase that operates on the AST. This is constant folding, which reduces reducible expressions as much as possible. For example, if we write `result = 1 + 2;` then the AST is reduced to the AST that would have resulted from `result = 3;`. Obviously, this leaves irreducible expressions, usually those which have a variable or function call as one of the operands. This essentially requires identifying minimal subexpression patterns that can then be rewritten to either pre-compute operations on constants, or open up more opportunities to reduce constants.
+There is a pre-IR optimisation phase that operates on the AST. This is constant folding, which reduces reducible expressions as much as possible. For example, if we write `result = 1 + 2;` then the AST is reduced to the AST that would have resulted from `result = 3;`. Obviously, this leaves irreducible expressions, usually those which have a variable or function call as one of the operands. This essentially requires identifying minimal subexpressions patterns that can then be rewritten to either pre-compute operations on constants, or open up more opportunities to reduce constants.
 
 There is a late-backend phase which converts the default range-extended jumps to short jumps if the target label is in range. This is done with a fixed-point algorithm as each conversion opens up opportunities for previous jumps that were initially too far away. Since this optimisation removes instructions, phases that work by counting instruction locations have to run after this optimisation phase.
