@@ -35,10 +35,10 @@ LITERAL-15      .FILL 16384
 LITERAL-16      .FILL 16383
 LITERAL-17      .FILL 16381
 LITERAL-WHILE-COPY-WORDS      .FILL 17986
-LITERAL-computeSelective      .FILL 16814
-LITERAL-main      .FILL 16423
-LITERAL-initHeap      .FILL 17889
-main
+LITERAL-function-computeSelective      .FILL 16814
+LITERAL-function-main      .FILL 16423
+LITERAL-function-initHeap      .FILL 17889
+function-main
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -79,7 +79,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR computeSelective
+JSR function-computeSelective
 ADD R6,R6,#1
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -108,7 +108,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR computeSelective
+JSR function-computeSelective
 ADD R6,R6,#1
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -137,7 +137,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR computeSelective
+JSR function-computeSelective
 ADD R6,R6,#1
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -166,7 +166,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR computeSelective
+JSR function-computeSelective
 ADD R6,R6,#1
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -195,7 +195,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR computeSelective
+JSR function-computeSelective
 ADD R6,R6,#1
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -224,7 +224,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR computeSelective
+JSR function-computeSelective
 ADD R6,R6,#1
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -450,7 +450,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-computeSelective
+function-computeSelective
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -738,7 +738,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-halloc
+function-halloc
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1228,7 +1228,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-free
+function-free
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1625,7 +1625,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-initHeap
+function-initHeap
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0

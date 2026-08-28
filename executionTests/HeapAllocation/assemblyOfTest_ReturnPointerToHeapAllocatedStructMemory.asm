@@ -26,11 +26,11 @@ LITERAL-8      .FILL 4
 LITERAL-9      .FILL 16381
 LITERAL-LengthOf-example      .FILL 3
 LITERAL-WHILE-COPY-WORDS      .FILL 17575
-LITERAL-initHeapStruct      .FILL 16561
-LITERAL-halloc      .FILL 16647
-LITERAL-main      .FILL 16415
-LITERAL-initHeap      .FILL 17480
-main
+LITERAL-function-initHeapStruct      .FILL 16561
+LITERAL-function-halloc      .FILL 16647
+LITERAL-function-main      .FILL 16415
+LITERAL-function-initHeap      .FILL 17480
+function-main
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -47,7 +47,7 @@ STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R7,R6,#0
 ADD R4,R7,#0
-JSR initHeapStruct
+JSR function-initHeapStruct
 ADD R6,R6,#1
 LDR R7, R6, #1
 ADD R6, R6, #1
@@ -191,7 +191,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-initHeapStruct
+function-initHeapStruct
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -213,7 +213,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR halloc
+JSR function-halloc
 ADD R6,R6,#1
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -278,7 +278,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-halloc
+function-halloc
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -767,7 +767,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-free
+function-free
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1162,7 +1162,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-initHeap
+function-initHeap
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0

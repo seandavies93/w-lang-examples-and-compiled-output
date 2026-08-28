@@ -31,13 +31,13 @@ LITERAL-11      .FILL 0
 LITERAL-12      .FILL 16381
 LITERAL-LengthOf-example      .FILL 3
 LITERAL-WHILE-COPY-WORDS      .FILL 18096
-LITERAL-delegatorFunction      .FILL 16597
-LITERAL-multiplyAllEntriesByTwo      .FILL 16997
-LITERAL-multiplyAllEntriesByFour      .FILL 16826
-LITERAL-creatorFunction      .FILL 16698
-LITERAL-main      .FILL 16422
-LITERAL-initHeap      .FILL 18001
-main
+LITERAL-function-delegatorFunction      .FILL 16597
+LITERAL-function-multiplyAllEntriesByTwo      .FILL 16997
+LITERAL-function-multiplyAllEntriesByFour      .FILL 16826
+LITERAL-function-creatorFunction      .FILL 16698
+LITERAL-function-main      .FILL 16422
+LITERAL-function-initHeap      .FILL 18001
+function-main
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -56,7 +56,7 @@ STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R7,R6,#0
 ADD R4,R7,#0
-JSR delegatorFunction
+JSR function-delegatorFunction
 ADD R6,R6,#1
 LDR R7, R6, #1
 ADD R6, R6, #1
@@ -227,7 +227,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-delegatorFunction
+function-delegatorFunction
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -262,14 +262,14 @@ STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R7,R6,#0
 ADD R4,R7,#0
-JSR creatorFunction
+JSR function-creatorFunction
 ADD R6,R6,#1
 LDR R7, R6, #1
 ADD R6, R6, #1
 LDR R4, R6, #1
 ADD R6, R6, #1
 ADD R4,R7,#0
-JSR multiplyAllEntriesByFour
+JSR function-multiplyAllEntriesByFour
 ADD R6,R6,#3
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -277,7 +277,7 @@ ADD R6, R6, #1
 LDR R4, R6, #1
 ADD R6, R6, #1
 ADD R4,R7,#0
-JSR multiplyAllEntriesByTwo
+JSR function-multiplyAllEntriesByTwo
 ADD R6,R6,#3
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -329,7 +329,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-creatorFunction
+function-creatorFunction
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -458,7 +458,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-multiplyAllEntriesByFour
+function-multiplyAllEntriesByFour
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -636,7 +636,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-multiplyAllEntriesByTwo
+function-multiplyAllEntriesByTwo
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -814,7 +814,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-halloc
+function-halloc
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1303,7 +1303,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-free
+function-free
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1698,7 +1698,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-initHeap
+function-initHeap
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0

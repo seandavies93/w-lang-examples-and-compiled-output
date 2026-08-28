@@ -42,14 +42,14 @@ LITERAL-LengthOf-baseThree      .FILL 4
 LITERAL-LengthOf-baseTwo      .FILL 4
 LITERAL-LengthOf-exponentialData      .FILL 8
 LITERAL-WHILE-COPY-WORDS      .FILL 18456
-LITERAL-populateExponentialData      .FILL 16636
-LITERAL-checkDataCorrect      .FILL 17020
-LITERAL-exponentiate      .FILL 17383
-LITERAL-checkForTwo      .FILL 17153
-LITERAL-checkForThree      .FILL 17268
-LITERAL-main      .FILL 16434
-LITERAL-initHeap      .FILL 18355
-main
+LITERAL-function-populateExponentialData      .FILL 16636
+LITERAL-function-checkDataCorrect      .FILL 17020
+LITERAL-function-exponentiate      .FILL 17383
+LITERAL-function-checkForTwo      .FILL 17153
+LITERAL-function-checkForThree      .FILL 17268
+LITERAL-function-main      .FILL 16434
+LITERAL-function-initHeap      .FILL 18355
+function-main
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -67,7 +67,7 @@ STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R7,R6,#0
 ADD R4,R7,#0
-JSR populateExponentialData
+JSR function-populateExponentialData
 ADD R6,R6,#1
 LDR R7, R6, #1
 ADD R6, R6, #1
@@ -208,7 +208,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 ADD R4,R7,#0
-JSR checkDataCorrect
+JSR function-checkDataCorrect
 ADD R6,R6,#8
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -257,7 +257,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-populateExponentialData
+function-populateExponentialData
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -284,7 +284,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR exponentiate
+JSR function-exponentiate
 ADD R6,R6,#2
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -320,7 +320,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR exponentiate
+JSR function-exponentiate
 ADD R6,R6,#2
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -356,7 +356,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR exponentiate
+JSR function-exponentiate
 ADD R6,R6,#2
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -392,7 +392,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR exponentiate
+JSR function-exponentiate
 ADD R6,R6,#2
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -428,7 +428,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR exponentiate
+JSR function-exponentiate
 ADD R6,R6,#2
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -464,7 +464,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR exponentiate
+JSR function-exponentiate
 ADD R6,R6,#2
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -500,7 +500,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR exponentiate
+JSR function-exponentiate
 ADD R6,R6,#2
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -536,7 +536,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR exponentiate
+JSR function-exponentiate
 ADD R6,R6,#2
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -642,7 +642,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-checkDataCorrect
+function-checkDataCorrect
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -699,7 +699,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 ADD R4,R7,#0
-JSR checkForTwo
+JSR function-checkForTwo
 ADD R6,R6,#4
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -758,7 +758,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 ADD R4,R7,#0
-JSR checkForThree
+JSR function-checkForThree
 ADD R6,R6,#4
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -776,7 +776,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-checkForTwo
+function-checkForTwo
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -904,7 +904,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-checkForThree
+function-checkForThree
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1032,7 +1032,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-exponentiate
+function-exponentiate
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1157,7 +1157,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-halloc
+function-halloc
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1660,7 +1660,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-free
+function-free
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -2066,7 +2066,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-initHeap
+function-initHeap
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0

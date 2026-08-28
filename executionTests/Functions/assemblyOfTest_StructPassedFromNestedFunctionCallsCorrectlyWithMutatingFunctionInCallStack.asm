@@ -30,12 +30,12 @@ LITERAL-10      .FILL 0
 LITERAL-11      .FILL 16381
 LITERAL-LengthOf-example      .FILL 3
 LITERAL-WHILE-COPY-WORDS      .FILL 17906
-LITERAL-delegatorFunction      .FILL 16595
-LITERAL-multiplyAllEntriesByFour      .FILL 16807
-LITERAL-creatorFunction      .FILL 16679
-LITERAL-main      .FILL 16420
-LITERAL-initHeap      .FILL 17811
-main
+LITERAL-function-delegatorFunction      .FILL 16595
+LITERAL-function-multiplyAllEntriesByFour      .FILL 16807
+LITERAL-function-creatorFunction      .FILL 16679
+LITERAL-function-main      .FILL 16420
+LITERAL-function-initHeap      .FILL 17811
+function-main
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -54,7 +54,7 @@ STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R7,R6,#0
 ADD R4,R7,#0
-JSR delegatorFunction
+JSR function-delegatorFunction
 ADD R6,R6,#1
 LDR R7, R6, #1
 ADD R6, R6, #1
@@ -225,7 +225,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-delegatorFunction
+function-delegatorFunction
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -251,14 +251,14 @@ STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R7,R6,#0
 ADD R4,R7,#0
-JSR creatorFunction
+JSR function-creatorFunction
 ADD R6,R6,#1
 LDR R7, R6, #1
 ADD R6, R6, #1
 LDR R4, R6, #1
 ADD R6, R6, #1
 ADD R4,R7,#0
-JSR multiplyAllEntriesByFour
+JSR function-multiplyAllEntriesByFour
 ADD R6,R6,#3
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -310,7 +310,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-creatorFunction
+function-creatorFunction
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -439,7 +439,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-multiplyAllEntriesByFour
+function-multiplyAllEntriesByFour
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -617,7 +617,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-halloc
+function-halloc
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1106,7 +1106,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-free
+function-free
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1501,7 +1501,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-initHeap
+function-initHeap
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0

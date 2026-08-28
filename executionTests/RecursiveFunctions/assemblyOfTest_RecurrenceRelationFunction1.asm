@@ -32,10 +32,10 @@ LITERAL-12      .FILL 16384
 LITERAL-13      .FILL 16383
 LITERAL-14      .FILL 16381
 LITERAL-WHILE-COPY-WORDS      .FILL 17900
-LITERAL-recurrence      .FILL 16794
-LITERAL-main      .FILL 16420
-LITERAL-initHeap      .FILL 17805
-main
+LITERAL-function-recurrence      .FILL 16794
+LITERAL-function-main      .FILL 16420
+LITERAL-function-initHeap      .FILL 17805
+function-main
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -62,7 +62,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR recurrence
+JSR function-recurrence
 ADD R6,R6,#1
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -91,7 +91,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR recurrence
+JSR function-recurrence
 ADD R6,R6,#1
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -120,7 +120,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR recurrence
+JSR function-recurrence
 ADD R6,R6,#1
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -149,7 +149,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR recurrence
+JSR function-recurrence
 ADD R6,R6,#1
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -178,7 +178,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR recurrence
+JSR function-recurrence
 ADD R6,R6,#1
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -207,7 +207,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR recurrence
+JSR function-recurrence
 ADD R6,R6,#1
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -433,7 +433,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-recurrence
+function-recurrence
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -546,7 +546,7 @@ ADD R0,R1,R2
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR recurrence
+JSR function-recurrence
 ADD R6,R6,#1
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -596,7 +596,7 @@ ADD R0,R1,R2
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR recurrence
+JSR function-recurrence
 ADD R6,R6,#1
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -630,7 +630,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-halloc
+function-halloc
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1119,7 +1119,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-free
+function-free
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1514,7 +1514,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-initHeap
+function-initHeap
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0

@@ -26,10 +26,10 @@ LITERAL-8      .FILL 2
 LITERAL-9      .FILL 4
 LITERAL-10      .FILL 16381
 LITERAL-WHILE-COPY-WORDS      .FILL 17547
-LITERAL-factorial      .FILL 16526
-LITERAL-main      .FILL 16414
-LITERAL-initHeap      .FILL 17452
-main
+LITERAL-function-factorial      .FILL 16526
+LITERAL-function-main      .FILL 16414
+LITERAL-function-initHeap      .FILL 17452
+function-main
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -59,7 +59,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR factorial
+JSR function-factorial
 ADD R6,R6,#1
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -69,7 +69,7 @@ ADD R6, R6, #1
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR factorial
+JSR function-factorial
 ADD R6,R6,#1
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -150,7 +150,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-factorial
+function-factorial
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -215,7 +215,7 @@ ADD R0,R1,R2
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR factorial
+JSR function-factorial
 ADD R6,R6,#1
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -254,7 +254,7 @@ LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
 END-IF-1
-halloc
+function-halloc
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -743,7 +743,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-free
+function-free
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1138,7 +1138,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-initHeap
+function-initHeap
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0

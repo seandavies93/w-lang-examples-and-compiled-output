@@ -33,11 +33,11 @@ LITERAL-13      .FILL 16384
 LITERAL-14      .FILL 16383
 LITERAL-15      .FILL 16381
 LITERAL-WHILE-COPY-WORDS      .FILL 18014
-LITERAL-selectionSort      .FILL 16781
+LITERAL-function-selectionSort      .FILL 16781
 LITERAL-WHILE-1      .FILL 16801
-LITERAL-main      .FILL 16422
-LITERAL-initHeap      .FILL 17919
-main
+LITERAL-function-main      .FILL 16422
+LITERAL-function-initHeap      .FILL 17919
+function-main
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -173,7 +173,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR selectionSort
+JSR function-selectionSort
 ADD R6,R6,#2
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -417,7 +417,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-selectionSort
+function-selectionSort
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -745,7 +745,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-halloc
+function-halloc
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1234,7 +1234,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-free
+function-free
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1629,7 +1629,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-initHeap
+function-initHeap
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0

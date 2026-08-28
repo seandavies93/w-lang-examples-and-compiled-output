@@ -30,9 +30,9 @@ LITERAL-11      .FILL 16381
 LITERAL-LengthOf-Node      .FILL 2
 LITERAL-LengthOf-PointerToInt      .FILL 1
 LITERAL-WHILE-COPY-WORDS      .FILL 17672
-LITERAL-main      .FILL 16417
-LITERAL-initHeap      .FILL 17577
-main
+LITERAL-function-main      .FILL 16417
+LITERAL-function-initHeap      .FILL 17577
+function-main
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -383,7 +383,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-halloc
+function-halloc
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -872,7 +872,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-free
+function-free
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1267,7 +1267,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-initHeap
+function-initHeap
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0

@@ -1,0 +1,21 @@
+function main : int ()
+{
+    result : int;
+    result = ADD(10, 5);
+
+    yesOrNo : int;
+    if (result == 15)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function ADD : int (n : int, m : int)
+{
+    return n + m;
+}

@@ -32,14 +32,14 @@ LITERAL-12      .FILL 2
 LITERAL-13      .FILL 4
 LITERAL-14      .FILL 16381
 LITERAL-WHILE-COPY-WORDS      .FILL 17815
-LITERAL-callFunctionPointer      .FILL 16845
-LITERAL-add      .FILL 16730
-LITERAL-subtract      .FILL 16755
-LITERAL-divide      .FILL 16782
-LITERAL-multiply      .FILL 16815
-LITERAL-main      .FILL 16424
-LITERAL-initHeap      .FILL 17720
-main
+LITERAL-function-callFunctionPointer      .FILL 16845
+LITERAL-function-add      .FILL 16730
+LITERAL-function-subtract      .FILL 16755
+LITERAL-function-divide      .FILL 16782
+LITERAL-function-multiply      .FILL 16815
+LITERAL-function-main      .FILL 16424
+LITERAL-function-initHeap      .FILL 17720
+function-main
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -75,7 +75,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR callFunctionPointer
+JSR function-callFunctionPointer
 ADD R6,R6,#3
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -115,7 +115,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR callFunctionPointer
+JSR function-callFunctionPointer
 ADD R6,R6,#3
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -155,7 +155,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR callFunctionPointer
+JSR function-callFunctionPointer
 ADD R6,R6,#3
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -195,7 +195,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR callFunctionPointer
+JSR function-callFunctionPointer
 ADD R6,R6,#3
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -363,7 +363,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-add
+function-add
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -389,7 +389,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-subtract
+function-subtract
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -417,7 +417,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-divide
+function-divide
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -453,7 +453,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-multiply
+function-multiply
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -486,7 +486,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-callFunctionPointer
+function-callFunctionPointer
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -529,7 +529,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-halloc
+function-halloc
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1018,7 +1018,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-free
+function-free
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1413,7 +1413,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-initHeap
+function-initHeap
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0

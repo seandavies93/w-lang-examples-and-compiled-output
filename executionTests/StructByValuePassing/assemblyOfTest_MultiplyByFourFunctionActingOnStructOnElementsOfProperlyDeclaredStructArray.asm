@@ -33,10 +33,10 @@ LITERAL-13      .FILL 16383
 LITERAL-14      .FILL 16381
 LITERAL-LengthOf-dataForComputation      .FILL 2
 LITERAL-WHILE-COPY-WORDS      .FILL 18245
-LITERAL-multiplyByFour      .FILL 17132
-LITERAL-main      .FILL 16421
-LITERAL-initHeap      .FILL 18150
-main
+LITERAL-function-multiplyByFour      .FILL 17132
+LITERAL-function-main      .FILL 16421
+LITERAL-function-initHeap      .FILL 18150
+function-main
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -226,7 +226,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 ADD R4,R7,#0
-JSR multiplyByFour
+JSR function-multiplyByFour
 ADD R6,R6,#2
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -371,7 +371,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 ADD R4,R7,#0
-JSR multiplyByFour
+JSR function-multiplyByFour
 ADD R6,R6,#2
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -516,7 +516,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 ADD R4,R7,#0
-JSR multiplyByFour
+JSR function-multiplyByFour
 ADD R6,R6,#2
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -786,7 +786,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-multiplyByFour
+function-multiplyByFour
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -980,7 +980,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-halloc
+function-halloc
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1469,7 +1469,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-free
+function-free
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1864,7 +1864,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-initHeap
+function-initHeap
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0

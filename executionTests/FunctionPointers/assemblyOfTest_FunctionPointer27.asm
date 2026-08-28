@@ -31,11 +31,11 @@ LITERAL-11      .FILL 3
 LITERAL-12      .FILL 16381
 LITERAL-LengthOf-numbers      .FILL 2
 LITERAL-WHILE-COPY-WORDS      .FILL 17605
-LITERAL-applyOperationToNumbers      .FILL 16606
-LITERAL-addNumbers      .FILL 16579
-LITERAL-main      .FILL 16420
-LITERAL-initHeap      .FILL 17510
-main
+LITERAL-function-applyOperationToNumbers      .FILL 16606
+LITERAL-function-addNumbers      .FILL 16579
+LITERAL-function-main      .FILL 16420
+LITERAL-function-initHeap      .FILL 17510
+function-main
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -122,7 +122,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 ADD R4,R7,#0
-JSR applyOperationToNumbers
+JSR function-applyOperationToNumbers
 ADD R6,R6,#3
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -203,7 +203,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-addNumbers
+function-addNumbers
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -231,7 +231,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-applyOperationToNumbers
+function-applyOperationToNumbers
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -303,7 +303,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-halloc
+function-halloc
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -792,7 +792,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-free
+function-free
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1187,7 +1187,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-initHeap
+function-initHeap
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0

@@ -31,14 +31,14 @@ LITERAL-11      .FILL 16381
 LITERAL-LengthOf-MathEngine      .FILL 2
 LITERAL-LengthOf-State      .FILL 2
 LITERAL-WHILE-COPY-WORDS      .FILL 18191
-LITERAL-runCollatz      .FILL 16843
-LITERAL-half      .FILL 16636
-LITERAL-triplePlusOne      .FILL 16669
-LITERAL-buildEngine      .FILL 16708
-LITERAL-getEngineFactory      .FILL 16826
-LITERAL-main      .FILL 16423
-LITERAL-initHeap      .FILL 18096
-main
+LITERAL-function-runCollatz      .FILL 16843
+LITERAL-function-half      .FILL 16636
+LITERAL-function-triplePlusOne      .FILL 16669
+LITERAL-function-buildEngine      .FILL 16708
+LITERAL-function-getEngineFactory      .FILL 16826
+LITERAL-function-main      .FILL 16423
+LITERAL-function-initHeap      .FILL 18096
+function-main
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -120,7 +120,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 ADD R4,R7,#0
-JSR runCollatz
+JSR function-runCollatz
 ADD R6,R6,#2
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -263,7 +263,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-half
+function-half
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -299,7 +299,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-triplePlusOne
+function-triplePlusOne
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -341,7 +341,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-buildEngine
+function-buildEngine
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -460,7 +460,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-getEngineFactory
+function-getEngineFactory
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -478,7 +478,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-runCollatz
+function-runCollatz
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -618,7 +618,7 @@ STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R7,R6,#0
 ADD R4,R7,#0
-JSR getEngineFactory
+JSR function-getEngineFactory
 ADD R6,R6,#1
 LDR R7, R6, #1
 ADD R6, R6, #1
@@ -862,7 +862,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 ADD R4,R7,#0
-JSR runCollatz
+JSR function-runCollatz
 ADD R6,R6,#2
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -915,7 +915,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-halloc
+function-halloc
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1404,7 +1404,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-free
+function-free
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1799,7 +1799,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-initHeap
+function-initHeap
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0

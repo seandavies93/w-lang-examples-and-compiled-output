@@ -36,10 +36,10 @@ LITERAL-16      .FILL 16383
 LITERAL-17      .FILL 16381
 LITERAL-LengthOf-Matrix2x2      .FILL 4
 LITERAL-WHILE-COPY-WORDS      .FILL 18402
-LITERAL-multiplyMatrices      .FILL 16941
-LITERAL-main      .FILL 16424
-LITERAL-initHeap      .FILL 18305
-main
+LITERAL-function-multiplyMatrices      .FILL 16941
+LITERAL-function-main      .FILL 16424
+LITERAL-function-initHeap      .FILL 18305
+function-main
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -325,7 +325,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 ADD R4,R7,#0
-JSR multiplyMatrices
+JSR function-multiplyMatrices
 ADD R6,R6,#8
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -574,7 +574,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-multiplyMatrices
+function-multiplyMatrices
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1119,7 +1119,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-halloc
+function-halloc
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1609,7 +1609,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-free
+function-free
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -2006,7 +2006,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-initHeap
+function-initHeap
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0

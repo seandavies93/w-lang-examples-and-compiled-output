@@ -31,10 +31,10 @@ LITERAL-11      .FILL 16384
 LITERAL-12      .FILL 16383
 LITERAL-13      .FILL 16381
 LITERAL-WHILE-COPY-WORDS      .FILL 17848
-LITERAL-exponential      .FILL 16823
-LITERAL-main      .FILL 16419
-LITERAL-initHeap      .FILL 17753
-main
+LITERAL-function-exponential      .FILL 16823
+LITERAL-function-main      .FILL 16419
+LITERAL-function-initHeap      .FILL 17753
+function-main
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -66,7 +66,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR exponential
+JSR function-exponential
 ADD R6,R6,#2
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -100,7 +100,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR exponential
+JSR function-exponential
 ADD R6,R6,#2
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -134,7 +134,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR exponential
+JSR function-exponential
 ADD R6,R6,#2
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -168,7 +168,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR exponential
+JSR function-exponential
 ADD R6,R6,#2
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -202,7 +202,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR exponential
+JSR function-exponential
 ADD R6,R6,#2
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -236,7 +236,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR exponential
+JSR function-exponential
 ADD R6,R6,#2
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -462,7 +462,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-exponential
+function-exponential
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -543,7 +543,7 @@ ADD R0,R1,R2
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR exponential
+JSR function-exponential
 ADD R6,R6,#2
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -568,7 +568,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-halloc
+function-halloc
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1057,7 +1057,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-free
+function-free
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1452,7 +1452,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-initHeap
+function-initHeap
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0

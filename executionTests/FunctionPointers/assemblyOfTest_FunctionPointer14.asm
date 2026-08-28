@@ -32,13 +32,13 @@ LITERAL-12      .FILL 2
 LITERAL-13      .FILL 4
 LITERAL-14      .FILL 16381
 LITERAL-WHILE-COPY-WORDS      .FILL 17809
-LITERAL-add      .FILL 16766
-LITERAL-subtract      .FILL 16791
-LITERAL-divide      .FILL 16818
-LITERAL-multiply      .FILL 16851
-LITERAL-main      .FILL 16423
-LITERAL-initHeap      .FILL 17714
-main
+LITERAL-function-add      .FILL 16766
+LITERAL-function-subtract      .FILL 16791
+LITERAL-function-divide      .FILL 16818
+LITERAL-function-multiply      .FILL 16851
+LITERAL-function-main      .FILL 16423
+LITERAL-function-initHeap      .FILL 17714
+function-main
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -399,7 +399,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-add
+function-add
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -425,7 +425,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-subtract
+function-subtract
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -453,7 +453,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-divide
+function-divide
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -489,7 +489,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-multiply
+function-multiply
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -522,7 +522,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-halloc
+function-halloc
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1011,7 +1011,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-free
+function-free
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1406,7 +1406,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-initHeap
+function-initHeap
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0

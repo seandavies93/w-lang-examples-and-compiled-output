@@ -32,9 +32,9 @@ LITERAL-LengthOf-example0      .FILL 3
 LITERAL-LengthOf-example1      .FILL 6
 LITERAL-LengthOf-example2      .FILL 1
 LITERAL-WHILE-COPY-WORDS      .FILL 17854
-LITERAL-main      .FILL 16419
-LITERAL-initHeap      .FILL 17759
-main
+LITERAL-function-main      .FILL 16419
+LITERAL-function-initHeap      .FILL 17759
+function-main
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -577,7 +577,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-halloc
+function-halloc
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1066,7 +1066,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-free
+function-free
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1461,7 +1461,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-initHeap
+function-initHeap
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0

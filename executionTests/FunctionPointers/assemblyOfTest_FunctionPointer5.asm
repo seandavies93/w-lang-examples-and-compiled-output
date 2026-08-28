@@ -26,10 +26,10 @@ LITERAL-8      .FILL 4
 LITERAL-9      .FILL 16381
 LITERAL-LengthOf-example      .FILL 3
 LITERAL-WHILE-COPY-WORDS      .FILL 17549
-LITERAL-coolFunction      .FILL 16569
-LITERAL-main      .FILL 16414
-LITERAL-initHeap      .FILL 17454
-main
+LITERAL-function-coolFunction      .FILL 16569
+LITERAL-function-main      .FILL 16414
+LITERAL-function-initHeap      .FILL 17454
+function-main
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -199,7 +199,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-coolFunction
+function-coolFunction
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -252,7 +252,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-halloc
+function-halloc
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -741,7 +741,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-free
+function-free
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1136,7 +1136,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-initHeap
+function-initHeap
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0

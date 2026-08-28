@@ -29,10 +29,10 @@ LITERAL-LengthOf-builtObject      .FILL 4
 LITERAL-LengthOf-component1      .FILL 2
 LITERAL-LengthOf-component2      .FILL 2
 LITERAL-WHILE-COPY-WORDS      .FILL 17930
-LITERAL-construct      .FILL 16752
-LITERAL-main      .FILL 16417
-LITERAL-initHeap      .FILL 17835
-main
+LITERAL-function-construct      .FILL 16752
+LITERAL-function-main      .FILL 16417
+LITERAL-function-initHeap      .FILL 17835
+function-main
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -178,7 +178,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 ADD R4,R7,#0
-JSR construct
+JSR function-construct
 ADD R6,R6,#4
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -385,7 +385,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-construct
+function-construct
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -636,7 +636,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-halloc
+function-halloc
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1125,7 +1125,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-free
+function-free
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1520,7 +1520,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-initHeap
+function-initHeap
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0

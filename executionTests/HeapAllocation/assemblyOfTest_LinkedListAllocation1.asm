@@ -29,14 +29,14 @@ LITERAL-9      .FILL 4
 LITERAL-10      .FILL 3
 LITERAL-LengthOf-LinkedList      .FILL 2
 LITERAL-WHILE-COPY-WORDS      .FILL 18088
-LITERAL-createLongList      .FILL 16669
-LITERAL-checkCorrect      .FILL 16855
-LITERAL-deallocate      .FILL 17007
-LITERAL-halloc      .FILL 17160
-LITERAL-free      .FILL 17627
-LITERAL-main      .FILL 16421
-LITERAL-initHeap      .FILL 17993
-main
+LITERAL-function-createLongList      .FILL 16669
+LITERAL-function-checkCorrect      .FILL 16855
+LITERAL-function-deallocate      .FILL 17007
+LITERAL-function-halloc      .FILL 17160
+LITERAL-function-free      .FILL 17627
+LITERAL-function-main      .FILL 16421
+LITERAL-function-initHeap      .FILL 17993
+function-main
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -65,7 +65,7 @@ STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R7,R6,#0
 ADD R4,R7,#0
-JSR createLongList
+JSR function-createLongList
 ADD R6,R6,#1
 LDR R7, R6, #1
 ADD R6, R6, #1
@@ -94,7 +94,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR checkCorrect
+JSR function-checkCorrect
 ADD R6,R6,#1
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -123,7 +123,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR deallocate
+JSR function-deallocate
 ADD R6,R6,#1
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -299,7 +299,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-createLongList
+function-createLongList
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -321,7 +321,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR halloc
+JSR function-halloc
 ADD R6,R6,#1
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -405,7 +405,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR halloc
+JSR function-halloc
 ADD R6,R6,#1
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -494,7 +494,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-checkCorrect
+function-checkCorrect
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -658,7 +658,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-deallocate
+function-deallocate
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -749,7 +749,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR free
+JSR function-free
 ADD R6,R6,#1
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -805,7 +805,7 @@ LDR R0,R0,#0
 STR R0,R6,#0
 ADD R6,R6,#-1
 ADD R4,R7,#0
-JSR free
+JSR function-free
 ADD R6,R6,#1
 ADD R6,R6,#1
 LDR R7, R6, #1
@@ -820,7 +820,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-halloc
+function-halloc
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1309,7 +1309,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-free
+function-free
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1704,7 +1704,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-initHeap
+function-initHeap
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0

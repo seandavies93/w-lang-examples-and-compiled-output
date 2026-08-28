@@ -32,11 +32,11 @@ LITERAL-12      .FILL 16383
 LITERAL-13      .FILL 16381
 LITERAL-LengthOf-exponentialData      .FILL 3
 LITERAL-WHILE-COPY-WORDS      .FILL 18320
-LITERAL-exponentiate      .FILL 17002
-LITERAL-multiplyByBase      .FILL 17274
-LITERAL-main      .FILL 16421
-LITERAL-initHeap      .FILL 18225
-main
+LITERAL-function-exponentiate      .FILL 17002
+LITERAL-function-multiplyByBase      .FILL 17274
+LITERAL-function-main      .FILL 16421
+LITERAL-function-initHeap      .FILL 18225
+function-main
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -638,7 +638,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-exponentiate
+function-exponentiate
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -919,7 +919,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-multiplyByBase
+function-multiplyByBase
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1040,7 +1040,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-halloc
+function-halloc
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1529,7 +1529,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-free
+function-free
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
@@ -1924,7 +1924,7 @@ ADD R6, R6, #1
 LDR R1, R6, #1
 ADD R6, R6, #1
 JMP R7
-initHeap
+function-initHeap
 STR R1,R6,#0
 ADD R6,R6,#-1
 STR R2,R6,#0
