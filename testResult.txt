@@ -526,6 +526,8 @@ executionTests/General/assemblyOfTest_CollatzExample1.asm:
 PASS
 executionTests/General/assemblyOfTest_ConditionalsByArithmetic.asm:
 PASS
+executionTests/General/assemblyOfTest_Conway.asm:
+PASS
 executionTests/General/assemblyOfTest_CreateStructWithNestedStructFromFunctionAndCheckContents.asm:
 PASS
 executionTests/General/assemblyOfTest_CreateStructWithNestedStructFromFunctionAndCheckContents1.asm:

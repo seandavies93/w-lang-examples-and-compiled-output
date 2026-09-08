@@ -1,0 +1,210 @@
+struct Universe
+{
+    grid : @@int;
+    nextGrid : @@int;
+    rows : int;
+    cols : int;
+}
+
+function main : int ()
+{
+    u : Universe;
+    u = createUniverse(5, 5);
+
+    u.grid[2][1] = 1;
+    u.grid[2][2] = 1;
+    u.grid[2][3] = 1;
+
+    computeNextGeneration(u);
+    swapGrids(&u);
+
+    isGen1Correct : int;
+    isGen1Correct = verifyGridState(u, 0);
+
+    computeNextGeneration(u);
+    swapGrids(&u);
+
+    isGen2Correct : int;
+    isGen2Correct = verifyGridState(u, 1);
+
+    yesOrNo : int;
+    if (isGen1Correct && isGen2Correct)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+
+    destroyUniverse(u);
+
+    return yesOrNo;
+}
+
+function createUniverse : Universe (r : int, c : int)
+{
+    u : Universe;
+    u.rows = r;
+    u.cols = c;
+    
+    u.grid = halloc(r);
+    u.nextGrid = halloc(r);
+    
+    i : int;
+    i = 0;
+    while (i < r)
+    {
+        u.grid[i] = halloc(c);
+        u.nextGrid[i] = halloc(c);
+        
+        j : int;
+        j = 0;
+        while (j < c)
+        {
+            u.grid[i][j] = 0;
+            u.nextGrid[i][j] = 0;
+            j = j + 1;
+        }
+        i = i + 1;
+    }
+    return u;
+}
+
+function countNeighbors : int (u : Universe, row : int, col : int)
+{
+    count : int;
+    count = 0;
+    
+    r : int;
+    c : int;
+    r = row - 1;
+    
+    while (r <= row + 1)
+    {
+        c = col - 1;
+        while (c <= col + 1)
+        {
+            if (r >= 0 && r < u.rows && c >= 0 && c < u.cols)
+            {
+                if (r != row || c != col)
+                {
+                    count = count + u.grid[r][c];
+                }
+            }
+            c = c + 1;
+        }
+        r = r + 1;
+    }
+    return count;
+}
+
+function computeNextGeneration : void (u : Universe)
+{
+    r : int;
+    c : int;
+    r = 0;
+    
+    while (r < u.rows)
+    {
+        c = 0;
+        while (c < u.cols)
+        {
+            neighbors : int;
+            neighbors = countNeighbors(u, r, c);
+            
+            if (u.grid[r][c] == 1)
+            {
+                if (neighbors < 2 || neighbors > 3)
+                {
+                    u.nextGrid[r][c] = 0;
+                }
+                else
+                {
+                    u.nextGrid[r][c] = 1;
+                }
+            }
+            else
+            {
+                if (neighbors == 3)
+                {
+                    u.nextGrid[r][c] = 1;
+                }
+                else
+                {
+                    u.nextGrid[r][c] = 0;
+                }
+            }
+            c = c + 1;
+        }
+        r = r + 1;
+    }
+}
+
+function swapGrids : void (u : @Universe)
+{
+    temp : @@int;
+    
+    temp = u->grid;
+    u->grid = u->nextGrid;
+    u->nextGrid = temp;
+}
+
+function destroyUniverse : void (u : Universe)
+{
+    i : int;
+    i = 0;
+    while (i < u.rows)
+    {
+        free(u.grid[i]);
+        free(u.nextGrid[i]);
+        i = i + 1;
+    }
+    free(u.grid);
+    free(u.nextGrid);
+}
+
+function verifyGridState : int (u : Universe, centerRowIsHorizontal : int)
+{
+    isCorrect : int;
+    isCorrect = 1;
+
+    r : int;
+    c : int;
+    r = 0;
+
+    while (r < u.rows)
+    {
+        c = 0;
+        while (c < u.cols)
+        {
+            expected : int;
+            expected = 0;
+
+            if (centerRowIsHorizontal)
+            {
+                if (r == 2 && (c == 1 || c == 2 || c == 3))
+                {
+                    expected = 1;
+                }
+            }
+            else
+            {
+                if (c == 2 && (r == 1 || r == 2 || r == 3))
+                {
+                    expected = 1;
+                }
+            }
+
+            if (u.grid[r][c] != expected)
+            {
+                isCorrect = 0;
+            }
+
+            c = c + 1;
+        }
+        r = r + 1;
+    }
+
+    return isCorrect;
+}
