@@ -27,21 +27,21 @@ The intermediate representation is largely an abstracted/generic assembly langua
 
 The IR allows you to declare stack variable allocations with `ALLOCATE_STACK_SPACE`. For current purposes these are guaranteed to be translated into stack variables, which seems to be a detail that LLVM exposes in some cases (`alloca`). There are also "virtual registers", which are declared implicitly and are used in operations that take Three-Address-Code form. These "registers" are numbers prefixed with `#` because the lexer and parser would not allow that character through as part of a variable name ensuring disambiguation with any possible user variable.
 
-The local variables declared on the stack don't need to be explicitly deallocated. This is handled by the backend, though in some cases we need to mark out scopes using `BLOCK_BEGIN` and `BLOCK_END`.
+The local variables declared on the stack don't need to be explicitly deallocated. This is handled by the backend, which does require block markers such as `BLOCK_BEGIN` and `BLOCK_END`.
 
 A `BLOCK_BEGIN` pushes the previous scope's layout list onto a scope stack so that when we reach a `BLOCK_END` we can compare that previous stack layout with how it looks after the new scope finishes. That way we know which variables were introduced by that scope and which already existed and can deallocate the local variables appropriately. 
 
-Wherever a return statement is located, it needs to deallocate all local variables of the function, not just those declared in the scope where the return statement was found. For that reason, we keep track of all variables that been allocated since the beginning of the function. Specifically, a return statement comes bundled with a function epilogue which deallocates all local variables that have been allocated thus far and restores the callee-saved registers.
+Wherever a return statement is located, it needs to deallocate all local variables of the function, not just those declared in the scope where the return statement was found. A return statement comes bundled with a function epilogue which deallocates all local variables that have been allocated thus far and restores the callee-saved registers.
 
-Currently, the return epilogue doesn't restore previous scopes in the scope tracking system, we just let the block initiators and terminators deal with that responsibility, although that does mean we have somewhat unoptimised code: an unreachable block deallocation is still emitted even though a preceding return jump guarantees that the extra deallocations aren't run. Probably an optimisation opportunity in there when things feel a bit more stable.
+Currently, the return epilogue doesn't restore previous scopes in the scope tracking system, we just let the block initiators and terminators deal with that responsibility, although that does mean we have somewhat unoptimised code: an unreachable block deallocation is still emitted even though a preceding return jump guarantees that the extra deallocations aren't run.
 
 There are also operation IR instructions, for example an add operation might look like this:
 
 `ADD_OP #3,#1,#2`
 
-This operation implicitly declares `#3` as an in-use "virtual register", and `#1` and `#2` are the first and second operands respectively. This is what expressions flatten out to, so that every operation is a binary/unary operation with at most two sources and a single destination.
+This operation implicitly declares `#3` as an in-use "virtual register", and `#1` and `#2` are the first and second operands respectively. This is what expressions flatten out to, so that most operations are a binary/unary operation with at most two sources and a single destination.
 
-There are also `LABEL`s, which are basically the same as assembly labels. We can `JUMP_TO_ADDRESS`, given some label that we placed anywhere and don't need to worry about whether it needs range extension. The choice between range-extended jumps and standard jumps is deferred to the backend. The backend defaults to a range-extended jump and then runs a late-backend optimisation phase that finds jumps that can be reduced to short jumps using a fixed-point algorithm.
+There are also `LABEL`s, which are basically the same as assembly labels. We can `JUMP_TO_ADDRESS`, given some label that we placed anywhere and don't need to worry about whether it needs range extension. The choice between range-extended jumps and standard jumps is deferred to the backend. The backend defaults to a range-extended jump and then runs a late-backend fixed-point optimisation algorithm that reduces range-extended jumps to short jumps.
 
 `BRANCH_IF_POSITIVE` and `BRANCH_IF_NOT_POSITIVE` are at risk of range-issues, so we still need to structure the if-statements with that in mind. Namely, we want these to jump to nearby "trampolines" (or conversely, jump over trampolines) that may or may not be long-jumps. In this case, trampolines are just `JUMP_TO_ADDRESS`.
 
@@ -60,7 +60,7 @@ ASSIGN_OP     #2, #1
 ```
 The destination is `result` and `#2` is a virtual register that is set to the address of `result`. Operand 1 on the other hand, holds the R-value to be copied into the address of `result`. `ASSIGN_OP` takes an address of a memory slot in the stack as operand 1 and the value to be stored as operand 2.
 
-The current IR is close to SSA-form like LLVM, except for the fact that it disallows virtual registers to have live ranges that span multiple basic blocks. In other words, any given virtual register should have a live range that is confined to this IR's equivalent of a basic block. The current IR generator does respect this and goes further: the live range of any virtual register is no larger than the range of the expression calculation it is part of.
+The current IR conforms to an SSA-like layout of virtual registers in expressions, but does not extend beyond expressions and/or basic blocks. In other words, any given virtual register should have a live range that is confined to this IR's equivalent of a basic block. The current IR generator does respect this and goes further: the live range of any virtual register is no larger than the range of the expression calculation it is part of.
 
 This canonical form, is well-suited to the highly constrained LC-3 architecture. Seemingly, LLVM backends will sometimes mutate the IR to a form that is suitable for the targeted backend. This is after having transited forms that are more backend-agnostic. In this case, the frontend directly generates the backend friendly form and does not yet have phases transiting through backend-agnostic forms yet.
 
@@ -72,7 +72,7 @@ For example, there is the `ALLOCATE_STACK_SPACE` instruction which does not requ
 
 There is a late-backend optimisation system that chooses between range-extended jumps and short jumps, using a fixed-point algorithm that keeps running branch-relaxation passes until a fixed-point is reached. More details of the format of range-extended and short jumps can be found later on.
 
-The backend has passes that determine the absolute addresses of function labels and other labels if they need to be registered in the globals table. These manually count out the number of instructions from the `.ORIG` directive, which is a responsibility of modern assemblers. This pass requires essentially the final assembly layout to be completed in order to accurately count address locations. As such, missing information in the globals table is given a placeholder designed to take up one line, just like the final layout. Therefore, filling the placeholder should not change the line count.
+The backend has passes that determine the absolute addresses of function labels and other labels if they need to be registered in the globals table. These manually count out the number of instructions from the `.ORIG` directive, which is a responsibility of modern assemblers. This pass requires essentially the final assembly layout to be completed in order to accurately count address locations. As such, missing information in the globals table is given a placeholder designed to take up one line, just like the final layout. Filling the placeholder should not change the line count.
 
 The following list describes the register usage conventions. Currently, the compiler doesn't have a system to track live-ranges, which means that some guarantees are made by careful use of the registers in LC-3 templates.
 
@@ -111,9 +111,9 @@ Assembly labels need to be emitted for control structures, but need to make them
 
 Expressions are emitted from the tree depth-first, left-to-right.
 
-Expression ASTs are converted into the Intermediate Representation (IR) first. The IR features Three-Address-Code (TAC) style operations with "virtual registers" (represented with the prefix `#` and a number). The AST to IR conversion first flattens out nested expression trees into a linear representation where each step of the calculation is represented explicitly on its own line. 
+Expression ASTs are converted into the Intermediate Representation (IR) first. The IR features Three-Address-Code (TAC) style operations with "virtual registers" (represented with the prefix `#` and a number). The AST to IR conversion first flattens out nested expression trees into a linear representation where each step of the calculation is explicitly represented on its own line. 
 
-Each line is an operation, takes in two virtual registers and places the result in another virtual register, which will likely be used in subsequent steps. The IR also has a concept of stack variables, which are stored in the stack. Future optimisation passes may move stack variables into virtual registers where possible, but this requires the fairly heavy infrastructure of CFGs and "phi" nodes which the project is not quite ready for. For example, the expression 1 + 2 + 3 is converted to 
+Each line is an operation, takes in two virtual registers and places the result in another virtual register, potentially to be used as an operand in subsequent steps. The IR also has a concept of stack variables, which are stored in the stack. Future optimisation passes may move stack variables into virtual registers where possible, but this requires the fairly heavy infrastructure of CFGs and "phi" nodes which the project is not quite ready for. For example, the expression 1 + 2 + 3 is converted to 
 
 ```
 LOAD_VALUE  #1, 1
@@ -138,9 +138,9 @@ Given the very limited amount of scratchpad registers in LC-3, my suspicion is t
 
 `R6` is the stack pointer and this needs to be maintained across function calls, in other words, it has global scope. The chosen stack pointer invariant is that after completing a "push" or "pop" it always points one location below the top of the stack (because the stack grows downwards).
 
-`R0` is used to return single word values. Single-word values can either be `int`s, pointers or function pointers. 
+`R0` is used to return single-word values. Single-word values can either be `int`s, pointers or function pointers. 
 
-If a function returns a struct-type, a return statement will evaluate the return expression which places a copy of the struct on top of the stack. After this, the return statement will copy that struct to the struct return space allocated at the beginning of the function call and deallocate the temporary space used on top of the stack. This is possible because the address of the struct return space is pushed onto the stack by the function call, just above the new stack frame.
+If a function returns a struct type, a return statement evaluates the return expression, placing a copy of the struct on top of the stack. After this, the return statement will copy that struct to the struct return space allocated at the beginning of the function call and deallocate the temporary space used on top of the stack. This is possible because the address of the struct return space is pushed onto the stack by the function call, just above the new stack frame.
 
 `R4` is the frame pointer. This needs to maintain its value for all relevant portions of a function's scope. The specific value it takes is, of course, function-local. When calling another function it will change its value, but the current value is saved by the caller before passing control to the called function and restored after the call. `R7` is set to equal the stack pointer just before function parameters are pushed on the stack and then transferred to `R4` once the parameters have been evaluated. This is because the evaluation of function parameter expressions still needs access to the caller's variables relative to the frame pointer in `R4`. Also because we want `R4` to point to the beginning of the function parameter segment of the stack.
 
