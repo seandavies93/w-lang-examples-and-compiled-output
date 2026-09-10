@@ -222,8 +222,7 @@ Specifically, an offset is broken up into chunks of 16 when offsetting in the ne
   - Can also modify a type to create a fixed stack-array like so
     - `numberArray : int{4};`
     - `structArray : structType{6};`
-    - Note that array types behave similarly to C stack-arrays, in particular, they cannot be passed by value to a function nor returned by value from a function
-    - Interestingly, the reason this isn't supported is that it requires context-dependent evaluation semantics. If an array is passed as a function parameter to a function expecting an array type, then the array would need to be copied like a struct. However, if the function is expecting a pointer then a passed array should obey the array decay semantics found in C (evaluate to a pointer to the first element). In many other cases the array is evaluated as a pointer to its first element. Perhaps this is why C doesn't support it either?
+    - Arrays decay to pointers to the first element much like C
     - Does not yet support multi-dimensional array syntax
 - Assignment statements e.g. 
   - `number = 10;`
@@ -298,6 +297,9 @@ Currently, it can be seen from the test examples and the section above, that thi
   - Compiler doesn't support a function pointer where either the return type or parameter type is another function pointer type
   - Doesn't support, for example, `funcPointer : example[][int, int]` or `funcPointer : int[example[int], example1[int]]`
   - We can work around this by creating custom structs that contain the desired nested function pointers
+- No global variables
+- No pre-processor
+- No module system
 
 The following is an example of the workaround for function pointers to achieve something like `funcPointer : int[example[int]]`
 
@@ -371,7 +373,7 @@ The virtual machine was written by closely following this [tutorial](https://www
 
 ## Heap Allocation Details
 
-The heap is based on a linked-list implementation. I chose to dedicate a fixed memory range for the heap: locations 0 to 16383. Each node/block in the linked list will be of variable size and be structured as follows
+The heap uses a contiguous linked-list implementation. I chose to dedicate a fixed memory range for the heap: locations 0 to 16383. Each node/block in the linked list will be of variable size and be structured as follows
 - Each block will have a three-word header
 - First header word is the `free` boolean, which indicates if the block is free
   - 1 for "free", 0 for "in-use"
@@ -379,7 +381,7 @@ The heap is based on a linked-list implementation. I chose to dedicate a fixed m
 - Third header word is a pointer to the `next` block
 - The remaining chunk is the memory that can be allocated if the block indicates it is free and the size is appropriate
 
-The list is set up so that the last block's next pointer points to `null`. Currently, the allocation algorithm will use the first free block large enough to fit the desired allocation size (first-fit heuristic). If the excess space is enough to fit a three word header and an additional word of allocatable space, then the allocator will split up the block appropriately. Specifically, it will truncate the current block to precisely fit the desired allocation space, the excess will be formed into a new block, new block's next pointer set to the current's next pointer and current's next pointer set to the new block's address.
+The list is set up so that the last block's next pointer points to `null`. Currently, the allocation algorithm will use the first free block large enough to fit the desired allocation size (first-fit heuristic). If the excess space is enough to fit a three word header plus an additional word of allocatable space, then the allocator will split up the block appropriately. Specifically, it will truncate the current block to precisely fit the desired allocation space, the excess will be formed into a new block, new block's next pointer set to the current's next pointer and current's next pointer set to the new block's address.
 
 The free function will first look for the appropriate block, whose pointer should be equal to `pointerToAllocatedMemory + 3`, then mark it as free. The offset of `3` is due to the fact that we return a pointer to the allocatable space, which is `blockPointer - 3` so as not to include the block header. After this, it will attempt to coalesce neighbouring free blocks into the largest contiguous free blocks possible. We do this because it maximises the chance we can find a block that fits our desired allocation size and can be split into a precisely fitting block and a smaller free block.
 
@@ -393,29 +395,29 @@ Currently, the address of the first word of the program segment, location `16384
   - No for loops
 - Semantic analysis phase
   - Some of this has been implemented, but there is potential to make it tighter and fine-grained
-  - Currently allow implicit pointer casting to an extent, as locking this down more requires syntax for explicit casting and ideally that might deviate from the C style to make it easier to parse.
+  - Currently allow implicit pointer casting to an extent. To remove this, need to add explicit casting and would be better if the syntax was easier to parse the C's
 - Better syntactic error reporting (In progress)
-  - Currently, there is basic syntax error reporting, which occurs when `consumeToken` encounters an unexpected token.
+  - Currently, there is basic syntax error reporting, which occurs when `consumeToken` encounters an unexpected token
 - `&&` and `||` could be made to be short-circuiting as is standard
   - Within the current canonical IR form, this could be implemented by using a hidden stack allocated variable to facilitate mutations across branching code (since short-circuiting requires control flow)
 - Arrays currently don't support multi-dimensional declarations as far as I'm aware i.e. `array : int{5}{5};`
-  - Can achieve something similar by heap allocating to a double pointer.
-  - Another workaround would be calculating the total entry count and arranging the array in row-major form.
+  - Can achieve something similar by heap allocating to a double pointer
+  - Another workaround would be calculating the total entry count and arranging the array in row-major form
 
 ## Execution Semantics Tests That Try to Detect Memory Corruption
 
-Here I'll note down some of the strange end-to-end tests, particularly if they rely too heavily on implementation-specific details and might be better having a unit test instead.
-
-Most of these odd tests, and some not mentioned here yet, are trying to detect memory corruption in a way that may not be portable, although I'm at liberty to define the standard and I haven't decided for sure yet. Some of the other tests use a sentinel value or array, which is allocated in a while loop of many iterations. The while loop performs some calculation for a result repeatedly, but its idempotent: its just recalculating the same value. The sentinel value is set on the first iteration only and it should leave a ghost value at some defined distance away from the stack pointer location after while-loop completion. 
+Some tests try to detect memory corruption in a way that may not be portable, although I'm at liberty to define the standard and I haven't decided for sure yet. Some of the other tests use a sentinel value or array, which is allocated in a while loop of many iterations. The while loop performs some calculation for a result repeatedly, but its idempotent: its just recalculating the same value. The sentinel value is set on the first iteration only and it should leave a ghost value at some defined distance away from the stack pointer location after while-loop completion. 
 
 By allocating a similar array just after the while loop, we can capture the ghost of the sentinel value on the stack and if its the same as what it was set to in the first iteration, then there was likely no stack drift. Of course, this is assuming that variables are allocated locally to each scope block, but pre-allocating all variables in the backend is a valid strategy, which I believe LLVM uses. In this case, scoping rules are enforced by the frontend and seemingly not present in the backend.
 
 ## Optimisation passes
 
-There are a small number of optimisations, having migrated to the IR will make it easier to add more. The first optimisation I had was making struct access largely work in-place with structs that are already in the stack frame, with the exception of R-value structs returned from a function. By "in-place" I mean that the struct isn't copied anywhere to work with it. Even with the R-value returned structs, the only additional copy is the one the return handling uses to copy it to the designated return slot on the stack.
+The first optimisation I had (assuming that some hobbyist compilers might not do this) was making struct access largely work in-place with structs that are already in the stack frame, with the exception of R-value structs returned from a function. By "in-place" I mean that nested structs aren't copied onto the top of the stack to access the nested fields.
 
 Then, there is a peephole optimisation to remove redundant, neighbouring push and pop operations.
 
-There is a pre-IR optimisation phase that operates on the AST. This is constant folding, which reduces reducible expressions as much as possible. For example, if we write `result = 1 + 2;` then the AST is reduced to the AST that would have resulted from `result = 3;`. Obviously, this leaves irreducible expressions, usually those which have a variable or function call as one of the operands. This essentially requires identifying minimal subexpressions patterns that can then be rewritten to either pre-compute operations on constants, or open up more opportunities to reduce constants.
+There is a pre-IR optimisation phase that operates on the AST. This is constant folding and algebraic reduction, which reduces reducible expressions as much as possible. For example, if we write `result = 1 + 2;` then the AST is reduced to the AST that would have resulted from `result = 3;`. Obviously, this leaves irreducible expressions, usually those which have a variable or function call as one of the operands. This essentially requires identifying minimal subexpressions patterns that can then be rewritten to either pre-compute operations on constants, or open up more opportunities to reduce constants.
+
+Currently, the main algebraic reduction I have is distributing multiplication over a bracketed expression, provided that that operation reduces the number of multiplications.
 
 There is a late-backend phase which converts the default range-extended jumps to short jumps if the target label is in range. This is done with a fixed-point algorithm as each conversion opens up opportunities for previous jumps that were initially too far away. Since this optimisation removes instructions, phases that work by counting instruction locations have to run after this optimisation phase.
