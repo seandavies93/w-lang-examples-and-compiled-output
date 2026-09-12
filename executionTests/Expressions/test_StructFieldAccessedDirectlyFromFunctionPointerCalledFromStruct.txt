@@ -1,0 +1,46 @@
+struct example
+{
+    first : int;
+    second : int;
+    third : int;
+}
+
+struct FunctionPointerContainer
+{
+    functionPointer : example[];
+}
+
+function main : int ()
+{
+    container : FunctionPointerContainer;
+    container.functionPointer = &coolFunction;
+
+    result1 : int;
+    result1 = container.functionPointer().first;
+
+    result2 : int;
+    result2 = container.functionPointer().second;
+
+    result3 : int;
+    result3 = container.functionPointer().third;
+
+    yesOrNo : int;
+    if (result1 == 1 && result2 == 2 && result3 == 3)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function coolFunction : example ()
+{
+    next : example;
+    next.first = 1;
+    next.second = 2;
+    next.third = 3;
+    return next;
+}
