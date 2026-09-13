@@ -1,0 +1,70 @@
+struct example
+{
+    first : int;
+    second : int;
+    third : int;
+}
+
+struct FunctionPointerContainer
+{
+    functionPointer : example[];
+}
+
+struct FunctionPointerLink
+{
+    functionPointer : FunctionPointerContainer[];
+}
+
+function main : int ()
+{
+    container : FunctionPointerLink;
+    container.functionPointer = &createLink;
+
+    result1 : int;
+    result2 : int;
+    result3 : int;
+    count : int;
+    count = 0;
+
+    while (count < 30000)
+    {
+        sentinel : int{100};
+        if (count == 0)
+        {
+            sentinel[1] = 137;
+        }
+
+        result1 = container.functionPointer().functionPointer().first;
+        result2 = container.functionPointer().functionPointer().second;
+        result3 = container.functionPointer().functionPointer().third;
+        count = count + 1;
+    }
+    sentinelAfter : int{100};
+
+    yesOrNo : int;
+    if (result1 == 1 && result2 == 2 && result3 == 3 && sentinelAfter[1] == 137)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function coolFunction : example ()
+{
+    next : example;
+    next.first = 1;
+    next.second = 2;
+    next.third = 3;
+    return next;
+}
+
+function createLink : FunctionPointerContainer ()
+{
+    container : FunctionPointerContainer;
+    container.functionPointer = &coolFunction;
+    return container;
+}

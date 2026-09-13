@@ -111,7 +111,7 @@ Assembly labels need to be emitted for control structures, but need to make them
 
 Expressions are emitted from the tree depth-first, left-to-right.
 
-Expression ASTs are converted into the Intermediate Representation (IR) first. The IR features Three-Address-Code (TAC) style operations with "virtual registers" (represented with the prefix `#` and a number). The AST to IR conversion first flattens out nested expression trees into a linear representation where each step of the calculation is explicitly represented on its own line. 
+Expression ASTs are converted into the Intermediate Representation (IR) first. The IR features Three-Address-Code (TAC) style operations with "virtual registers" (represented with the prefix `#` and a number). The AST to IR conversion flattens out nested expression trees into a linear representation where each step of the calculation is explicitly represented on its own line. 
 
 Each line is an operation, takes in two virtual registers and places the result in another virtual register, potentially to be used as an operand in subsequent steps. The IR also has a concept of stack variables, which are stored in the stack. Future optimisation passes may move stack variables into virtual registers where possible, but this requires the fairly heavy infrastructure of CFGs and "phi" nodes which the project is not quite ready for. For example, the expression 1 + 2 + 3 is converted to 
 
@@ -174,13 +174,15 @@ The callee-saved registers are saved within the function itself, rather than in 
 
 ### Convention for Loading Constants and Jump Addresses 
 
-Using `LD` for loading constants, `JSR` for function calling and `BR` for relative jumps have limited ranges over which they can reference labelled memory locations. They use pc-offsets for referencing a memory location. In each case some small subset of the 16-bit instruction was dedicated to this. 
+Using `LD` for loading constants, `JSR` for function calling and `BR` for relative jumps have limited ranges over which they can reference labelled memory locations. They use pc-offsets for referencing a memory location. In each case some small subset of the 16-bit instruction is dedicated to a pc-offset. 
 
 As a result, function jumps and label jumps have a very limited range if using those instructions. The solution to this is a symbol-table for constants and label addresses (including function labels), referenced by a pointer loaded into `R5` when the program begins, which points to the first element in this contiguous table.
 
-In order to accommodate this, the code generation phase has a pre-processing step that calculates which address each label will correspond to, based on where the program segment starts and by counting the instructions that occur before each label. This requires all label addresses which will have entry in the symbol table to be declared in the assembly, but we don't yet know the values yet. So we create all necessary `.FILL` instructions, but with a unique placeholder for the value of each `.FILL`, which we then fill in later with the computed addresses.
+In order to accommodate this, the code generation phase has a pre-processing step that calculates which address each label will correspond to, based on where the program segment starts and by counting the instructions that occur before each label. This requires all required address entries in the symbol table to be declared before the final address value is known. So we create all necessary `.FILL` instructions, but with a unique placeholder for the value of each `.FILL`, which we then fill in later with the computed addresses.
 
 Every symbol address we `.FILL` in the table will be given a label prefixed with `LITERAL-` so we can identify and count them towards the number of memory locations from the beginning of the program to a given label.
+
+One alternative approach may be to put the table after the program segment, but this would require a new approach to bootstrap `R5`. Since the `.ORIG` directive must be partly at the top of the program segment.
 
 ### Jump Conventions
 
@@ -195,7 +197,7 @@ As per the last section, this is how jumps are handled:
   - if a range-extended jump is required, load the relevant label address from the symbol table, place it in `R0` then use `JMP R0` to jump to the relevant block
   - otherwise use a short jump: `BR <label>`
 
-There isn't a way to do conditional long jumps, so we need to make use of trampoline segments. For instance, we use `BRp` to jump over an else-trampoline to the beginning of an if-clause. If the else case is triggered then we step into the trampoline which then jumps past the if clause to the else clause. This unconditional trampoline is what can either be a short or long jump. Obviously, this means we need to be careful about where we place these trampolines so they are within range of a `BRp` or similar.
+There is no way to do conditional long jumps, so we need to make use of trampoline segments. For instance, we use `BRp` to jump over an else-trampoline to the beginning of an if-clause. If the else case is triggered then we step into the trampoline which then jumps past the if clause to the else clause. This unconditional trampoline is what can either be a short or long jump. Obviously, this means we need to be careful about where we place these trampolines so they are within range of a `BRp` or similar.
 
 ### Concrete Semantics of Structs
 
@@ -300,6 +302,7 @@ Currently, it can be seen from the test examples and the section above, that thi
 - No global variables
 - No pre-processor
 - No module system
+- Only a single file can be compiled, however there is fledgling linking functionality which could be adapted
 
 The following is an example of the workaround for function pointers to achieve something like `funcPointer : int[example[int]]`
 
@@ -329,7 +332,7 @@ function toPointTo : int (funcPointerStruct : funcPointerTakesIntReturnsExample)
 }
 ```
 
-The choice to not support direct function pointer type nesting is essentially due to the fact that such nesting is fairly uncommon in the author's experience and often discouraged in style suggestions. However, once the current functionality is well-tested and undergone a sufficient amount of bugfixing, then this compromise can be reassessed and the direct nesting functionality could potentially be added in future versions. Additionally, the type-system was a bit ad-hoc and messy. Now that it has been tidied up and unified, expanding it to support this nesting might be more straightforward.
+These scope reductions were crucial for prioritising correctness, and laying a good foundation. 
 
 ## Running Tests
 
@@ -421,3 +424,4 @@ There is a pre-IR optimisation phase that operates on the AST. This is constant 
 Currently, the main algebraic reduction I have is distributing multiplication over a bracketed expression, provided that that operation reduces the number of multiplications.
 
 There is a late-backend phase which converts the default range-extended jumps to short jumps if the target label is in range. This is done with a fixed-point algorithm as each conversion opens up opportunities for previous jumps that were initially too far away. Since this optimisation removes instructions, phases that work by counting instruction locations have to run after this optimisation phase.
+
