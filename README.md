@@ -201,11 +201,11 @@ There is no way to do conditional long jumps, so we need to make use of trampoli
 
 ### Concrete Semantics of Structs
 
-- All structs are placed in descending order in memory. This is for ease of struct field access for stack-allocated structs. The heap is also structured in descending order so that field access can use the same logic when accessing heap-allocated structs.
-- When a struct is evaluated, it is copied onto the top of the stack
-- When assigning to a struct, it is copied from the top of the stack into the destination variable
-- Function calls assign struct space on the stack in preparation for returning a struct. It is the first space to be pushed in a function call. Only functions that return a struct need to do this
-- Return statements that are evaluating a struct put the struct value on the top of the stack and then copy it over to the pre-allocated struct return space
+- All structs are placed in descending order in memory, including those in the heap. The heap is also structured in descending order so that various operations can reuse the same code-generation.
+- When a struct is evaluated, it is copied onto the top of the stack.
+- When assigning to a struct, it is copied from the top of the stack into the destination variable.
+- Function calls assign struct space on the stack in preparation for returning a struct. It is the first chunk of stack memory allocated in a function call.
+- Return statements that evaluate a struct put the struct value on the top of the stack and then it is copied to the pre-allocated struct return space.
 
 ### Offset Handling
 
@@ -361,7 +361,7 @@ Currently, the address of the first word of the program segment, location `16384
   - Currently, there is basic syntax error reporting, which occurs when `consumeToken` encounters an unexpected token
 - `&&` and `||` could be made to be short-circuiting as is standard
   - Within the current canonical IR form, this could be implemented by using a hidden stack allocated variable to facilitate mutations across branching code (since short-circuiting requires control flow)
-- Arrays currently don't support multi-dimensional declarations as far as I'm aware i.e. `array : int{5}{5};`
+- Currently don't support multi-dimensional array declarations i.e. `array : int{5}{5};`
   - Can achieve something similar by heap allocating to a double pointer
   - Another workaround would be calculating the total entry count and arranging the array in row-major form
 - Function pointers don't support immediate declaration nesting
@@ -369,9 +369,9 @@ Currently, the address of the first word of the program segment, location `16384
   - Doesn't support, for example, `funcPointer : example[][int, int]` or `funcPointer : int[example[int], example1[int]]`
   - We can work around this by creating custom structs that contain the desired nested function pointers
 - No global variables
-- No pre-processor
 - No module system
 - Only a single file can be compiled, however there is fledgling linking functionality which could be adapted
+- Currently the ABI has been explicit that operations put a struct on the stack, before moving it on to some destination. Now that the architecture is better defined, can start to consider optimisations that directly copy without transiting the top of the stack
 
 The following is an example of the workaround for function pointers to achieve something like `funcPointer : int[example[int]]`
 
@@ -401,7 +401,7 @@ function toPointTo : int (funcPointerStruct : funcPointerTakesIntReturnsExample)
 }
 ```
 
-These scope reductions were crucial for prioritising correctness, and laying a good foundation. 
+These scope reductions helped to prioritise correctness, and laying a good foundation. 
 
 ## Execution Semantics Tests That Try to Detect Memory Corruption
 
