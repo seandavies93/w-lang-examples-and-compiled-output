@@ -291,49 +291,6 @@ Specifically, an offset is broken up into chunks of 16 when offsetting in the ne
   - Aborts the program with the message "Aborted" when used
   - Usage as a statement: `abort;`
 
-## Compromises in Scope Relative to C
-
-Currently, it can be seen from the test examples and the section above, that this compiler is targeting a core subset of C-like features. Albeit, with slight syntactical differences. However, some scope reductions have been chosen which might be a surprise if coming directly from C.
-
-- Function pointers don't support immediate declaration nesting
-  - Compiler doesn't support a function pointer where either the return type or parameter type is another function pointer type
-  - Doesn't support, for example, `funcPointer : example[][int, int]` or `funcPointer : int[example[int], example1[int]]`
-  - We can work around this by creating custom structs that contain the desired nested function pointers
-- No global variables
-- No pre-processor
-- No module system
-- Only a single file can be compiled, however there is fledgling linking functionality which could be adapted
-
-The following is an example of the workaround for function pointers to achieve something like `funcPointer : int[example[int]]`
-
-```
-struct example
-{
-    item : int;
-}
-
-struct funcPointerTakesIntReturnsExample
-{
-    nestedFuncPointer : example[int];
-}
-
-function main : int ()
-{
-    funcPointer : int[funcPointerTakesIntReturnsExample];
-    funcPointer = &toPointTo;
-    return 0;
-}
-
-function toPointTo : int (funcPointerStruct : funcPointerTakesIntReturnsExample)
-{
-    item : example;
-    item = funcPointerStruct.nestedFuncPointer(7);
-    return item.item;
-}
-```
-
-These scope reductions were crucial for prioritising correctness, and laying a good foundation. 
-
 ## Running Tests
 
 If running from windows with WSL installed, you can run all unit tests with this command:
@@ -397,15 +354,54 @@ Currently, the address of the first word of the program segment, location `16384
   - No increment/decrement operators e.g. `++` and `--`
   - No for loops
 - Semantic analysis phase
-  - Some of this has been implemented, but there is potential to make it tighter and fine-grained
-  - Currently allow implicit pointer casting to an extent. To remove this, need to add explicit casting and would be better if the syntax was easier to parse the C's
-- Better syntactic error reporting (In progress)
+  - Most of this is now implemented, but perhaps not as ergonomic as something like Rust
+  - Currently allow implicit pointer casting for normal pointers
+    - To add explicit casting need to add syntax for it: would be better if the syntax was easier to parse the C's version
+- Better syntactic error reporting
   - Currently, there is basic syntax error reporting, which occurs when `consumeToken` encounters an unexpected token
 - `&&` and `||` could be made to be short-circuiting as is standard
   - Within the current canonical IR form, this could be implemented by using a hidden stack allocated variable to facilitate mutations across branching code (since short-circuiting requires control flow)
 - Arrays currently don't support multi-dimensional declarations as far as I'm aware i.e. `array : int{5}{5};`
   - Can achieve something similar by heap allocating to a double pointer
   - Another workaround would be calculating the total entry count and arranging the array in row-major form
+- Function pointers don't support immediate declaration nesting
+  - Compiler doesn't support a function pointer where either the return type or parameter type is another function pointer type
+  - Doesn't support, for example, `funcPointer : example[][int, int]` or `funcPointer : int[example[int], example1[int]]`
+  - We can work around this by creating custom structs that contain the desired nested function pointers
+- No global variables
+- No pre-processor
+- No module system
+- Only a single file can be compiled, however there is fledgling linking functionality which could be adapted
+
+The following is an example of the workaround for function pointers to achieve something like `funcPointer : int[example[int]]`
+
+```
+struct example
+{
+    item : int;
+}
+
+struct funcPointerTakesIntReturnsExample
+{
+    nestedFuncPointer : example[int];
+}
+
+function main : int ()
+{
+    funcPointer : int[funcPointerTakesIntReturnsExample];
+    funcPointer = &toPointTo;
+    return 0;
+}
+
+function toPointTo : int (funcPointerStruct : funcPointerTakesIntReturnsExample)
+{
+    item : example;
+    item = funcPointerStruct.nestedFuncPointer(7);
+    return item.item;
+}
+```
+
+These scope reductions were crucial for prioritising correctness, and laying a good foundation. 
 
 ## Execution Semantics Tests That Try to Detect Memory Corruption
 
@@ -424,4 +420,3 @@ There is a pre-IR optimisation phase that operates on the AST. This is constant 
 Currently, the main algebraic reduction I have is distributing multiplication over a bracketed expression, provided that that operation reduces the number of multiplications.
 
 There is a late-backend phase which converts the default range-extended jumps to short jumps if the target label is in range. This is done with a fixed-point algorithm as each conversion opens up opportunities for previous jumps that were initially too far away. Since this optimisation removes instructions, phases that work by counting instruction locations have to run after this optimisation phase.
-
