@@ -1,0 +1,42 @@
+struct targetStruct
+{
+    first : int;
+    second : int;
+    third : int;
+}
+
+struct parentStruct
+{
+    pointer : @targetStruct;
+}
+
+function main : int ()
+{
+    container : parentStruct;
+    structItem : targetStruct;
+
+    container.pointer = &structItem;
+
+    source : targetStruct;
+    source.first = 11;
+    source.second = 22;
+    source.third = 33;
+
+    @container.pointer = source;
+
+    result : targetStruct;
+    result = structItem;
+
+    yesOrNo : int;
+    if (result.first == 11 &&
+        result.second == 22 &&
+        result.third == 33)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

@@ -1,0 +1,39 @@
+struct exampleStruct
+{
+    first : int;
+    second : int;
+    third : int;
+}
+
+struct matrixStruct
+{
+    row : exampleStruct{4};
+}
+
+function main : int ()
+{
+    matrix : matrixStruct{4};
+    structItem : exampleStruct;
+
+    structItem.first = 111;
+    structItem.second = 222;
+    structItem.third = 333;
+
+    matrix[2].row[3] = structItem;
+
+    result : exampleStruct;
+    result = matrix[2].row[3];
+
+    yesOrNo : int;
+    if (result.first == 111 &&
+        result.second == 222 &&
+        result.third == 333)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

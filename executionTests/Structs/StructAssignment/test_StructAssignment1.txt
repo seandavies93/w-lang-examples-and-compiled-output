@@ -1,0 +1,31 @@
+struct exampleStruct
+{
+    first : int;
+    second : int;
+    third : int;
+}
+
+function main : int ()
+{
+    source : exampleStruct{5};
+    destination : exampleStruct{5};
+
+    source[2].first = 10;
+    source[2].second = 20;
+    source[2].third = 30;
+
+    destination[4] = source[2];
+
+    yesOrNo : int;
+    if (destination[4].first == 10 &&
+        destination[4].second == 20 &&
+        destination[4].third == 30)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

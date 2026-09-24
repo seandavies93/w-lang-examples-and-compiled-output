@@ -660,6 +660,8 @@ executionTests/StackDriftStressTests/assemblyOfTest_StackSentinelDetectsNoIncrem
 PASS
 executionTests/StackDriftStressTests/assemblyOfTest_StackSentinelDetectsNoIncrementalClobbering1.asm:
 PASS
+executionTests/StackDriftStressTests/assemblyOfTest_StructAssignmentDoesNotDrift.asm:
+PASS
 executionTests/StackDriftStressTests/assemblyOfTest_VoidReturningFunctionPointerHandlesStackProperly.asm:
 PASS
 executionTests/Structs/StructAccess/ExamplesWithoutNesting/assemblyOfTest_AccessStructArrayThenStructFieldInSameExpression.asm:
@@ -775,6 +777,16 @@ PASS
 executionTests/Structs/StructAccess/assemblyOfTest_StructFieldAccessedFromStructArrayIndexedAccess1.asm:
 PASS
 executionTests/Structs/StructAccess/assemblyOfTest_StructFieldAccessedFromStructArrayIndexedAccess2.asm:
+PASS
+executionTests/Structs/StructAssignment/assemblyOfTest_StructAssignment.asm:
+PASS
+executionTests/Structs/StructAssignment/assemblyOfTest_StructAssignment1.asm:
+PASS
+executionTests/Structs/StructAssignment/assemblyOfTest_StructAssignment2.asm:
+PASS
+executionTests/Structs/StructAssignment/assemblyOfTest_StructAssignment3.asm:
+PASS
+executionTests/Structs/StructAssignment/assemblyOfTest_StructAssignment4.asm:
 PASS
 executionTests/Structs/StructByValuePassing/assemblyOfTest_ApplyFactorialTwiceToElementsInStruct.asm:
 PASS

@@ -1,0 +1,41 @@
+struct innerStruct
+{
+    a : int;
+    b : int;
+}
+
+struct outerStruct
+{
+    inner : innerStruct;
+}
+
+function main : int ()
+{
+    struct1 : outerStruct;
+    struct2 : outerStruct;
+
+    pointer1 : @outerStruct;
+    pointer2 : @outerStruct;
+
+    pointer1 = &struct1;
+    pointer2 = &struct2;
+
+    pointer1->inner.a = 42;
+    pointer1->inner.b = 99;
+
+    pointer2->inner = pointer1->inner;
+
+    result : innerStruct;
+    result = pointer2->inner;
+
+    yesOrNo : int;
+    if (result.a == 42 && result.b == 99)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
