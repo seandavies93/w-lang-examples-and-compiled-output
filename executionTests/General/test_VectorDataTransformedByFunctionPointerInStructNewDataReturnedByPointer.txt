@@ -1,0 +1,77 @@
+struct Vector3D
+{
+    x : int;
+    y : int;
+    z : int;
+}
+
+struct MovementData
+{
+    id : int;
+    velocity : Vector3D;
+    isActive : int;
+}
+
+struct Transformer
+{
+    transformFunction : @MovementData[MovementData, int];
+}
+
+function main : int ()
+{
+    transformer : Transformer;
+    transformer.transformFunction = &transform;
+
+    initialState : MovementData;
+    initialState.id = 10;
+    initialState.velocity.x = 5;
+    initialState.velocity.y = 15;
+    initialState.velocity.z = 25;
+    initialState.isActive = 1;
+
+    finalResult : @MovementData;
+    finalResult = transformer.transformFunction(initialState, 4);
+
+    yesOrNo : int;
+    if (
+        finalResult->id == 20 && 
+        finalResult->velocity.x == 20 && 
+        finalResult->velocity.y == 60 && 
+        finalResult->velocity.z == 100 && 
+        finalResult->isActive == 1
+    )
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+
+    free(finalResult);
+    return yesOrNo;
+}
+
+function transform : @MovementData (input : MovementData, scaleFactor : int)
+{
+    output : @MovementData;
+    output = halloc(5);
+    
+    output->id = input.id * 2;
+    output->isActive = input.isActive;
+
+    if (input.isActive && input.velocity.z > 20)
+    {
+        output->velocity.x = input.velocity.x * scaleFactor;
+        output->velocity.y = input.velocity.y * scaleFactor;
+        output->velocity.z = input.velocity.z * scaleFactor;
+    }
+    else
+    {
+        output->velocity.x = input.velocity.x;
+        output->velocity.y = input.velocity.y;
+        output->velocity.z = input.velocity.z;
+    }
+
+    return output;
+}

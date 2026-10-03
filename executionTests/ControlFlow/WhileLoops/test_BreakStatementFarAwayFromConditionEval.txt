@@ -1,0 +1,28 @@
+function main : int ()
+{
+    counter : int;
+    counter = 0;
+
+    while (1)
+    {
+        counter = counter + 1;
+
+        massiveArray : int{6000};
+
+        if (counter == 1)
+        {
+            break;
+        }
+    }
+
+    yesOrNo : int;
+    if (counter == 1)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

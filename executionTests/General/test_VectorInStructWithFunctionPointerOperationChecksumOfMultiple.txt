@@ -1,0 +1,79 @@
+struct Vector3D
+{
+    x : int;
+    y : int;
+    z : int;
+}
+
+struct Node
+{
+    data : Vector3D;
+    transform : Vector3D[Vector3D];
+}
+
+function main : int ()
+{
+    nodesArray : Node{3};
+
+    nodesArray[0].data.x = 1;
+    nodesArray[0].data.y = 1;
+    nodesArray[0].data.z = 1;
+    nodesArray[0].transform = &scaleVector;
+
+    nodesArray[1].data.x = 1;
+    nodesArray[1].data.y = 2;
+    nodesArray[1].data.z = 3;
+    nodesArray[1].transform = &squareVector;
+
+    nodesArray[2].data.x = 10;
+    nodesArray[2].data.y = 10;
+    nodesArray[2].data.z = 10;
+    nodesArray[2].transform = &scaleVector;
+
+    checksum : int;
+    checksum = 0;
+
+    i : int;
+    i = 0;
+
+    while (i < 3)
+    {
+        currentNode : Node;
+        currentNode = nodesArray[i];
+
+        computedVector : Vector3D;
+        computedVector = currentNode.transform(currentNode.data);
+
+        checksum = checksum + computedVector.x + computedVector.y + computedVector.z;
+        i = i + 1;
+    }
+
+    yesOrNo : int;
+    if (checksum == 80)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
+
+function scaleVector : Vector3D (v : Vector3D)
+{
+    res : Vector3D;
+    res.x = v.x * 2;
+    res.y = v.y * 2;
+    res.z = v.z * 2;
+    return res;
+}
+
+function squareVector : Vector3D (v : Vector3D)
+{
+    res : Vector3D;
+    res.x = v.x * v.x;
+    res.y = v.y * v.y;
+    res.z = v.z * v.z;
+    return res;
+}

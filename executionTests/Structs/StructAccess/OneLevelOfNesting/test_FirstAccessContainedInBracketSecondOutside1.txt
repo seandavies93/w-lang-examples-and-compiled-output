@@ -1,0 +1,45 @@
+struct example
+{
+    first : int;
+    second : int;
+    third : int;
+}
+
+struct example1
+{
+    contained : example;
+    contained1 : @example;
+}
+
+function main : int ()
+{
+    targetStruct : example1;
+    innerStruct : example;
+    targetStruct.contained1 = &innerStruct;
+
+    targetStruct.contained1->first = 1;
+    targetStruct.contained1->second = 2;
+    targetStruct.contained1->third = 3;
+    
+    result1 : int;
+    result2 : int;
+    result3 : int;
+    
+    result1 = (targetStruct.contained1)->first;
+    result2 = (targetStruct.contained1)->second;
+    result3 = (targetStruct.contained1)->third;
+
+    yesOrNo : int;
+    if (
+        result1 == 1 && 
+        result2 == 2 && 
+        result3 == 3)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}
