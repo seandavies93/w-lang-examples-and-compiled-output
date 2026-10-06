@@ -1,0 +1,90 @@
+struct FunctionsAndData
+{
+    data : int{4};
+    multiplyFunction : int[int, int];
+    divideFunction : int[int, int];
+    modulusFunction : int[int, int];
+}
+
+struct Wrapper
+{
+    functionsAndData : FunctionsAndData;
+    extraData : @int;
+}
+
+function main : int ()
+{
+    wrap : Wrapper;
+    
+    wrap.functionsAndData.data[0] = 13;
+    wrap.functionsAndData.data[1] = 5;
+    wrap.functionsAndData.data[2] = 0;
+    wrap.functionsAndData.data[3] = 0;
+
+    wrap.functionsAndData.multiplyFunction = &multiply;
+    wrap.functionsAndData.divideFunction = &divide;
+    wrap.functionsAndData.modulusFunction = &modulo;
+
+    wrap.extraData = halloc(3);
+    wrap.extraData[0] = 100;
+    wrap.extraData[1] = 200;
+    wrap.extraData[2] = 300;
+
+    applyOperations(&wrap);
+
+    yesOrNo : int;
+    if (
+        wrap.functionsAndData.data[2] == 65 && 
+        wrap.functionsAndData.data[3] == 3 &&
+        wrap.extraData[wrap.functionsAndData.modulusFunction(7, 5)] == 300 &&
+        !isZero(wrap.functionsAndData.data[2])
+    )
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+
+    free(wrap.extraData);
+
+    return yesOrNo;
+}
+
+function applyOperations : void (wrap : @Wrapper)
+{
+    wrap->functionsAndData.data[2] = wrap->functionsAndData.multiplyFunction(
+        wrap->functionsAndData.data[0], 
+        wrap->functionsAndData.data[1]
+    );
+
+    wrap->functionsAndData.data[3] = wrap->functionsAndData.modulusFunction(
+        wrap->functionsAndData.data[0], 
+        wrap->functionsAndData.data[1]
+    );
+}
+
+function multiply : int (a : int, b : int)
+{
+    return a * b;
+}
+
+function divide : int (a : int, b : int)
+{
+    return a / b;
+}
+
+function modulo : int (a : int, b : int)
+{
+    return a % b;
+}
+
+function isZero : int (val : int)
+{
+    if (val == 0)
+    {
+        return 1;
+    }
+    return 0;
+}
