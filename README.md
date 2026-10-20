@@ -19,7 +19,7 @@ Currently, the lexer is maximising readability and extensibility. However, to ma
 
 ## Parser
 
-The parser is a hand-written recursive descent parser. The expression sector of the parser uses a variant of recursive descent with adjustments to handle infix operator precedence. I didn't use Pratt parsing, because it felt like it would be too easy to just copy the algorithm and gain no further insight. The alternative is muddling through and feeling stupid for a while, but often that is when you learn the most. Ironically, after all that exploratory stumbling, I was able to look at Pratt parsing with a clearer idea of the specific tree structures it is cleverly and economically building up.
+The parser is a hand-written recursive descent parser. The expression sector of the parser uses a variant of recursive descent with adjustments to handle infix operator precedence. I didn't use Pratt parsing, because it would have been too easy to just copy the algorithm and gain no further insight. The alternative is muddling through and feeling stupid for a while, but often that is when you learn the most. Ironically, after all that exploratory stumbling, I was able to look at Pratt parsing with a clearer idea of the specific tree structures it is cleverly and economically building up.
 
 The parser I had during the prototype stage was actually table-based. This was a hold over from a previous project where I was exploring how parsing works and partly wanted to figure out how parser-generators work. In that project I also ended up writing a basic regular expression engine, some generic data structures and explored how to implement a form of OOP in C. That was likely part of the reason I included function pointers in this language.
 
@@ -27,9 +27,9 @@ The parser I had during the prototype stage was actually table-based. This was a
 
 The intermediate representation is largely an abstracted/generic assembly language with extra utilities like function calls and struct handling operations.
 
-The IR allows you to declare stack variable allocations with `ALLOCATE_STACK_SPACE`. For current purposes, these are guaranteed to be translated into stack variables, which seems to be a detail that LLVM exposes (`alloca`). There are also "virtual registers", which are declared implicitly and are used in operations that take Three-Address-Code form. These "registers" are numbers prefixed with `#` since the lexer and parser don't allow that character in variable names ensuring disambiguation with any possible user variable.
+The IR allows you to declare stack variable allocations with `ALLOCATE_STACK_SPACE`. For current purposes, these are guaranteed to be translated into stack variables, which seems to be a detail that LLVM exposes (`alloca`). There are also "virtual registers", which are used in operations that take Three-Address-Code form. These "registers" are numbers prefixed with `#` since the lexer and parser don't allow that character in variable names ensuring disambiguation with any possible user variable.
 
-The local variables declared on the stack don't need to be explicitly deallocated. This requires block markers such as `BLOCK_BEGIN` and `BLOCK_END`.
+The local variables declared on the stack don't need to be explicitly deallocated. The lifetimes of these variables are managed by the backend based on the scope-block markers such as `BLOCK_BEGIN` and `BLOCK_END`.
 
 A `BLOCK_BEGIN` pushes the previous scope's layout list onto a scope stack so that when we reach a `BLOCK_END` we can compare that previous stack layout with how it looks after the new scope finishes. That way we know which variables were introduced by that scope and which already existed and can deallocate the local variables appropriately. 
 
@@ -70,7 +70,7 @@ This canonical form, is well-suited to the highly constrained LC-3 architecture.
 
 The LC-3 backend converts the Intermediate Representation to assembly, with some incomplete placeholders that need to be filled in based on the largely complete assembly layout. Each IR instruction is converted to some assembly, though there is some global information that alters precisely how certain IR instructions are converted. 
 
-For example, there is the `ALLOCATE_STACK_SPACE` instruction which does not require explicit deallocation at the end of the current scope. Instead, the backend keeps track of which variable stack slots have been allocated per-function per-scope. Keeping track of allocated space on a per-scope basis allows us to determine which variables need to be deallocated at the end of each scope.
+For example, there is the `ALLOCATE_STACK_SPACE` instruction which does not require explicit deallocation at the end of the current scope. Instead, the backend keeps track of which variable stack slots have been allocated per-function per-scope. Keeping track of allocated space on a per-scope basis allows the backend to determine which variables need to be deallocated at the end of each scope.
 
 There is a late-backend optimisation system that chooses between range-extended jumps and short jumps, using a fixed-point algorithm that keeps running branch-relaxation passes until a fixed-point is reached. More details of the format of range-extended and short jumps can be found later on.
 
@@ -107,13 +107,13 @@ The following list describes the register usage conventions. Currently, the comp
   - Also used as a temp store for the frame pointer, when it is available without risk of clobbering. 
   - caller-saved
 
-Assembly labels need to be emitted for control structures, but need to make them unique to each structure. At the moment we give each control structure an index (starting from 0) based on its order of appearance in the code fragment and append it to the base label.
+Assembly labels must be unique for control structures to avoid clashes between them. Each control structure (`if-else` statements and `while` loops) is given a unique, sequential ID (starting from 0). When these control structures are converted to IR, the labels associated with them are constructed with their IDs in order to disambiguate them.
 
 ### Expression Evaluation
 
 Expressions are emitted from the tree depth-first, left-to-right.
 
-Expression ASTs are converted into the Intermediate Representation (IR) first. The IR features Three-Address-Code (TAC) style operations with "virtual registers" (represented with the prefix `#` and a number). The AST to IR conversion flattens out nested expression trees into a linear representation where each step of the calculation is explicitly represented on its own line. 
+Expression ASTs are converted into the Intermediate Representation (IR) first. The IR features Three-Address-Code (TAC) style operations with "virtual registers" (represented with the prefix `#` and a number). The AST-to-IR conversion flattens out nested expression trees into a linear representation where each step of the calculation is explicitly represented on its own line. 
 
 Each line is an operation, takes in two virtual registers and places the result in another virtual register, potentially to be used as an operand in subsequent steps. The IR also has a concept of stack variables, which are stored in the stack. Future optimisation passes may move stack variables into virtual registers where possible, but this requires the fairly heavy infrastructure of CFGs and "phi" nodes which the project is not quite ready for. For example, the expression 1 + 2 + 3 is converted to 
 
@@ -173,9 +173,9 @@ The callee-saved registers are saved within the function itself, rather than in 
 
 ### Convention for Loading Constants and Jump Addresses 
 
-Using `LD` for loading constants, `JSR` for function calling and `BR` for relative jumps have limited ranges over which they can reference labelled memory locations. They use pc-offsets for referencing a memory location. In each case some small subset of the 16-bit instruction is dedicated to a pc-offset. 
+There are some limitations in LC-3's instruction set to be aware of. These are evident when using `LD` for loading constants, `JSR` for function calling and `BR` for relative jumps. They use PC-offsets to reference a labelled memory location. In each case some small subset of the 16-bit instruction is dedicated to a PC-offset. This imposes limits on the range over which constants can be retrieved, conditional blocks jumped over, and subroutines jumped to if these instructions were the only options available.
 
-As a result, function jumps and label jumps have a very limited range if using those instructions. The solution to this is a symbol-table for constants and label addresses (including function labels), referenced by a pointer loaded into `R5` when the program begins, which points to the first element in this contiguous table.
+The solution I chose for this is a symbol-table for constants and label addresses (including function labels), referenced by a pointer loaded into `R5` when the program begins, which points to the first element in this contiguous table.
 
 In order to accommodate this, the code generation phase has a pre-processing step that calculates which address each label will correspond to, based on where the program segment starts and by counting the instructions that occur before each label. This requires all required address entries in the symbol table to be declared before the final address value is known. So we create all necessary `.FILL` instructions, but with a unique placeholder for the value of each `.FILL`, which we then fill in later with the computed addresses.
 
@@ -209,7 +209,7 @@ There is no way to do conditional long jumps, so we need to conditionally jump t
 
 ### Offset Handling
 
-We still need to access variable locations, struct fields and symbol table locations using instructions with pc-offsets. Sometimes these offsets need to broken up into a sequence of subtractions or additions. 
+We still need to access variable locations, struct fields, and symbol table locations using instructions with PC-offsets. Sometimes these offsets need to broken up into a sequence of subtractions or additions. 
 
 Currently any offset greater than 16 in the negative direction or 15 in the positive direction is broken up into a series of subtractions/additions from an address stored in `R0`. 
 
@@ -371,6 +371,8 @@ Currently, the address of the first word of the program segment, location `16384
 - No module system
 - Only a single file can be compiled, however there is fledgling linking functionality which could be adapted
 - Currently the ABI has been explicit that operations put a struct on the stack, before moving it on to some destination. Now that the architecture is nicer, can start to consider optimisations that directly copy the struct without transiting the top of the stack
+  - Have done this for assignment statements where both the LHS and RHS are addressable L-values
+  - Still need to do this for the extra copy operation that occurs when moving a struct value to the struct return location
 
 The following is an example of the workaround for function pointers to achieve something like `funcPointer : int[example[int]]`
 

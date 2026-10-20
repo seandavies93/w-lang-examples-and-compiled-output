@@ -1,0 +1,44 @@
+struct example
+{
+    first : int;
+    second : int;
+    third : int;
+}
+
+function main : int ()
+{
+    boolean : int;
+    boolean = 1;
+
+    if (1) 
+    {
+        val : int;
+        val = 1;
+        
+        boolean = boolean && val == 1;
+    }
+
+    if (1)
+    {
+        val : example;
+        val.first = 1;
+        val.second = 2;
+        val.third = 3;
+
+        boolean = boolean && 
+                    val.first == 1 && 
+                    val.second == 2 && 
+                    val.third == 3;
+    }
+    
+    yesOrNo : int;
+    if (boolean)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+    return yesOrNo;
+}

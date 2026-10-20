@@ -2,13 +2,7 @@ struct example
 {
     first : int;
     second : int;
-    third : example2;
-}
-
-struct example2
-{
-    a : int;
-    b : int;
+    third : int;
 }
 
 function main : int ()
@@ -16,24 +10,11 @@ function main : int ()
     retVal : example;
     retVal = coolFunction();
 
-    result1 : int;
-    result1 = retVal.first;
-
-    result2 : int;
-    result2 = retVal.second;
-
-    result3 : int;
-    result3 = retVal.third.a;
-
-    result4 : int;
-    result4 = retVal.third.b;
+    result : int;
+    result = retVal.third;
 
     yesOrNo : int;
-    if (result1 == 1 && 
-        result2 == 2 &&
-        result3 == 3 &&
-        result4 == 4
-    )
+    if (result == 3)
     {
         yesOrNo = 89;
     }
@@ -46,12 +27,9 @@ function main : int ()
 
 function coolFunction : example ()
 {
-    dep : example2;
-    dep.a = 3;
-    dep.b = 4;
     next : example;
     next.first = 1;
     next.second = 2;
-    next.third = dep;
+    next.third = 3;
     return next;
 }
