@@ -22,20 +22,3 @@ function main : int ()
     }
     return yesOrNo;
 }
-
-function copyNWords : int (n : int, m : int, numberOfWords : int)
-{
-    source : int;
-    source = n;
-    destination : int;
-    destination = m;
-    index : int;
-    index = 0;
-    while (index < numberOfWords)
-    {
-        @destination = @source;
-        source = source + 1;
-        source = source + 1;
-    }
-    return destination;
-}

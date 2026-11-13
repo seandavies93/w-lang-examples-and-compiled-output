@@ -1,0 +1,31 @@
+struct Pair
+{
+    a : int;
+    b : int;
+}
+
+function main : int ()
+{
+    item : Pair;
+    item.a = 10;
+    item.b = 20;
+
+    pointer1 : @Pair;
+    pointer2 : @Pair;
+    pointer1 = &item;
+    pointer2 = &item;
+
+    @pointer1 = @pointer2;
+
+    yesOrNo : int;
+    if (item.a == 10 && item.b == 20)
+    {
+        yesOrNo = 89;
+    }
+    else
+    {
+        yesOrNo = 78;
+    }
+
+    return yesOrNo;
+}

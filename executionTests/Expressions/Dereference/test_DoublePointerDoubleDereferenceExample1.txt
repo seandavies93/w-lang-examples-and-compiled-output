@@ -1,8 +1,3 @@
-struct PointerToInt
-{
-    pointer : @int;
-}
-
 function main : int ()
 {
     value1 : int;
@@ -10,8 +5,8 @@ function main : int ()
     pointer1 : @int;
     pointer2 : @int;
     
-    pointerToPointer1 : @PointerToInt;
-    pointerToPointer2 : @PointerToInt;
+    pointerToPointer1 : @@int;
+    pointerToPointer2 : @@int;
 
     value1 = 5;
     value2 = 10;

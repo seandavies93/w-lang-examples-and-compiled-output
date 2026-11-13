@@ -74,6 +74,8 @@ executionTests/Arrays/assemblyOfTest_ArrayExpressionIsDeeplyNestedMemberAccess1.
 PASS
 executionTests/Arrays/assemblyOfTest_ArrayExpressionIsPointerAccessedFromStruct.asm:
 PASS
+executionTests/Arrays/assemblyOfTest_ArrayVariableInBracketsCanAlsoBeAccessed.asm:
+PASS
 executionTests/Arrays/assemblyOfTest_AssignStructToElementOfStructArray.asm:
 PASS
 executionTests/Arrays/assemblyOfTest_MatrixAccess.asm:
@@ -299,6 +301,8 @@ PASS
 executionTests/Expressions/assemblyOfTest_ComplexExpressionWithNestedFunctionCallsAndStructAccessOfReturnedStructs.asm:
 PASS
 executionTests/Expressions/assemblyOfTest_ComplexExpressionWithNestedFunctionCallsAndStructAccessOfReturnedStructs1.asm:
+PASS
+executionTests/Expressions/assemblyOfTest_FunctionCallAddressCanBeBracketedFunctionCall.asm:
 PASS
 executionTests/Expressions/assemblyOfTest_StructFieldAccessedDirectlyFromFunctionPointerCalledFromStruct.asm:
 PASS
@@ -645,6 +649,8 @@ PASS
 executionTests/Pointers/assemblyOfTest_InitialisedNestedStructPointerFieldsInFunction1.asm:
 PASS
 executionTests/Pointers/assemblyOfTest_InitialisedNestedStructPointerFieldsInFunction2.asm:
+PASS
+executionTests/Pointers/assemblyOfTest_PointerAliasingCopyElision.asm:
 PASS
 executionTests/Pointers/assemblyOfTest_PointerDereferenceIntoStructCreatedByFunction.asm:
 PASS
